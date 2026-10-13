@@ -7,7 +7,7 @@ import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icon.astro';
-import { locations, site } from '../data/site';
+import { regions, locationsByRegion, mainLocation, milesFromOffice, site } from '../data/site';
 
 const breadcrumbs = [
   { name: 'Home', path: '/' },
@@ -17,7 +17,7 @@ const breadcrumbs = [
 
 <BaseLayout
   title="Service Areas in South Florida | Purix Air Duct & HVAC"
-  description="Based in Miami, Purix provides air duct and HVAC cleaning in Miami-Dade, Fort Lauderdale, Boca Raton, Naples and Cape Coral. Call (305) 449-9881."
+  description="Air duct and HVAC cleaning across Miami-Dade and Broward, from Miami and Aventura to Hollywood, Pembroke Pines and Fort Lauderdale. Call (305) 449-9881."
   breadcrumbs={breadcrumbs}
 >
   <PageHeader
@@ -33,38 +33,53 @@ const breadcrumbs = [
     <div class="container-x">
       <h2 class="mx-auto max-w-3xl text-center text-3xl sm:text-4xl">Neighborhoods and Communities We Serve</h2>
     </div>
-    <div class="container-x mt-12 grid gap-6 md:grid-cols-2">
+    <div class="container-x mt-12 space-y-14">
       {
-        locations.map((loc, i) => (
-          <article class:list={['rounded-3xl bg-white p-8 shadow-sm ring-1', i === 0 ? 'ring-sky-300 md:col-span-2' : 'ring-slate-100']}>
-            <h3 class="text-2xl">
-              <a href={loc.path} class="hover:text-sky-500">
-                {loc.city}, FL
-              </a>
+        regions.map((r) => (
+          <div>
+            <h3 class="flex items-center gap-4 text-2xl">
+              {r.name}
+              <span class="h-px flex-1 bg-sky-200" />
             </h3>
-            <p class="mt-1 text-muted">{loc.county}{i === 0 && ' · Our home base'}</p>
-            <p class="mt-6 text-sm font-bold tracking-wider text-sky-500 uppercase">Neighborhoods</p>
-            <ul class="mt-3 flex flex-wrap gap-2">
-              {loc.neighborhoods.map((n) => (
-                <li class="rounded-full bg-sky-50 px-3 py-1.5 text-sm font-medium text-navy-800 ring-1 ring-sky-100">{n}</li>
-              ))}
-            </ul>
-            {loc.nearby.length > 0 && (
-              <>
-                <p class="mt-6 text-sm font-bold tracking-wider text-sky-500 uppercase">Nearby communities</p>
-                <p class="mt-2 text-muted">{loc.nearby.join(' · ')}</p>
-              </>
-            )}
-            <div class="mt-6 flex flex-wrap gap-3">
-              <a href={site.phoneHref} class="btn-navy !py-2.5">
-                <Icon name="phone" class="size-4" />
-                {site.phone}
-              </a>
-              <a href={loc.path} class="inline-flex items-center gap-1.5 px-2 font-bold text-navy-700 hover:text-sky-500">
-                {loc.city} services <Icon name="arrowRight" class="size-4" />
-              </a>
+            <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {locationsByRegion(r.id).map((loc) => {
+                const isMain = loc.slug === mainLocation.slug;
+                return (
+                  <article class:list={['flex flex-col rounded-3xl bg-white p-7 shadow-sm ring-1', isMain ? 'ring-sky-300' : 'ring-slate-100']}>
+                    <h4 class="text-xl">
+                      <a href={loc.path} class="hover:text-sky-500">
+                        {loc.city}, FL
+                      </a>
+                    </h4>
+                    <p class="mt-1 text-sm text-muted">
+                      {isMain ? 'Our home base' : r.id === 'beyond' ? loc.county : `About ${milesFromOffice(loc)} miles from our office`}
+                    </p>
+                    <p class="mt-5 text-xs font-bold tracking-wider text-sky-500 uppercase">Neighborhoods</p>
+                    <ul class="mt-2 flex flex-wrap gap-1.5">
+                      {loc.neighborhoods.map((n) => (
+                        <li class="rounded-full bg-sky-50 px-2.5 py-1 text-sm font-medium text-navy-800 ring-1 ring-sky-100">{n}</li>
+                      ))}
+                    </ul>
+                    {loc.nearby.length > 0 && (
+                      <>
+                        <p class="mt-5 text-xs font-bold tracking-wider text-sky-500 uppercase">Nearby communities</p>
+                        <p class="mt-1.5 text-sm text-muted">{loc.nearby.join(' · ')}</p>
+                      </>
+                    )}
+                    <div class="mt-auto flex flex-wrap items-center gap-3 pt-6">
+                      <a href={site.phoneHref} class="btn-navy !px-4 !py-2 text-sm">
+                        <Icon name="phone" class="size-4" />
+                        {site.phone}
+                      </a>
+                      <a href={loc.path} class="inline-flex items-center gap-1.5 px-1 text-sm font-bold text-navy-700 hover:text-sky-500">
+                        {loc.city} services <Icon name="arrowRight" class="size-4" />
+                      </a>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
-          </article>
+          </div>
         ))
       }
     </div>

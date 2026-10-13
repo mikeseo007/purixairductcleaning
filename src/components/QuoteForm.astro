@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { locations, type Location } from '../data/site';
+import { regions, locationsByRegion, type Location } from '../data/site';
 import { serviceGroups, servicesByGroup } from '../data/services';
 
 interface Props {
@@ -77,12 +77,17 @@ const field =
         <select class={field} name="location">
           <option value="">Service area</option>
           {
-            locations.map((l) => (
-              <option value={l.city} selected={l.slug === location?.slug}>
-                {l.city}
-              </option>
+            regions.map((r) => (
+              <optgroup label={r.name}>
+                {locationsByRegion(r.id).map((l) => (
+                  <option value={l.city} selected={l.slug === location?.slug}>
+                    {l.city}
+                  </option>
+                ))}
+              </optgroup>
             ))
           }
+          <option value="Other">Other area</option>
         </select>
       </label>
     </div>
