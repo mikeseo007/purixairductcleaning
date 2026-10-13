@@ -35,6 +35,7 @@ Netlify builds with `npm run build` and publishes `dist/` (see `netlify.toml`).
 | Air Duct & AC Ductwork | `/air-duct-cleaning/`, `/residential-air-duct-cleaning/`, `/commercial-air-duct-cleaning/`, `/air-duct-sanitizing/`, `/air-duct-inspection/`, `/ac-duct-replacement/` |
 | HVAC & Mold Cleaning | `/hvac-cleaning/`, `/hvac-mold-cleaning/`, `/ac-coil-cleaning/`, `/air-handler-cleaning/`, `/blower-wheel-cleaning/` |
 | Dryer Vent | `/dryer-vent-cleaning/`, `/dryer-vent-installation/`, `/commercial-dryer-vent-cleaning/` |
+| Attic Insulation | `/attic-insulation-removal/`, `/blown-in-attic-insulation/`, `/insulation-replacement/` |
 | Company | `/about-us/`, `/contact-us/`, `/our-services/`, `/service-areas/`, `/privacy-policy/` |
 | Blog | `/blog/` and `/blog/<slug>/` |
 

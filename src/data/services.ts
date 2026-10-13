@@ -23,7 +23,7 @@ import roofCap from '../assets/images/roof-dryer-vent-cap.webp';
 import dryerBrush from '../assets/images/dryer-vent-brush-cleaning.webp';
 import dryerFlex from '../assets/images/dryer-vent-flex-before-after.webp';
 
-export type GroupId = 'duct' | 'hvac' | 'dryer';
+export type GroupId = 'duct' | 'hvac' | 'dryer' | 'insulation';
 
 export interface ServiceGroup {
   id: GroupId;
@@ -32,6 +32,7 @@ export interface ServiceGroup {
   hub: string;
   image: ImageMetadata;
   imageAlt: string;
+  secondary?: boolean;
 }
 
 export const serviceGroups: ServiceGroup[] = [
@@ -58,8 +59,21 @@ export const serviceGroups: ServiceGroup[] = [
     hub: '/dryer-vent-cleaning/',
     image: rooftopDryer,
     imageAlt: 'Technician cleaning a rooftop dryer vent',
+    secondary: true,
+  },
+  {
+    id: 'insulation',
+    name: 'Attic Insulation Services',
+    intro: 'Old insulation removal, blown-in insulation and full attic insulation replacement.',
+    hub: '/insulation-replacement/',
+    image: technicianAttic,
+    imageAlt: 'Technician working through a ceiling opening into the attic',
+    secondary: true,
   },
 ];
+
+export const primaryGroups = serviceGroups.filter((g) => !g.secondary);
+export const secondaryGroups = serviceGroups.filter((g) => g.secondary);
 
 export type IconName =
   | 'duct'
@@ -73,7 +87,10 @@ export type IconName =
   | 'coil'
   | 'box'
   | 'fan'
-  | 'dryer';
+  | 'dryer'
+  | 'trash'
+  | 'wind'
+  | 'layers';
 
 export interface Service {
   slug: string;
@@ -988,6 +1005,207 @@ export const services: Service[] = [
       { q: 'Can you work outside business hours?', a: 'Yes. We schedule around your operating hours where possible.' },
     ],
     related: ['dryer-vent-cleaning', 'dryer-vent-installation', 'commercial-air-duct-cleaning'],
+  },
+
+  // ───────────── Attic Insulation ─────────────
+  {
+    slug: 'attic-insulation-removal',
+    path: '/attic-insulation-removal/',
+    name: 'Attic Insulation Removal',
+    group: 'insulation',
+    parent: 'insulation-replacement',
+    icon: 'trash',
+    card: 'Vacuum removal of old, wet, compressed or rodent-contaminated attic insulation, bagged and hauled away.',
+    image: negativeAir,
+    imageAlt: 'High-powered vacuum collection unit set up at a home',
+    secondImage: technicianAttic,
+    secondImageAlt: 'Technician working through a ceiling opening into the attic',
+    metaTitle: 'Attic Insulation Removal Miami, FL | Purix',
+    metaDescription:
+      'Attic insulation removal in Miami for old, wet, compressed or rodent-contaminated insulation. Vacuum removal, bagged and hauled away. Call (305) 449-9881.',
+    h1: 'Attic Insulation Removal in Miami, FL',
+    heroSubtitle: 'Removal of old, damaged or contaminated attic insulation, so your attic is clean and ready for what comes next.',
+    introHeading: 'When old insulation has to come out',
+    intro: [
+      'Attic insulation doesn’t last forever. In South Florida it can get soaked by roof leaks or storm damage, flattened by years of foot traffic and stored items, or contaminated by rodents and insects. Damaged insulation loses much of its value, and contaminated insulation is something most homeowners want gone.',
+      'Purix removes old attic insulation with a high-powered insulation vacuum. The material is pulled out of the attic through a hose and collected in bags outside, so it doesn’t travel through your living space. Once it’s out, we clear remaining debris so the attic is clean.',
+      `This page covers removal only. To remove the old insulation and install new insulation in one project, see ${a('/insulation-replacement/', 'insulation replacement')}. If your existing insulation is in good shape and just too thin, ${a('/blown-in-attic-insulation/', 'blown-in attic insulation')} can be added on top without removal.`,
+    ],
+    componentsHeading: 'What we remove',
+    components: [
+      { title: 'Blown-in insulation', text: 'Loose-fill fiberglass or cellulose spread across the attic floor.' },
+      { title: 'Batt insulation', text: 'Fiberglass batts between ceiling joists, including wet or matted batts.' },
+      { title: 'Contaminated material', text: 'Insulation fouled by rodent or pest droppings and nesting.' },
+      { title: 'Attic debris', text: 'Loose debris left on the attic floor once the insulation is out.' },
+    ],
+    signsHeading: 'Signs your attic insulation should be removed',
+    signs: [
+      'Rodent droppings, nests or tunnels in the insulation',
+      'Insulation that got wet from a roof leak or storm',
+      'Water stains on the ceiling below the attic',
+      'Insulation that is flattened, clumped or uneven',
+      'A persistent odor coming from the attic',
+      'You’re planning attic work, such as replacing ductwork, and want a clean start',
+    ],
+    processHeading: 'How attic insulation removal works',
+    process: [
+      { title: 'Attic inspection', text: 'We look at the type, depth and condition of the insulation and check for anything that needs special handling.' },
+      { title: 'Protect your home', text: 'The access area is protected, and the vacuum hose is routed so material leaves through the shortest path.' },
+      { title: 'Vacuum removal', text: 'Insulation is vacuumed out of the attic and collected in bags outside the home.' },
+      { title: 'Clean-up & haul away', text: 'Remaining debris is cleared and the bagged material is removed from your property.' },
+    ],
+    benefitsHeading: 'What removal gets you',
+    benefits: [
+      { title: 'Contaminated material gone', text: 'Insulation fouled by pests or water is taken out of the attic entirely.' },
+      { title: 'A clean attic', text: 'A clear attic floor makes it easier to see the ceiling, wiring and ductwork.' },
+      { title: 'Ready for new insulation', text: 'New insulation goes onto a clean surface instead of on top of a problem.' },
+      { title: 'Easier attic work', text: 'Duct repairs and other attic jobs are easier without old insulation in the way.' },
+    ],
+    note: {
+      heading: 'A note on older insulation',
+      paragraphs: [
+        'Some older homes have vermiculite insulation, a pebble-like, gray-brown or gold material. Vermiculite can contain asbestos, and the EPA advises not disturbing it. If we find vermiculite, we stop and recommend testing by a qualified professional before any removal.',
+      ],
+    },
+    faqs: [
+      { q: 'Does insulation removal make a mess inside the house?', a: 'It shouldn’t. The insulation is vacuumed out through a hose and collected in bags outside, and we protect the area around the attic access.' },
+      { q: 'How long does attic insulation removal take?', a: 'Most homes take one day. Larger attics or heavily contaminated insulation can take longer.' },
+      { q: 'Do I need to replace the insulation after removal?', a: 'In most cases, yes. An uninsulated attic lets a lot of heat into your home. Many customers choose insulation replacement to handle both in one project.' },
+      { q: 'Can you remove insulation that has rodent droppings in it?', a: 'Yes. Contaminated insulation is one of the most common reasons for removal. Pest control and sealing entry points should be handled first so the problem doesn’t return.' },
+      { q: 'Do you remove vermiculite insulation?', a: 'No. Vermiculite can contain asbestos. If we find it, we stop and recommend testing by a qualified professional.' },
+    ],
+    related: ['insulation-replacement', 'blown-in-attic-insulation', 'ac-duct-replacement', 'air-duct-inspection'],
+  },
+  {
+    slug: 'blown-in-attic-insulation',
+    path: '/blown-in-attic-insulation/',
+    name: 'Blown-In Attic Insulation',
+    group: 'insulation',
+    parent: 'insulation-replacement',
+    icon: 'wind',
+    card: 'Loose-fill insulation blown evenly across the attic floor to add depth where existing insulation is thin.',
+    image: hoseTeam,
+    imageAlt: 'Two technicians running large hoses for an installation',
+    secondImage: technicianAttic,
+    secondImageAlt: 'Technician working through a ceiling opening into the attic',
+    metaTitle: 'Blown-In Attic Insulation Miami, FL | Purix',
+    metaDescription:
+      'Blown-in attic insulation in Miami. Loose-fill insulation added evenly across the attic to reach the recommended depth and reduce heat gain. Call (305) 449-9881.',
+    h1: 'Blown-In Attic Insulation in Miami, FL',
+    heroSubtitle: 'Loose-fill insulation blown evenly across your attic to top up thin insulation or insulate an empty attic.',
+    introHeading: 'Adding insulation where your attic needs it',
+    intro: [
+      'In Miami, the attic is one of the hottest places in the house. On a summer afternoon it can be far hotter than outside, and that heat pushes down through the ceiling into your living space. Attic insulation slows that heat down, but many homes have far less than recommended, or insulation that has settled over the years.',
+      'Blown-in insulation is installed with a machine that blows loose-fill insulation through a hose into the attic. It spreads evenly between and over joists and fills gaps around wiring, pipes and framing that batts can miss. It can go on top of existing insulation that is dry and clean, or into an attic that has none.',
+      `If your existing insulation is wet, contaminated or badly damaged, it should come out first. See ${a('/attic-insulation-removal/', 'attic insulation removal')} or ${a('/insulation-replacement/', 'insulation replacement')}, which handles removal and new insulation together.`,
+    ],
+    componentsHeading: 'What’s included',
+    components: [
+      { title: 'Depth assessment', text: 'We measure the existing insulation and recommend how much to add.' },
+      { title: 'Loose-fill insulation', text: 'Insulation blown evenly across the attic floor to a consistent depth.' },
+      { title: 'Hard-to-reach areas', text: 'Coverage around wiring, pipes, framing and attic edges.' },
+      { title: 'Depth markers', text: 'Markers placed in the attic so you can see the installed depth.' },
+    ],
+    signsHeading: 'Signs your attic needs more insulation',
+    signs: [
+      'You can see the tops of the ceiling joists through the insulation',
+      'Upstairs or top-floor rooms stay hotter than the rest of the house',
+      'The AC runs constantly on hot afternoons',
+      'Ceilings feel warm to the touch in summer',
+      'The insulation looks thin, settled or patchy',
+      'The home is older and the insulation has never been topped up',
+    ],
+    processHeading: 'How blown-in insulation is installed',
+    process: [
+      { title: 'Attic check', text: 'We check the existing insulation, look for moisture or pest problems, and measure the depth.' },
+      { title: 'Recommend & quote', text: 'You get a recommended depth and material with a written quote.' },
+      { title: 'Prepare the attic', text: 'Depth markers are set, and the area is protected where needed.' },
+      { title: 'Blow in insulation', text: 'Insulation is blown evenly across the attic to the agreed depth.' },
+      { title: 'Final check', text: 'We check coverage and depth before we leave.' },
+    ],
+    benefitsHeading: 'What more insulation can do',
+    benefits: [
+      { title: 'Less heat from the attic', text: 'More insulation slows the heat that moves from a hot attic into your rooms.' },
+      { title: 'More even temperatures', text: 'Rooms under the attic are often more comfortable with adequate insulation.' },
+      { title: 'Less strain on the AC', text: 'When less heat comes through the ceiling, the AC has less to remove.' },
+      { title: 'Fills gaps batts miss', text: 'Loose-fill settles around obstructions for more continuous coverage.' },
+    ],
+    faqs: [
+      { q: 'How much attic insulation does a Miami home need?', a: 'ENERGY STAR recommends R-30 to R-49 for uninsulated attics in Miami’s climate zone. We measure what you have and recommend how much to add.' },
+      { q: 'Can new insulation go on top of old insulation?', a: 'Yes, if the existing insulation is dry, clean and in reasonable shape. If it’s wet, moldy-smelling or contaminated by pests, it should be removed first.' },
+      { q: 'What material do you use?', a: 'Blown-in insulation is typically loose-fill fiberglass or cellulose. We’ll recommend a material for your attic and list it in your quote.' },
+      { q: 'How long does installation take?', a: 'Most homes take a few hours, depending on the attic size and the depth being added.' },
+      { q: 'Will it lower my energy bill?', a: 'Adding insulation to an under-insulated attic often reduces how hard the AC has to work. Results depend on your home, your current insulation and how you use your AC, so we don’t promise a specific saving.' },
+    ],
+    related: ['insulation-replacement', 'attic-insulation-removal', 'ac-duct-replacement', 'air-duct-inspection'],
+  },
+  {
+    slug: 'insulation-replacement',
+    path: '/insulation-replacement/',
+    name: 'Insulation Replacement',
+    group: 'insulation',
+    icon: 'layers',
+    card: 'Old attic insulation removed and new blown-in insulation installed in one project.',
+    image: technicianAttic,
+    imageAlt: 'Technician working through a ceiling opening into the attic',
+    secondImage: negativeAir,
+    secondImageAlt: 'High-powered vacuum collection unit set up at a home',
+    metaTitle: 'Insulation Replacement Miami, FL | Attic Insulation | Purix',
+    metaDescription:
+      'Attic insulation replacement in Miami: old or damaged insulation removed and new blown-in insulation installed in one project. Call (305) 449-9881.',
+    h1: 'Attic Insulation Replacement in Miami, FL',
+    heroSubtitle: 'Out with the old, in with the new: removal of damaged attic insulation and installation of fresh insulation in one project.',
+    introHeading: 'Removal and new insulation, handled together',
+    intro: [
+      'When attic insulation is wet, contaminated or worn out, adding more on top doesn’t fix the problem. The old material needs to come out, and new insulation needs to go in. Insulation replacement handles both in one coordinated project, so your attic isn’t left empty between jobs.',
+      'We vacuum out the old insulation, clear the attic floor, and then blow in new insulation evenly to the recommended depth. Because the attic is empty in between, it’s also a good time to look at the condition of the ductwork, and we’ll point out any damaged or disconnected duct runs we see.',
+      `For removal on its own, see ${a('/attic-insulation-removal/', 'attic insulation removal')}. To add insulation on top of existing insulation that’s still in good shape, see ${a('/blown-in-attic-insulation/', 'blown-in attic insulation')}. If attic ductwork needs work, ${a('/ac-duct-replacement/', 'AC duct replacement')} can be planned at the same time.`,
+    ],
+    componentsHeading: 'What the project covers',
+    components: [
+      { title: 'Old insulation removal', text: 'Existing insulation vacuumed out and bagged outside your home.' },
+      { title: 'Attic clean-up', text: 'Remaining debris cleared from the attic floor.' },
+      { title: 'Ductwork check', text: 'A look at the attic duct runs while they’re fully visible.' },
+      { title: 'New blown-in insulation', text: 'Fresh loose-fill insulation installed to the recommended depth.' },
+    ],
+    signsHeading: 'When replacement makes more sense than a top-up',
+    signs: [
+      'The insulation is contaminated by rodents or pests',
+      'It got wet from a roof leak, plumbing leak or storm',
+      'It’s badly compressed, clumped or missing in areas',
+      'There’s an ongoing odor from the attic',
+      'You recently had roof work and the insulation was disturbed',
+      'You’re replacing attic ductwork and want the attic redone at the same time',
+    ],
+    processHeading: 'How insulation replacement works',
+    process: [
+      { title: 'Inspect & quote', text: 'We check the insulation, attic conditions and ductwork, then provide a written quote.' },
+      { title: 'Remove old insulation', text: 'The old material is vacuumed out and bagged outside.' },
+      { title: 'Clean the attic', text: 'Debris is cleared and we note anything that needs attention, such as damaged ducts.' },
+      { title: 'Install new insulation', text: 'New insulation is blown in evenly to the agreed depth.' },
+      { title: 'Final walkthrough', text: 'We confirm coverage and depth and show you the finished attic.' },
+    ],
+    benefitsHeading: 'Why replace instead of covering it up',
+    benefits: [
+      { title: 'Problem material removed', text: 'Contaminated or water-damaged insulation is taken out, not buried.' },
+      { title: 'Full, even coverage', text: 'New insulation goes onto a clean attic floor at a consistent depth.' },
+      { title: 'One coordinated project', text: 'Removal and installation are scheduled together, so your attic isn’t left empty.' },
+      { title: 'A good time for duct work', text: 'With the attic clear, ductwork is easier to inspect and repair.' },
+    ],
+    note: {
+      heading: 'A note on older insulation',
+      paragraphs: [
+        'Some older homes have vermiculite insulation, a pebble-like, gray-brown or gold material. Vermiculite can contain asbestos, and the EPA advises not disturbing it. If we find vermiculite, we stop and recommend testing by a qualified professional before any work continues.',
+      ],
+    },
+    faqs: [
+      { q: 'How long does insulation replacement take?', a: 'Many homes are done in one to two days, depending on the attic size and the condition of the old insulation.' },
+      { q: 'Should I fix a roof leak before replacing insulation?', a: 'Yes. New insulation should only go in once the leak is repaired, or it can get wet again.' },
+      { q: 'What about rodents in the attic?', a: 'Pest control and sealing entry points should be handled before new insulation goes in, so the new insulation stays clean.' },
+      { q: 'Can you replace ductwork at the same time?', a: 'Yes. Replacement is a good time to address attic ductwork, since it’s fully visible. See our AC duct replacement service.' },
+      { q: 'How much new insulation will you install?', a: 'ENERGY STAR recommends R-30 to R-49 for attics in Miami’s climate zone. We’ll recommend a depth and list it in your quote.' },
+    ],
+    related: ['attic-insulation-removal', 'blown-in-attic-insulation', 'ac-duct-replacement', 'air-duct-inspection'],
   },
 ];
 

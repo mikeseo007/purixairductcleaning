@@ -19,7 +19,9 @@ const breadcrumbs = [
   { name: 'Services', path: '/our-services/' },
 ];
 
-const [duct, hvac, dryer] = serviceGroups.map((g) => ({ ...g, items: servicesByGroup(g.id) }));
+const withItems = serviceGroups.map((g) => ({ ...g, items: servicesByGroup(g.id) }));
+const primary = withItems.filter((g) => !g.secondary);
+const secondary = withItems.filter((g) => g.secondary);
 
 const compare = [
   {
@@ -52,6 +54,16 @@ const compare = [
     service: 'Dryer Vent Cleaning',
     href: '/dryer-vent-cleaning/',
   },
+  {
+    problem: 'Attic insulation is wet, contaminated by pests or badly flattened',
+    service: 'Insulation Replacement',
+    href: '/insulation-replacement/',
+  },
+  {
+    problem: 'Attic insulation is clean but too thin',
+    service: 'Blown-In Attic Insulation',
+    href: '/blown-in-attic-insulation/',
+  },
 ];
 
 const faqs = [
@@ -68,6 +80,10 @@ const faqs = [
     a: 'Yes. Dryer vent cleaning, dryer vent installation and commercial dryer vent cleaning are available alongside our air duct and HVAC services.',
   },
   {
+    q: 'Do you work on attic insulation?',
+    a: 'Yes. We remove old or contaminated attic insulation, add blown-in insulation, and handle full insulation replacement. It’s often a good time to check attic ductwork too.',
+  },
+  {
     q: 'Which areas do you serve?',
     a: 'We’re based in Miami and serve Miami-Dade, Fort Lauderdale, Boca Raton, Naples and Cape Coral, along with surrounding communities.',
   },
@@ -75,13 +91,13 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Air Duct, HVAC & Dryer Vent Cleaning Services | Purix"
-  description="Air duct and AC ductwork cleaning, HVAC, coil, air handler and HVAC mold cleaning, plus dryer vent services in Miami and South Florida. Call (305) 449-9881."
+  title="Air Duct, HVAC, Dryer Vent & Insulation Services | Purix"
+  description="Air duct and HVAC cleaning, including coil, air handler and HVAC mold cleaning, plus dryer vent and attic insulation services in Miami. Call (305) 449-9881."
   breadcrumbs={breadcrumbs}
   schema={[
     {
       '@type': 'ItemList',
-      name: 'Purix air duct, HVAC and dryer vent services',
+      name: 'Purix air duct, HVAC, dryer vent and attic insulation services',
       itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `${SITE_URL}${s.path}` })),
     },
     faqSchema(faqs),
@@ -90,12 +106,12 @@ const faqs = [
   <PageHeader
     eyebrow="Our services"
     title="Air Duct, AC Ductwork & HVAC Cleaning Services"
-    subtitle="We specialize in the air side of your AC system: the ductwork that carries the air and the equipment that cools it. Dryer vent services are available too."
+    subtitle="We specialize in the air side of your AC system: the ductwork that carries the air and the equipment that cools it. Dryer vent and attic insulation services are available too."
     breadcrumbs={breadcrumbs}
   />
 
   {
-    [duct, hvac].map((g, gi) => (
+    primary.map((g, gi) => (
       <section class:list={['section', gi === 0 ? 'bg-white' : 'bg-sky-50']} id={g.id}>
         <div class="container-x">
           <SectionHeading eyebrow={gi === 0 ? 'Ductwork' : 'AC equipment'} title={g.name} intro={g.intro} />
@@ -133,31 +149,33 @@ const faqs = [
     ))
   }
 
-  <section class="section bg-white" id="dryer">
-    <div class="container-x">
-      <div class="grid items-center gap-8 rounded-3xl border border-slate-100 p-6 shadow-sm sm:p-8 lg:grid-cols-[260px_1fr]">
-        <Image src={dryer.image} alt={dryer.imageAlt} widths={[520]} sizes="260px" class="hidden aspect-[4/3] w-full rounded-2xl object-cover lg:block" />
-        <div>
-          <p class="eyebrow">Also available</p>
-          <h2 class="text-2xl sm:text-3xl">{dryer.name}</h2>
-          <p class="mt-2 text-muted">{dryer.intro}</p>
-          <ul class="mt-5 grid gap-3 md:grid-cols-3">
-            {
-              dryer.items.map((s) => (
-                <li>
-                  <a href={s.path} class="group flex h-full flex-col rounded-2xl bg-sky-50 p-4 ring-1 ring-sky-100 transition hover:bg-sky-100">
-                    <span class="flex items-center gap-2 font-bold text-navy-900 group-hover:text-sky-600">
-                      <Icon name={s.icon} class="size-5 text-sky-500" />
-                      {s.name}
-                    </span>
-                    <span class="mt-1 text-sm text-muted">{s.card}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
+  <section class="section bg-white">
+    <div class="container-x space-y-6">
+      {
+        secondary.map((g) => (
+          <div class="grid items-center gap-8 rounded-3xl border border-slate-100 p-6 shadow-sm sm:p-8 lg:grid-cols-[260px_1fr]" id={g.id}>
+            <Image src={g.image} alt={g.imageAlt} widths={[520]} sizes="260px" class="hidden aspect-[4/3] w-full rounded-2xl object-cover lg:block" />
+            <div>
+              <p class="eyebrow">Also available</p>
+              <h2 class="text-2xl sm:text-3xl">{g.name}</h2>
+              <p class="mt-2 text-muted">{g.intro}</p>
+              <ul class="mt-5 grid gap-3 md:grid-cols-3">
+                {g.items.map((s) => (
+                  <li>
+                    <a href={s.path} class="group flex h-full flex-col rounded-2xl bg-sky-50 p-4 ring-1 ring-sky-100 transition hover:bg-sky-100">
+                      <span class="flex items-center gap-2 font-bold text-navy-900 group-hover:text-sky-600">
+                        <Icon name={s.icon} class="size-5 text-sky-500" />
+                        {s.name}
+                      </span>
+                      <span class="mt-1 text-sm text-muted">{s.card}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
     </div>
   </section>
 

@@ -45,7 +45,7 @@ export const locationContent: Record<string, LocationContent> = {
     introHeading: 'Miami’s AC ductwork and HVAC cleaning specialists',
     intro: [
       'In Miami, your air conditioner isn’t a seasonal appliance. It runs nearly every day of the year, moving and dehumidifying every bit of air in your home or business. All that run time means dust and debris build up in the ductwork, and moisture collects on the coil, drain pan and air handler.',
-      'Purix Air Duct & Dryer Vent Cleaning focuses on that system. We clean supply and return ductwork, AC coils, air handlers and blower wheels, and we help homeowners deal with musty AC odors and suspected microbial buildup in their HVAC equipment. We also offer dryer vent cleaning and installation as a secondary service.',
+      'Purix Air Duct & Dryer Vent Cleaning focuses on that system. We clean supply and return ductwork, AC coils, air handlers and blower wheels, and we help homeowners deal with musty AC odors and suspected microbial buildup in their HVAC equipment. We also offer dryer vent services and attic insulation removal and replacement.',
     ],
     introImage: livingRoom,
     introImageAlt: 'Two Purix technicians preparing duct cleaning equipment in a Miami living room',
@@ -60,7 +60,7 @@ export const locationContent: Record<string, LocationContent> = {
     faqs: [
       {
         q: 'What does Purix specialize in?',
-        a: 'Our main focus is air conditioning systems: air duct and AC ductwork cleaning, HVAC component cleaning (coils, air handlers, blower wheels), and HVAC mold cleaning. Dryer vent cleaning and installation are secondary services.',
+        a: 'Our main focus is air conditioning systems: air duct and AC ductwork cleaning, HVAC component cleaning (coils, air handlers, blower wheels), and HVAC mold cleaning. We also offer dryer vent services and attic insulation removal, blown-in insulation and replacement.',
       },
       {
         q: 'How often should AC ducts be cleaned in Miami?',
@@ -181,7 +181,7 @@ export const locationContent: Record<string, LocationContent> = {
     introHeading: 'Attic ductwork and AC system cleaning',
     intro: [
       'Many Cape Coral homes are single-story block construction with ductwork running through a hot attic. In summer, that ductwork bakes and sweats, and the AC runs nearly nonstop to keep up.',
-      'Purix cleans the attic duct system and the AC equipment that feeds it. We can also inspect the attic runs for crushed, torn or disconnected sections that may need replacement. Dryer vent cleaning is available too.',
+      'Purix cleans the attic duct system and the AC equipment that feeds it. We can also inspect the attic runs for crushed, torn or disconnected sections that may need replacement. If the attic insulation around those ducts is thin or damaged, we also offer <a href="/insulation-replacement/">attic insulation replacement</a> and <a href="/blown-in-attic-insulation/">blown-in insulation</a>.',
     ],
     introImage: hoseTeam,
     introImageAlt: 'Two technicians running cleaning hoses through a wall register',
