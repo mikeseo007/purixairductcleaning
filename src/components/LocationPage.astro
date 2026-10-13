@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './Hero.astro';
+import TrustBar from './TrustBar.astro';
+import SplitSection from './SplitSection.astro';
+import ServicesGrid from './ServicesGrid.astro';
+import ProcessSteps from './ProcessSteps.astro';
+import Reviews from './Reviews.astro';
+import LocationDetails from './LocationDetails.astro';
+import LocationsGrid from './LocationsGrid.astro';
+import FAQ from './FAQ.astro';
+import CtaBand from './CtaBand.astro';
+import { getLocation } from '../data/site';
+import { locationContent } from '../data/location-content';
+import { localBusinessSchema, faqSchema } from '../data/schema';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const location = getLocation(slug);
+const c = locationContent[slug];
+const isHome = location.path === '/';
+
+const breadcrumbs = isHome
+  ? undefined
+  : [
+      { name: 'Home', path: '/' },
+      { name: 'Service Areas', path: '/service-areas/' },
+      { name: location.city, path: location.path },
+    ];
+---
+
+<BaseLayout
+  title={c.metaTitle}
+  description={c.metaDescription}
+  location={location}
+  breadcrumbs={breadcrumbs}
+  schema={[localBusinessSchema(location), faqSchema(c.faqs)]}
+>
+  <Hero
+    eyebrow={location.businessName}
+    title={c.h1}
+    subtitle={c.heroSubtitle}
+    image={c.heroImage}
+    imageAlt={c.heroImageAlt}
+    location={location}
+    breadcrumbs={breadcrumbs}
+  />
+  <TrustBar />
+
+  <SplitSection
+    eyebrow={`Air duct cleaning ${location.city}`}
+    heading={c.introHeading}
+    paragraphs={c.intro}
+    image={c.introImage}
+    imageAlt={c.introImageAlt}
+    phone={{ label: location.phone, href: location.phoneHref }}
+  />
+
+  <ServicesGrid
+    title={`Services We Provide in ${location.city}`}
+    intro={`Professional duct, vent and HVAC cleaning for homes and businesses in ${location.city}, FL.`}
+    city={location.city}
+  />
+
+  <SplitSection
+    eyebrow={`Serving ${location.city}, FL`}
+    heading={c.localHeading}
+    paragraphs={c.local}
+    image={c.localImage}
+    imageAlt={c.localImageAlt}
+    reverse
+    tint
+    phone={{ label: location.phone, href: location.phoneHref }}
+  />
+
+  <ProcessSteps />
+  <Reviews title={`What ${isHome ? 'Our' : location.city} Customers Say`} />
+  <LocationDetails location={location} />
+  <FAQ faqs={c.faqs} title={`Air Duct Cleaning FAQs: ${location.city}`} />
+  <LocationsGrid
+    title={isHome ? 'Our Other Florida Locations' : 'Other Purix Locations'}
+    intro="Purix Air Duct Cleaning also has local teams in these Florida cities."
+    exclude={location.slug}
+  />
+  <CtaBand location={location} title={`Need air duct cleaning in ${location.city}?`} />
+</BaseLayout>

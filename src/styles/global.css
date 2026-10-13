@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/plus-jakarta-sans';
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-navy-950: #0a1736;
+  --color-navy-900: #0f2252;
+  --color-navy-800: #16306f;
+  --color-navy-700: #1d3f8f;
+  --color-navy-600: #2550b3;
+  --color-sky-500: #1fa3e0;
+  --color-sky-400: #49b8eb;
+  --color-sky-100: #e3f4fc;
+  --color-sky-50: #f2f9fd;
+  --color-lime-500: #7cc242;
+  --color-lime-600: #65a532;
+  --color-ink: #1b2437;
+  --color-muted: #5b6578;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-extrabold tracking-tight text-navy-900;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-sky-500;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary,
+  .btn-navy,
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold transition duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-lime-500 text-navy-950 shadow-lg shadow-lime-500/25 hover:bg-lime-600 hover:text-white;
+  }
+
+  .btn-navy {
+    @apply bg-navy-700 text-white hover:bg-navy-800;
+  }
+
+  .btn-outline {
+    @apply border-2 border-white/70 text-white hover:bg-white hover:text-navy-900;
+  }
+
+  .eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-sky-500;
+  }
+
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .prose-purix p {
+    @apply mb-5 text-lg leading-relaxed text-muted;
+  }
+
+  .prose-purix h2 {
+    @apply mt-10 mb-4 text-2xl sm:text-3xl;
+  }
+
+  .prose-purix h3 {
+    @apply mt-8 mb-3 text-xl;
+  }
+
+  .prose-purix ul {
+    @apply mb-6 list-disc space-y-2 pl-6 text-lg text-muted;
+  }
+
+  .prose-purix ol {
+    @apply mb-6 list-decimal space-y-2 pl-6 text-lg text-muted;
+  }
+
+  .prose-purix a {
+    @apply font-semibold text-navy-700 underline decoration-sky-400 underline-offset-4 hover:text-sky-500;
+  }
+
+  .prose-purix strong {
+    @apply text-ink;
+  }
+}

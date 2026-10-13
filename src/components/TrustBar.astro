@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+
+const items = [
+  { icon: 'bolt', title: 'Same-Day Service', text: 'Fast scheduling when you need it' },
+  { icon: 'users', title: 'Experienced Technicians', text: 'Trained, professional crews' },
+  { icon: 'tag', title: 'Competitive Pricing', text: 'Honest, upfront quotes' },
+  { icon: 'building', title: 'Homes & Businesses', text: 'Residential and commercial' },
+];
+---
+
+<section class="relative z-10 -mt-px bg-sky-50">
+  <div class="container-x grid grid-cols-2 gap-px overflow-hidden py-0 lg:grid-cols-4">
+    {
+      items.map((item) => (
+        <div class="flex items-center gap-4 px-2 py-6 sm:px-4">
+          <span class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white text-navy-700 shadow-sm">
+            <Icon name={item.icon} class="size-6" />
+          </span>
+          <div>
+            <p class="font-bold text-navy-900">{item.title}</p>
+            <p class="hidden text-sm text-muted sm:block">{item.text}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

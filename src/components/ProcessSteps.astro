@@ -1,0 +1,45 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'How Our Air Duct Cleaning Works' } = Astro.props;
+
+const steps = [
+  {
+    title: 'Inspect',
+    text: 'We look at your vents, returns and accessible ductwork, and explain what we find before any work begins.',
+  },
+  {
+    title: 'Protect',
+    text: 'Floors and work areas are covered, and the system is put under negative air pressure so debris leaves your home.',
+  },
+  {
+    title: 'Clean',
+    text: 'Brushes and air whips break buildup loose from every run, while our collection unit pulls it out.',
+  },
+  {
+    title: 'Walk Through',
+    text: 'We show you the results, clean the grilles and registers, and recommend any optional next steps.',
+  },
+];
+---
+
+<section class="section bg-sky-50">
+  <div class="container-x">
+    <SectionHeading eyebrow="Our process" title={title} center />
+    <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        steps.map((s, i) => (
+          <li class="relative rounded-3xl bg-white p-7 shadow-sm">
+            <span class="text-5xl font-extrabold text-sky-100">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-2 text-xl">{s.title}</h3>
+            <p class="mt-2 leading-relaxed text-muted">{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

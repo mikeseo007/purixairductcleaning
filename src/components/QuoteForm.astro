@@ -1,0 +1,97 @@
+---
+import Icon from './Icon.astro';
+import { locations, type Location } from '../data/site';
+import { services } from '../data/services';
+
+interface Props {
+  location?: Location;
+  service?: string;
+  heading?: string;
+  id?: string;
+  compact?: boolean;
+}
+
+const { location, service, heading = 'Request Same-Day Service', id = 'quote', compact = false } = Astro.props;
+const cols = compact ? 'grid gap-4' : 'grid gap-4 sm:grid-cols-2';
+const field =
+  'w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-ink placeholder:text-slate-400 transition focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none';
+---
+
+<div id={id} class="scroll-mt-28 rounded-3xl bg-white p-6 shadow-2xl shadow-navy-950/25 sm:p-8">
+  <p class="text-2xl font-extrabold text-navy-900">{heading}</p>
+  <p class="mt-1 text-muted">Tell us what you need and we’ll call you back fast.</p>
+
+  <form name="service-request" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company" class="mt-6 grid gap-4">
+    <input type="hidden" name="form-name" value="service-request" />
+    <p class="hidden">
+      <label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    <div class={cols}>
+      <label class="block">
+        <span class="sr-only">Full name</span>
+        <input class={field} type="text" name="name" placeholder="Full name *" autocomplete="name" required />
+      </label>
+      <label class="block">
+        <span class="sr-only">Phone number</span>
+        <input
+          class={field}
+          type="tel"
+          name="phone"
+          placeholder="Phone number *"
+          autocomplete="tel"
+          inputmode="tel"
+          pattern="[0-9()+\-.\s]{10,}"
+          title="Please enter a valid phone number"
+          required
+        />
+      </label>
+    </div>
+
+    <label class="block">
+      <span class="sr-only">Service address or ZIP code</span>
+      <input class={field} type="text" name="address" placeholder="Service address or ZIP code" autocomplete="street-address" />
+    </label>
+
+    <div class={cols}>
+      <label class="block">
+        <span class="sr-only">Service needed</span>
+        <select class={field} name="service">
+          <option value="">Service needed</option>
+          {
+            services.map((s) => (
+              <option value={s.name} selected={s.name === service}>
+                {s.name}
+              </option>
+            ))
+          }
+          <option value="Not sure / Inspection">Not sure / Inspection</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="sr-only">Nearest location</span>
+        <select class={field} name="location">
+          <option value="">Nearest location</option>
+          {
+            locations.map((l) => (
+              <option value={l.city} selected={l.slug === location?.slug}>
+                {l.city}
+              </option>
+            ))
+          }
+        </select>
+      </label>
+    </div>
+
+    <label class="block">
+      <span class="sr-only">Message</span>
+      <textarea class={field} name="message" rows="3" placeholder="How can we help?"></textarea>
+    </label>
+
+    <button type="submit" class="btn-primary w-full !py-4 text-lg">
+      Send Service Request
+      <Icon name="arrowRight" class="size-5" />
+    </button>
+    <p class="text-center text-xs text-muted">We respect your privacy. Your details are only used to respond to your request.</p>
+  </form>
+</div>

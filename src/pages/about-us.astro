@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SplitSection from '../components/SplitSection.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Reviews from '../components/Reviews.astro';
+import LocationsGrid from '../components/LocationsGrid.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icon.astro';
+import van from '../assets/images/purix-service-van-cape-coral.jpg';
+import technicians from '../assets/images/technicians-living-room-duct-cleaning.png';
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'About Us', path: '/about-us/' },
+];
+
+const values = [
+  { icon: 'search', title: 'Honest inspections', text: 'We explain what we find before we start, and we never push services you don’t need.' },
+  { icon: 'shield', title: 'Careful, clean work', text: 'Floors and work areas are protected, and debris goes into our equipment, not your home.' },
+  { icon: 'users', title: 'Walkthrough after every job', text: 'We show you the results so you can see exactly what was removed from your system.' },
+  { icon: 'bolt', title: 'Fast, reliable scheduling', text: 'Same-day service is often available, and we show up when we say we will.' },
+];
+---
+
+<BaseLayout
+  title="About Purix Air Duct Cleaning | Florida Air Duct Experts"
+  description="Purix Air Duct Cleaning helps homeowners and businesses in Cape Coral, Naples, Fort Lauderdale and Boca Raton breathe cleaner air with professional duct and dryer vent cleaning."
+  breadcrumbs={breadcrumbs}
+>
+  <PageHeader
+    eyebrow="About us"
+    title="Your Trusted Air Duct Cleaning Experts in Florida"
+    subtitle="Purix Air Duct Cleaning is dedicated to helping homeowners and businesses maintain cleaner, healthier and more comfortable indoor environments."
+    breadcrumbs={breadcrumbs}
+  />
+  <TrustBar />
+
+  <SplitSection
+    eyebrow="Who we are"
+    heading="Professional Air Duct & Dryer Vent Cleaning Services"
+    image={van}
+    imageAlt="Purix Air Duct Cleaning service van at a customer's home in Cape Coral"
+    paragraphs={[
+      'Purix Air Duct Cleaning serves homes and businesses from local offices in Cape Coral, Naples, Fort Lauderdale and Boca Raton. We specialize in residential and commercial air duct cleaning, dryer vent cleaning, HVAC system cleaning and air duct sanitizing.',
+      'Using professional equipment and proven cleaning methods, our technicians remove dust, allergens, lint, debris and buildup from HVAC systems and dryer vents to improve system performance, safety and indoor comfort.',
+    ]}
+  />
+
+  <SplitSection
+    eyebrow="Our promise"
+    heading="Reliable Service You Can Count On"
+    image={technicians}
+    imageAlt="Purix technicians preparing equipment for an air duct cleaning"
+    reverse
+    tint
+    paragraphs={[
+      'We focus on dependable workmanship, honest service and customer satisfaction. Whether you need routine maintenance or a complete duct cleaning, our team works hard to deliver detailed cleanings and long-lasting results for every property we service.',
+      'Clean air plays an important role in a safer and more comfortable home or workplace. Our goal is to help property owners maintain cleaner airflow, better energy efficiency and healthier indoor spaces through professional service you can trust.',
+    ]}
+  />
+
+  <section class="section bg-white">
+    <div class="container-x">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="eyebrow">How we work</p>
+        <h2 class="text-3xl sm:text-4xl">What You Can Expect From Purix</h2>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          values.map((v) => (
+            <div class="rounded-3xl border border-slate-100 bg-white p-7 shadow-sm">
+              <span class="flex size-12 items-center justify-center rounded-2xl bg-sky-100 text-navy-700">
+                <Icon name={v.icon} class="size-6" />
+              </span>
+              <h3 class="mt-5 text-lg">{v.title}</h3>
+              <p class="mt-2 text-muted">{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Reviews />
+  <LocationsGrid />
+
+  <section class="section bg-navy-950">
+    <div class="container-x grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow !text-lime-500">Get in touch</p>
+        <h2 class="text-3xl !text-white sm:text-4xl">Schedule Your Cleaning</h2>
+        <p class="mt-4 text-lg text-white/80">Send us a request and the team nearest you will call you back to confirm the details and give you a free quote.</p>
+      </div>
+      <QuoteForm />
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

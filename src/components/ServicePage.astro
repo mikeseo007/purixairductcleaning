@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './Hero.astro';
+import TrustBar from './TrustBar.astro';
+import SplitSection from './SplitSection.astro';
+import SignsBenefits from './SignsBenefits.astro';
+import ServicesGrid from './ServicesGrid.astro';
+import Reviews from './Reviews.astro';
+import LocationsGrid from './LocationsGrid.astro';
+import FAQ from './FAQ.astro';
+import CtaBand from './CtaBand.astro';
+import { getService } from '../data/services';
+import { serviceSchema, faqSchema } from '../data/schema';
+import { locations } from '../data/site';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const s = getService(slug);
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/our-services/' },
+  { name: s.name, path: s.path },
+];
+
+const cityLinks = locations
+  .map((l) => `<a href="${l.path}">${s.name.toLowerCase()} in ${l.city}</a>`)
+  .join(', ')
+  .replace(/, ([^,]*)$/, ' and $1');
+---
+
+<BaseLayout title={s.metaTitle} description={s.metaDescription} breadcrumbs={breadcrumbs} schema={[serviceSchema(s), faqSchema(s.faqs)]}>
+  <Hero
+    eyebrow="Serving Cape Coral, Naples, Fort Lauderdale & Boca Raton"
+    title={s.h1}
+    subtitle={s.heroSubtitle}
+    image={s.introImage}
+    imageAlt={s.introImageAlt}
+    service={s.name}
+    breadcrumbs={breadcrumbs}
+  />
+  <TrustBar />
+
+  <SplitSection eyebrow={s.name} heading={`${s.name} You Can Trust`} paragraphs={s.intro} image={s.cardImage} imageAlt={s.cardImageAlt}>
+    <p>We offer {s.name.toLowerCase()} from four local offices. See our pages for <Fragment set:html={cityLinks} />.</p>
+  </SplitSection>
+
+  <SignsBenefits signsHeading={s.signsHeading} signs={s.signs} benefitsHeading={s.benefitsHeading} benefits={s.benefits} />
+
+  {
+    s.sections.map((section, i) =>
+      section.image ? (
+        <SplitSection heading={section.heading} paragraphs={section.paragraphs} image={section.image} imageAlt={section.imageAlt ?? section.heading} reverse={i % 2 === 0} tint={i % 2 === 0} />
+      ) : (
+        <section class:list={['section', i % 2 === 0 ? 'bg-sky-50' : 'bg-white']}>
+          <div class="container-x max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl">{section.heading}</h2>
+            <div class="prose-purix mt-6">
+              {section.paragraphs.map((p) => <p>{p}</p>)}
+            </div>
+          </div>
+        </section>
+      ),
+    )
+  }
+
+  <Reviews />
+  <FAQ faqs={s.faqs} title={`${s.name} FAQs`} />
+  <ServicesGrid eyebrow="More services" title="Other Services We Offer" exclude={s.slug} />
+  <LocationsGrid title={`${s.name} Near You`} />
+  <CtaBand title={`Schedule ${s.name.toLowerCase()} today`} />
+</BaseLayout>

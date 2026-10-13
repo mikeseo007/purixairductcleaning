@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+import type { Location } from '../data/site';
+
+interface Props {
+  location: Location;
+}
+
+const { location } = Astro.props;
+---
+
+<div class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 border-t border-navy-800 bg-navy-950 lg:hidden">
+  <a href={location.phoneHref} class="flex items-center justify-center gap-2 py-4 font-bold text-white">
+    <Icon name="phone" class="size-5 text-lime-500" />
+    Call Now
+  </a>
+  <a href="/contact-us/#quote" class="flex items-center justify-center gap-2 bg-lime-500 py-4 font-bold text-navy-950" data-quote-link>
+    <Icon name="mail" class="size-5" />
+    Free Quote
+  </a>
+</div>
+
+<script>
+  if (document.getElementById('quote')) {
+    document.querySelector('[data-quote-link]')?.setAttribute('href', '#quote');
+  }
+</script>

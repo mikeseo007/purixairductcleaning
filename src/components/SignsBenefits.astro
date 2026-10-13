@@ -1,0 +1,46 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  signsHeading: string;
+  signs: string[];
+  benefitsHeading: string;
+  benefits: { title: string; text: string }[];
+}
+
+const { signsHeading, signs, benefitsHeading, benefits } = Astro.props;
+---
+
+<section class="section bg-navy-950 text-white">
+  <div class="container-x grid gap-12 lg:grid-cols-2 lg:gap-16">
+    <div>
+      <p class="eyebrow !text-lime-500">Warning signs</p>
+      <h2 class="text-3xl !text-white sm:text-4xl">{signsHeading}</h2>
+      <ul class="mt-8 space-y-4">
+        {
+          signs.map((s) => (
+            <li class="flex gap-4 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+              <Icon name="alert" class="mt-0.5 size-5 shrink-0 text-lime-500" />
+              <span class="text-white/85">{s}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow !text-sky-400">The benefits</p>
+      <h2 class="text-3xl !text-white sm:text-4xl">{benefitsHeading}</h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        {
+          benefits.map((b) => (
+            <div class="rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 p-6 ring-1 ring-white/10">
+              <Icon name="checkCircle" class="size-7 text-sky-400" />
+              <h3 class="mt-4 text-lg !text-white">{b.title}</h3>
+              <p class="mt-2 text-white/70">{b.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

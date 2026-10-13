@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  faqs: { q: string; a: string }[];
+  title?: string;
+}
+
+const { faqs, title = 'Frequently Asked Questions' } = Astro.props;
+---
+
+<section class="section bg-sky-50">
+  <div class="container-x max-w-4xl">
+    <SectionHeading eyebrow="FAQs" title={title} center />
+    <div class="mt-10 space-y-3">
+      {
+        faqs.map((f, i) => (
+          <details class="group rounded-2xl bg-white shadow-sm ring-1 ring-slate-100 open:ring-sky-200" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 text-left">
+              <h3 class="text-lg">{f.q}</h3>
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-sky-100 text-navy-700 transition group-open:rotate-180 group-open:bg-navy-700 group-open:text-white">
+                <Icon name="chevronDown" class="size-5" />
+              </span>
+            </summary>
+            <p class="-mt-1 px-6 pb-6 text-lg leading-relaxed text-muted">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

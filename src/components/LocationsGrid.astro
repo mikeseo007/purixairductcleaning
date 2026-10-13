@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { locations } from '../data/site';
+
+interface Props {
+  title?: string;
+  intro?: string;
+  exclude?: string;
+}
+
+const {
+  title = 'Local Offices Across Southwest & South Florida',
+  intro = 'Each Purix location is staffed by a local team, so you get fast scheduling and technicians who know homes in your area.',
+  exclude,
+} = Astro.props;
+const list = locations.filter((l) => l.slug !== exclude);
+---
+
+<section class="section bg-white">
+  <div class="container-x">
+    <SectionHeading eyebrow="Service areas" title={title} intro={intro} center />
+    <div class:list={['mt-12 grid gap-6 sm:grid-cols-2', list.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3']}>
+      {
+        list.map((loc) => (
+          <article class="group relative flex flex-col rounded-3xl border border-slate-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl hover:shadow-navy-900/10">
+            <span class="flex size-12 items-center justify-center rounded-2xl bg-sky-100 text-navy-700">
+              <Icon name="pin" class="size-6" />
+            </span>
+            <h3 class="mt-5 text-xl">
+              <a href={loc.path} class="after:absolute after:inset-0 group-hover:text-sky-500">
+                Air Duct Cleaning {loc.city}
+              </a>
+            </h3>
+            <p class="mt-1 text-sm font-medium text-muted">{loc.county}</p>
+            <address class="mt-4 flex-1 text-[15px] leading-relaxed not-italic text-muted">
+              {loc.street}
+              <br />
+              {loc.city}, FL {loc.zip}
+            </address>
+            <a href={loc.phoneHref} class="relative z-10 mt-5 inline-flex items-center gap-2 font-bold text-navy-700 hover:text-sky-500">
+              <Icon name="phone" class="size-4" />
+              {loc.phone}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

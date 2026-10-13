@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Reviews from '../components/Reviews.astro';
+import LocationsGrid from '../components/LocationsGrid.astro';
+import FAQ from '../components/FAQ.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { services } from '../data/services';
+import { faqSchema } from '../data/schema';
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/our-services/' },
+];
+
+const faqs = [
+  services[0].faqs[0],
+  services[1].faqs[0],
+  services[2].faqs[0],
+  {
+    q: 'Which areas do you serve?',
+    a: 'We have local teams in Cape Coral, Naples, Fort Lauderdale and Boca Raton, and we serve the surrounding communities in Lee, Collier, Broward and Palm Beach counties.',
+  },
+];
+---
+
+<BaseLayout
+  title="Air Duct, Dryer Vent & HVAC Cleaning Services"
+  description="Explore Purix services: air duct cleaning, dryer vent cleaning, air duct sanitizing, HVAC system cleaning and commercial duct cleaning in Cape Coral, Naples, Fort Lauderdale and Boca Raton."
+  breadcrumbs={breadcrumbs}
+  schema={[
+    {
+      '@type': 'ItemList',
+      name: 'Purix Air Duct Cleaning services',
+      itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `https://purixairductcleaning.com${s.path}` })),
+    },
+    faqSchema(faqs),
+  ]}
+>
+  <PageHeader
+    eyebrow="Our services"
+    title="Air Duct, Dryer Vent & HVAC Cleaning Services"
+    subtitle="Professional cleaning for homes and businesses across Cape Coral, Naples, Fort Lauderdale and Boca Raton, focused on cleaner air, better airflow and safer dryer vents."
+    breadcrumbs={breadcrumbs}
+  />
+  <ServicesGrid eyebrow="What we do" title="Everything Your Air System Needs" />
+  <ProcessSteps />
+  <Reviews />
+  <FAQ faqs={faqs} />
+  <LocationsGrid />
+
+  <section class="section bg-navy-950">
+    <div class="container-x grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow !text-lime-500">Free quote</p>
+        <h2 class="text-3xl !text-white sm:text-4xl">Not sure which service you need?</h2>
+        <p class="mt-4 text-lg text-white/80">Tell us what’s going on, whether it’s dust, odors, weak airflow or a slow dryer, and we’ll recommend the right service.</p>
+      </div>
+      <QuoteForm />
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Reviews from '../components/Reviews.astro';
+import Icon from '../components/Icon.astro';
+import { locations, site } from '../data/site';
+import { localBusinessSchema } from '../data/schema';
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Contact Us', path: '/contact-us/' },
+];
+---
+
+<BaseLayout
+  title="Contact Purix Air Duct Cleaning | Free Quotes & Same-Day Service"
+  description="Contact Purix Air Duct Cleaning for air duct, dryer vent and HVAC cleaning in Cape Coral, Naples, Fort Lauderdale and Boca Raton. Call (239) 441-3477 or request a free quote."
+  breadcrumbs={breadcrumbs}
+  schema={[{ '@type': 'ContactPage', name: 'Contact Purix Air Duct Cleaning', url: `${site.url}/contact-us/` }, ...locations.map(localBusinessSchema)]}
+>
+  <PageHeader
+    eyebrow="Contact us"
+    title="Request Air Duct or Dryer Vent Cleaning"
+    subtitle="Need reliable air duct, dryer vent or HVAC cleaning? Call the office nearest you or send a service request and we’ll get back to you fast."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section bg-sky-50">
+    <div class="container-x grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <h2 class="text-3xl sm:text-4xl">Call Your Local Purix Team</h2>
+        <p class="mt-3 text-lg text-muted">Same-day service is often available. Choose the location closest to you.</p>
+        <div class="mt-8 grid gap-5 sm:grid-cols-2">
+          {
+            locations.map((loc) => (
+              <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+                <h3 class="text-xl">
+                  <a href={loc.path} class="hover:text-sky-500">
+                    {loc.city}, FL
+                  </a>
+                </h3>
+                <a href={loc.phoneHref} class="mt-3 flex items-center gap-2 text-lg font-extrabold text-navy-700 hover:text-sky-500">
+                  <Icon name="phone" class="size-5" />
+                  {loc.phone}
+                </a>
+                <a href={`mailto:${loc.email}`} class="mt-2 flex items-center gap-2 text-sm break-all text-muted hover:text-navy-700">
+                  <Icon name="mail" class="size-4 shrink-0" />
+                  {loc.email}
+                </a>
+                <address class="mt-2 flex gap-2 text-sm text-muted not-italic">
+                  <Icon name="pin" class="mt-0.5 size-4 shrink-0" />
+                  <span>
+                    {loc.street}, {loc.city}, FL {loc.zip}
+                  </span>
+                </address>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div class="lg:col-span-5">
+        <QuoteForm heading="Send a Service Request" />
+      </div>
+    </div>
+  </section>
+
+  <Reviews />
+</BaseLayout>
