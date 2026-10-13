@@ -45,4 +45,4 @@ Many Florida homes and condos vent the dryer through the roof or through long at
 
 ## Get your dryer vent cleaned
 
-Purix Air Duct Cleaning cleans the full length of your dryer vent, from the back of the dryer to the exterior or roof cap, and confirms strong airflow before we leave. Learn more about our [dryer vent cleaning service](/dryer-vent-cleaning/) or call your local team in [Cape Coral](/), [Naples](/naples/), [Fort Lauderdale](/fort-lauderdale/) or [Boca Raton](/boca-raton/).
+Purix cleans the full length of your dryer vent, from the back of the dryer to the exterior or roof cap, and checks airflow before we leave. Learn more about our [dryer vent cleaning service](/dryer-vent-cleaning/), or if the vent run itself is damaged or too long, [dryer vent installation](/dryer-vent-installation/). We serve [Miami](/), [Fort Lauderdale](/fort-lauderdale/), [Boca Raton](/boca-raton/), [Naples](/naples/) and [Cape Coral](/cape-coral/).

@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import logo from '../assets/images/purix-logo.png';
 import { site, locations } from '../data/site';
-import { services } from '../data/services';
+import { serviceGroups, servicesByGroup } from '../data/services';
 
 const socials = [
   { name: 'facebook', href: site.social.facebook, label: 'Facebook' },
@@ -20,12 +20,28 @@ const year = new Date().getFullYear();
 <footer class="bg-navy-950 text-white/75">
   <div class="container-x grid gap-12 py-16 lg:grid-cols-12">
     <div class="lg:col-span-4">
-      <a href="/" class="inline-block rounded-2xl bg-white p-3" aria-label="Purix Air Duct Cleaning home">
-        <Image src={logo} alt="Purix Air Duct Cleaning" width={230} height={121} class="h-16 w-auto" />
+      <a href="/" class="inline-block rounded-2xl bg-white p-3" aria-label={`${site.name} home`}>
+        <Image src={logo} alt={site.name} width={230} height={121} class="h-16 w-auto" />
       </a>
-      <p class="mt-5 max-w-sm leading-relaxed">
-        {site.tagline}. Professional air duct, dryer vent and HVAC cleaning for homes and businesses in Cape Coral, Naples, Fort Lauderdale and Boca Raton, Florida.
-      </p>
+      <address class="mt-6 space-y-3 not-italic">
+        <p class="font-bold text-white">{site.name}</p>
+        <a href={site.mapsUrl} target="_blank" rel="noopener" class="flex items-start gap-2.5 hover:text-white">
+          <Icon name="pin" class="mt-0.5 size-5 shrink-0 text-sky-400" />
+          <span>{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.zip}</span>
+        </a>
+        <a href={site.phoneHref} class="flex items-center gap-2.5 font-bold text-white hover:text-lime-500">
+          <Icon name="phone" class="size-5 shrink-0 text-sky-400" />
+          {site.phone}
+        </a>
+        <a href={`mailto:${site.email}`} class="flex items-center gap-2.5 hover:text-white">
+          <Icon name="mail" class="size-5 shrink-0 text-sky-400" />
+          {site.email}
+        </a>
+        <p class="flex items-start gap-2.5">
+          <Icon name="clock" class="mt-0.5 size-5 shrink-0 text-sky-400" />
+          <span>Sunday – Friday: Open 24 hours<br />Saturday: Closed</span>
+        </p>
+      </address>
       <ul class="mt-6 flex flex-wrap gap-2">
         {
           socials.map((s) => (
@@ -34,7 +50,7 @@ const year = new Date().getFullYear();
                 href={s.href}
                 target="_blank"
                 rel="noopener"
-                aria-label={`Purix Air Duct Cleaning on ${s.label}`}
+                aria-label={`${site.shortName} on ${s.label}`}
                 class="flex size-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-sky-500 hover:text-white"
               >
                 <Icon name={s.name} class="size-[18px]" />
@@ -45,53 +61,49 @@ const year = new Date().getFullYear();
       </ul>
     </div>
 
-    <div class="lg:col-span-2">
-      <h2 class="text-base font-bold text-white">Services</h2>
-      <ul class="mt-4 space-y-2.5">
-        {
-          services.map((s) => (
-            <li>
-              <a href={s.path} class="hover:text-lime-500">
-                {s.name}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-
-    <div class="lg:col-span-2">
-      <h2 class="text-base font-bold text-white">Company</h2>
-      <ul class="mt-4 space-y-2.5">
-        <li><a href="/about-us/" class="hover:text-lime-500">About Us</a></li>
-        <li><a href="/service-areas/" class="hover:text-lime-500">Service Areas</a></li>
-        <li><a href="/blog/" class="hover:text-lime-500">Blog</a></li>
-        <li><a href="/contact-us/" class="hover:text-lime-500">Contact Us</a></li>
-        <li><a href="/privacy-policy/" class="hover:text-lime-500">Privacy Policy</a></li>
-      </ul>
-    </div>
-
-    <div class="grid gap-6 sm:grid-cols-2 lg:col-span-4">
+    <div class="grid gap-10 sm:grid-cols-2 lg:col-span-5">
       {
-        locations.map((loc) => (
-          <address class="not-italic">
+        serviceGroups.map((g) => (
+          <div class:list={[g.id === 'dryer' && 'sm:col-span-2 lg:col-span-1']}>
             <h2 class="text-base font-bold text-white">
-              <a href={loc.path} class="hover:text-lime-500">
-                {loc.city}
-              </a>
+              <a href={g.hub} class="hover:text-lime-500">{g.name}</a>
             </h2>
-            <p class="mt-2 text-sm leading-relaxed">
-              {loc.street}
-              <br />
-              {loc.city}, FL {loc.zip}
-            </p>
-            <a href={loc.phoneHref} class="mt-1 inline-flex items-center gap-1.5 text-sm font-bold text-white hover:text-lime-500">
-              <Icon name="phone" class="size-3.5 text-sky-400" />
-              {loc.phone}
-            </a>
-          </address>
+            <ul class="mt-4 space-y-2.5">
+              {servicesByGroup(g.id).map((s) => (
+                <li>
+                  <a href={s.path} class="hover:text-lime-500">
+                    {s.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))
       }
+    </div>
+
+    <div class="grid gap-10 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-1">
+      <div>
+        <h2 class="text-base font-bold text-white">Service Areas</h2>
+        <ul class="mt-4 space-y-2.5">
+          {
+            locations.map((l) => (
+              <li>
+                <a href={l.path} class="hover:text-lime-500">{l.city}, FL</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-base font-bold text-white">Company</h2>
+        <ul class="mt-4 space-y-2.5">
+          <li><a href="/about-us/" class="hover:text-lime-500">About Us</a></li>
+          <li><a href="/our-services/" class="hover:text-lime-500">All Services</a></li>
+          <li><a href="/blog/" class="hover:text-lime-500">Blog</a></li>
+          <li><a href="/contact-us/" class="hover:text-lime-500">Contact Us</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="border-t border-white/10">

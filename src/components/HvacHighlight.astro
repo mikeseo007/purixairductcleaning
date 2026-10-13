@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import foggingImage from '../assets/images/technician-fogging-vent-sanitizing.webp';
+
+const items = [
+  { href: '/hvac-cleaning/', icon: 'hvac', title: 'HVAC Cleaning', text: 'Coil, blower, drain pan, cabinet and plenums cleaned as one system.' },
+  { href: '/ac-coil-cleaning/', icon: 'coil', title: 'AC Coil Cleaning', text: 'Clears the dust mat on the evaporator coil that restricts airflow.' },
+  { href: '/hvac-mold-cleaning/', icon: 'droplet', title: 'HVAC Mold Cleaning', text: 'Cleaning for musty odors and suspected microbial buildup on wet AC components.' },
+];
+---
+
+<section class="section bg-navy-950 text-white">
+  <div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+    <div>
+      <p class="eyebrow !text-lime-500">Inside your AC system</p>
+      <h2 class="text-3xl !text-white sm:text-4xl">Musty smell or weak airflow? Look past the ducts.</h2>
+      <div class="mt-6 space-y-4 text-lg leading-relaxed text-white/80">
+        <p>
+          In Miami’s humidity, the evaporator coil, drain pan and air handler stay wet much of the year. Dust that reaches those surfaces sticks, and it’s a common source of
+          musty AC odors and reduced airflow.
+        </p>
+        <p class="text-base text-white/65">
+          Not every dirty vent means mold, and mold can’t be confirmed by looking. We don’t test for mold. We clean the HVAC components and accessible ductwork where
+          buildup collects.
+        </p>
+      </div>
+      <ul class="mt-8 space-y-3">
+        {
+          items.map((i) => (
+            <li>
+              <a href={i.href} class="group flex items-start gap-4 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10 transition hover:bg-white/10">
+                <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-sky-500 text-white">
+                  <Icon name={i.icon} class="size-5" />
+                </span>
+                <span>
+                  <span class="flex items-center gap-1 font-bold text-white group-hover:text-lime-500">
+                    {i.title} <Icon name="arrowRight" class="size-4" />
+                  </span>
+                  <span class="mt-0.5 block text-white/70">{i.text}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="relative">
+      <div class="absolute -inset-3 rotate-2 rounded-[2rem] bg-gradient-to-br from-sky-400/30 to-lime-500/20"></div>
+      <Image
+        src={foggingImage}
+        alt="Technician applying an antimicrobial treatment through a ceiling vent"
+        widths={[480, 760, 960]}
+        sizes="(min-width: 1024px) 600px, 100vw"
+        class="relative aspect-[4/5] max-h-[620px] w-full rounded-[1.75rem] object-cover shadow-xl"
+      />
+    </div>
+  </div>
+</section>

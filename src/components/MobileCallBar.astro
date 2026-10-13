@@ -1,16 +1,10 @@
 ---
 import Icon from './Icon.astro';
-import type { Location } from '../data/site';
-
-interface Props {
-  location: Location;
-}
-
-const { location } = Astro.props;
+import { site } from '../data/site';
 ---
 
 <div class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 border-t border-navy-800 bg-navy-950 lg:hidden">
-  <a href={location.phoneHref} class="flex items-center justify-center gap-2 py-4 font-bold text-white">
+  <a href={site.phoneHref} class="flex items-center justify-center gap-2 py-4 font-bold text-white">
     <Icon name="phone" class="size-5 text-lime-500" />
     Call Now
   </a>

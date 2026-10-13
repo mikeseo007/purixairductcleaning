@@ -1,14 +1,17 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import ServicesGrid from '../components/ServicesGrid.astro';
+import SectionHeading from '../components/SectionHeading.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import Reviews from '../components/Reviews.astro';
 import LocationsGrid from '../components/LocationsGrid.astro';
 import FAQ from '../components/FAQ.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
-import { services } from '../data/services';
+import Icon from '../components/Icon.astro';
+import { SITE_URL } from '../data/site';
+import { services, serviceGroups, servicesByGroup } from '../data/services';
 import { faqSchema } from '../data/schema';
 
 const breadcrumbs = [
@@ -16,37 +19,171 @@ const breadcrumbs = [
   { name: 'Services', path: '/our-services/' },
 ];
 
+const [duct, hvac, dryer] = serviceGroups.map((g) => ({ ...g, items: servicesByGroup(g.id) }));
+
+const compare = [
+  {
+    problem: 'Dust at the vents, debris in the ducts, or it’s been years since a cleaning',
+    service: 'Air Duct Cleaning',
+    href: '/air-duct-cleaning/',
+  },
+  {
+    problem: 'Weak airflow, a dirty coil, or the AC equipment itself needs attention',
+    service: 'HVAC Cleaning',
+    href: '/hvac-cleaning/',
+  },
+  {
+    problem: 'Musty AC smell or suspected microbial buildup on wet AC components',
+    service: 'HVAC Mold Cleaning',
+    href: '/hvac-mold-cleaning/',
+  },
+  {
+    problem: 'Lingering odor in the ductwork after the ducts are cleaned',
+    service: 'Air Duct Sanitizing',
+    href: '/air-duct-sanitizing/',
+  },
+  {
+    problem: 'Rooms that don’t cool evenly, or you’re not sure what’s wrong',
+    service: 'Air Duct Inspection',
+    href: '/air-duct-inspection/',
+  },
+  {
+    problem: 'Clothes take more than one cycle to dry',
+    service: 'Dryer Vent Cleaning',
+    href: '/dryer-vent-cleaning/',
+  },
+];
+
 const faqs = [
-  services[0].faqs[0],
-  services[1].faqs[0],
-  services[2].faqs[0],
+  {
+    q: 'What’s the difference between air duct cleaning and HVAC cleaning?',
+    a: 'Air duct cleaning covers the ductwork, registers and plenums. HVAC cleaning covers the equipment, including the evaporator coil, blower wheel, drain pan and air handler cabinet. Many systems benefit from both.',
+  },
+  {
+    q: 'How is HVAC mold cleaning different from air duct sanitizing?',
+    a: 'Sanitizing is an antimicrobial treatment applied to duct surfaces after cleaning, usually for lingering odors. HVAC mold cleaning focuses on the wet AC components, such as the coil, drain pan and blower, where microbial buildup is more likely. We don’t test for mold.',
+  },
+  {
+    q: 'Do you clean dryer vents too?',
+    a: 'Yes. Dryer vent cleaning, dryer vent installation and commercial dryer vent cleaning are available alongside our air duct and HVAC services.',
+  },
   {
     q: 'Which areas do you serve?',
-    a: 'We have local teams in Cape Coral, Naples, Fort Lauderdale and Boca Raton, and we serve the surrounding communities in Lee, Collier, Broward and Palm Beach counties.',
+    a: 'We’re based in Miami and serve Miami-Dade, Fort Lauderdale, Boca Raton, Naples and Cape Coral, along with surrounding communities.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Air Duct, Dryer Vent & HVAC Cleaning Services"
-  description="Explore Purix services: air duct cleaning, dryer vent cleaning, air duct sanitizing, HVAC system cleaning and commercial duct cleaning in Cape Coral, Naples, Fort Lauderdale and Boca Raton."
+  title="Air Duct, HVAC & Dryer Vent Cleaning Services | Purix"
+  description="Air duct and AC ductwork cleaning, HVAC, coil, air handler and HVAC mold cleaning, plus dryer vent services in Miami and South Florida. Call (305) 449-9881."
   breadcrumbs={breadcrumbs}
   schema={[
     {
       '@type': 'ItemList',
-      name: 'Purix Air Duct Cleaning services',
-      itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `https://purixairductcleaning.com${s.path}` })),
+      name: 'Purix air duct, HVAC and dryer vent services',
+      itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `${SITE_URL}${s.path}` })),
     },
     faqSchema(faqs),
   ]}
 >
   <PageHeader
     eyebrow="Our services"
-    title="Air Duct, Dryer Vent & HVAC Cleaning Services"
-    subtitle="Professional cleaning for homes and businesses across Cape Coral, Naples, Fort Lauderdale and Boca Raton, focused on cleaner air, better airflow and safer dryer vents."
+    title="Air Duct, AC Ductwork & HVAC Cleaning Services"
+    subtitle="We specialize in the air side of your AC system: the ductwork that carries the air and the equipment that cools it. Dryer vent services are available too."
     breadcrumbs={breadcrumbs}
   />
-  <ServicesGrid eyebrow="What we do" title="Everything Your Air System Needs" />
+
+  {
+    [duct, hvac].map((g, gi) => (
+      <section class:list={['section', gi === 0 ? 'bg-white' : 'bg-sky-50']} id={g.id}>
+        <div class="container-x">
+          <SectionHeading eyebrow={gi === 0 ? 'Ductwork' : 'AC equipment'} title={g.name} intro={g.intro} />
+          <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {g.items.map((s) => (
+              <article class="group relative flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-900/10">
+                <div class="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={s.image}
+                    alt={s.imageAlt}
+                    widths={[400, 560]}
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                    class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <span class="absolute bottom-0 left-6 flex size-12 translate-y-1/2 items-center justify-center rounded-2xl bg-navy-700 text-white shadow-lg">
+                    <Icon name={s.icon} class="size-6" />
+                  </span>
+                </div>
+                <div class="flex flex-1 flex-col p-6 pt-9">
+                  <h3 class="text-xl">
+                    <a href={s.path} class="after:absolute after:inset-0 hover:text-sky-500">
+                      {s.name}
+                    </a>
+                  </h3>
+                  <p class="mt-2 flex-1 leading-relaxed text-muted">{s.card}</p>
+                  <span class="mt-4 inline-flex items-center gap-1.5 font-bold text-navy-700 group-hover:text-sky-500">
+                    Learn more <Icon name="arrowRight" class="size-4" />
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section bg-white" id="dryer">
+    <div class="container-x">
+      <div class="grid items-center gap-8 rounded-3xl border border-slate-100 p-6 shadow-sm sm:p-8 lg:grid-cols-[260px_1fr]">
+        <Image src={dryer.image} alt={dryer.imageAlt} widths={[520]} sizes="260px" class="hidden aspect-[4/3] w-full rounded-2xl object-cover lg:block" />
+        <div>
+          <p class="eyebrow">Also available</p>
+          <h2 class="text-2xl sm:text-3xl">{dryer.name}</h2>
+          <p class="mt-2 text-muted">{dryer.intro}</p>
+          <ul class="mt-5 grid gap-3 md:grid-cols-3">
+            {
+              dryer.items.map((s) => (
+                <li>
+                  <a href={s.path} class="group flex h-full flex-col rounded-2xl bg-sky-50 p-4 ring-1 ring-sky-100 transition hover:bg-sky-100">
+                    <span class="flex items-center gap-2 font-bold text-navy-900 group-hover:text-sky-600">
+                      <Icon name={s.icon} class="size-5 text-sky-500" />
+                      {s.name}
+                    </span>
+                    <span class="mt-1 text-sm text-muted">{s.card}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-sky-50">
+    <div class="container-x max-w-5xl">
+      <SectionHeading eyebrow="Which service do I need?" title="Match the Problem to the Service" center />
+      <div class="mt-10 overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-100">
+        <ul class="divide-y divide-slate-100">
+          {
+            compare.map((c) => (
+              <li class="grid gap-2 p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-6 sm:px-7">
+                <p class="text-ink">{c.problem}</p>
+                <a href={c.href} class="inline-flex items-center gap-1.5 font-bold whitespace-nowrap text-navy-700 hover:text-sky-500">
+                  {c.service} <Icon name="arrowRight" class="size-4" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <p class="mt-6 text-center text-muted">
+        Still not sure? Book an <a href="/air-duct-inspection/" class="font-semibold text-navy-700 underline hover:text-sky-500">air duct inspection</a> and we’ll tell you what we find.
+      </p>
+    </div>
+  </section>
+
   <ProcessSteps />
   <Reviews />
   <FAQ faqs={faqs} />
@@ -57,7 +194,7 @@ const faqs = [
       <div>
         <p class="eyebrow !text-lime-500">Free quote</p>
         <h2 class="text-3xl !text-white sm:text-4xl">Not sure which service you need?</h2>
-        <p class="mt-4 text-lg text-white/80">Tell us what’s going on, whether it’s dust, odors, weak airflow or a slow dryer, and we’ll recommend the right service.</p>
+        <p class="mt-4 text-lg text-white/80">Tell us what’s going on, whether it’s dust at the vents, a musty AC smell, weak airflow or a slow dryer, and we’ll recommend the right service.</p>
       </div>
       <QuoteForm />
     </div>

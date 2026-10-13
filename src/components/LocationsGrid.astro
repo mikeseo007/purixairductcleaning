@@ -1,46 +1,53 @@
 ---
 import Icon from './Icon.astro';
 import SectionHeading from './SectionHeading.astro';
-import { locations } from '../data/site';
+import { locations, site } from '../data/site';
 
 interface Props {
   title?: string;
   intro?: string;
   exclude?: string;
+  service?: { name: string };
+  tint?: boolean;
 }
 
 const {
-  title = 'Local Offices Across Southwest & South Florida',
-  intro = 'Each Purix location is staffed by a local team, so you get fast scheduling and technicians who know homes in your area.',
+  title = 'Areas We Serve in South & Southwest Florida',
+  intro = 'Based in Miami, Purix serves homes and businesses across Miami-Dade, Broward, Palm Beach, Collier and Lee counties.',
   exclude,
+  service,
+  tint = false,
 } = Astro.props;
 const list = locations.filter((l) => l.slug !== exclude);
 ---
 
-<section class="section bg-white">
+<section class:list={['section', tint ? 'bg-sky-50' : 'bg-white']}>
   <div class="container-x">
     <SectionHeading eyebrow="Service areas" title={title} intro={intro} center />
-    <div class:list={['mt-12 grid gap-6 sm:grid-cols-2', list.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3']}>
+    <div class="mt-12 flex flex-wrap justify-center gap-6">
       {
         list.map((loc) => (
-          <article class="group relative flex flex-col rounded-3xl border border-slate-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl hover:shadow-navy-900/10">
+          <article
+            class:list={[
+              'group relative flex w-full flex-col rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl hover:shadow-navy-900/10 sm:w-[calc(50%-12px)]',
+              list.length === 5 ? 'lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)]' : 'lg:w-[calc(25%-18px)]',
+            ]}
+          >
             <span class="flex size-12 items-center justify-center rounded-2xl bg-sky-100 text-navy-700">
               <Icon name="pin" class="size-6" />
             </span>
             <h3 class="mt-5 text-xl">
               <a href={loc.path} class="after:absolute after:inset-0 group-hover:text-sky-500">
-                Air Duct Cleaning {loc.city}
+                {loc.city}, FL
               </a>
             </h3>
             <p class="mt-1 text-sm font-medium text-muted">{loc.county}</p>
-            <address class="mt-4 flex-1 text-[15px] leading-relaxed not-italic text-muted">
-              {loc.street}
-              <br />
-              {loc.city}, FL {loc.zip}
-            </address>
-            <a href={loc.phoneHref} class="relative z-10 mt-5 inline-flex items-center gap-2 font-bold text-navy-700 hover:text-sky-500">
+            <p class="mt-4 flex-1 text-[15px] leading-relaxed text-muted">
+              {service ? `${service.name} and AC system cleaning` : 'Air duct & HVAC cleaning'} in {loc.neighborhoods.slice(0, 3).join(', ')} and nearby.
+            </p>
+            <a href={site.phoneHref} class="relative z-10 mt-5 inline-flex items-center gap-2 font-bold text-navy-700 hover:text-sky-500">
               <Icon name="phone" class="size-4" />
-              {loc.phone}
+              {site.phone}
             </a>
           </article>
         ))

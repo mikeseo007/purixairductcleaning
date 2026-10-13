@@ -1,13 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import LocationsGrid from '../components/LocationsGrid.astro';
+import ServicesSection from '../components/ServicesSection.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icon.astro';
-import { locations } from '../data/site';
-import { services } from '../data/services';
+import { locations, site } from '../data/site';
 
 const breadcrumbs = [
   { name: 'Home', path: '/' },
@@ -16,45 +15,47 @@ const breadcrumbs = [
 ---
 
 <BaseLayout
-  title="Service Areas: Cape Coral, Naples, Fort Lauderdale & Boca Raton"
-  description="Purix Air Duct Cleaning has local teams in Cape Coral, Naples, Fort Lauderdale and Boca Raton, FL. Find your nearest office and the neighborhoods we serve."
+  title="Service Areas in South Florida | Purix Air Duct & HVAC"
+  description="Based in Miami, Purix provides air duct and HVAC cleaning in Miami-Dade, Fort Lauderdale, Boca Raton, Naples and Cape Coral. Call (305) 449-9881."
   breadcrumbs={breadcrumbs}
 >
   <PageHeader
     eyebrow="Service areas"
-    title="Air Duct Cleaning Across Southwest & South Florida"
-    subtitle="Local Purix teams serve Lee, Collier, Broward and Palm Beach counties with air duct, dryer vent and HVAC cleaning."
+    title="Air Duct & HVAC Cleaning Across South Florida"
+    subtitle="Based in Miami, we provide air duct, AC ductwork and HVAC cleaning in Miami-Dade, Broward, Palm Beach, Collier and Lee counties."
     breadcrumbs={breadcrumbs}
   />
 
-  <LocationsGrid title="Find Your Nearest Purix Location" />
-
-  <section class="section bg-sky-50">
+  <section class="section bg-white">
     <div class="container-x grid gap-6 md:grid-cols-2">
       {
-        locations.map((loc) => (
-          <article class="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-100">
+        locations.map((loc, i) => (
+          <article class:list={['rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-100', i === 0 && 'md:col-span-2 bg-sky-50 ring-sky-100']}>
             <h2 class="text-2xl">
               <a href={loc.path} class="hover:text-sky-500">
                 {loc.city}, FL
               </a>
             </h2>
-            <p class="mt-1 text-muted">{loc.county}</p>
+            <p class="mt-1 text-muted">{loc.county}{i === 0 && ' · Our home base'}</p>
             <h3 class="mt-6 text-sm font-bold tracking-wider text-sky-500 uppercase">Neighborhoods</h3>
             <ul class="mt-3 flex flex-wrap gap-2">
               {loc.neighborhoods.map((n) => (
-                <li class="rounded-full bg-sky-50 px-3 py-1.5 text-sm font-medium text-navy-800 ring-1 ring-sky-100">{n}</li>
+                <li class="rounded-full bg-white px-3 py-1.5 text-sm font-medium text-navy-800 ring-1 ring-sky-100">{n}</li>
               ))}
             </ul>
-            <h3 class="mt-6 text-sm font-bold tracking-wider text-sky-500 uppercase">Nearby communities</h3>
-            <p class="mt-2 text-muted">{loc.nearby.join(' · ')}</p>
+            {loc.nearby.length > 0 && (
+              <>
+                <h3 class="mt-6 text-sm font-bold tracking-wider text-sky-500 uppercase">Nearby communities</h3>
+                <p class="mt-2 text-muted">{loc.nearby.join(' · ')}</p>
+              </>
+            )}
             <div class="mt-6 flex flex-wrap gap-3">
-              <a href={loc.phoneHref} class="btn-navy !py-2.5">
+              <a href={site.phoneHref} class="btn-navy !py-2.5">
                 <Icon name="phone" class="size-4" />
-                {loc.phone}
+                {site.phone}
               </a>
               <a href={loc.path} class="inline-flex items-center gap-1.5 px-2 font-bold text-navy-700 hover:text-sky-500">
-                {loc.city} page <Icon name="arrowRight" class="size-4" />
+                {loc.city} services <Icon name="arrowRight" class="size-4" />
               </a>
             </div>
           </article>
@@ -63,32 +64,16 @@ const breadcrumbs = [
     </div>
   </section>
 
-  <section class="section bg-white">
-    <div class="container-x max-w-4xl text-center">
-      <h2 class="text-3xl sm:text-4xl">Services Available in Every Location</h2>
-      <ul class="mt-8 flex flex-wrap justify-center gap-3">
-        {
-          services.map((s) => (
-            <li>
-              <a href={s.path} class="inline-flex items-center gap-2 rounded-full bg-sky-50 px-5 py-3 font-semibold text-navy-800 ring-1 ring-sky-100 hover:bg-navy-700 hover:text-white">
-                <Icon name={s.icon} class="size-5" />
-                {s.name}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+  <ServicesSection title="Services Available in Every Area" bg="sky" />
 
   <Reviews />
 
   <section class="section bg-navy-950">
     <div class="container-x grid items-center gap-10 lg:grid-cols-2">
       <div>
-        <p class="eyebrow !text-lime-500">Not sure which office to call?</p>
+        <p class="eyebrow !text-lime-500">Not sure if we cover your area?</p>
         <h2 class="text-3xl !text-white sm:text-4xl">Send us a request</h2>
-        <p class="mt-4 text-lg text-white/80">Enter your address and we’ll route your request to the team that serves your area.</p>
+        <p class="mt-4 text-lg text-white/80">Enter your address and we’ll confirm service availability and get back to you to schedule.</p>
       </div>
       <QuoteForm />
     </div>

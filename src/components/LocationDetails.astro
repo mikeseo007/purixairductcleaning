@@ -1,48 +1,31 @@
 ---
 import Icon from './Icon.astro';
-import type { Location } from '../data/site';
+import { site, type Location } from '../data/site';
 
 interface Props {
   location: Location;
 }
 
 const { location } = Astro.props;
-const query = encodeURIComponent(`${location.businessName}, ${location.street}, ${location.city}, FL ${location.zip}`);
+const query = encodeURIComponent(`${location.city}, FL`);
 ---
 
 <section class="section bg-white">
   <div class="container-x grid gap-10 lg:grid-cols-5">
     <div class="lg:col-span-2">
-      <p class="eyebrow">Contact {location.city}</p>
-      <h2 class="text-3xl sm:text-4xl">{location.businessName}</h2>
-      <p class="mt-4 text-lg text-muted">Air duct & dryer vent cleaning specialists serving {location.city} and surrounding {location.county} communities.</p>
+      <p class="eyebrow">Service area</p>
+      <h2 class="text-3xl sm:text-4xl">Where we work in {location.city}</h2>
+      <p class="mt-4 text-lg text-muted">
+        Air duct, AC ductwork and HVAC cleaning for homes, condos and businesses in {location.city} and surrounding {location.county} communities.
+      </p>
 
-      <ul class="mt-8 space-y-5">
-        <li class="flex gap-4">
-          <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-navy-700"><Icon name="phone" /></span>
-          <div>
-            <p class="text-sm font-semibold text-muted">Phone</p>
-            <a href={location.phoneHref} class="text-lg font-bold text-navy-900 hover:text-sky-500">{location.phone}</a>
-          </div>
-        </li>
-        <li class="flex gap-4">
-          <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-navy-700"><Icon name="mail" /></span>
-          <div class="min-w-0">
-            <p class="text-sm font-semibold text-muted">Email</p>
-            <a href={`mailto:${location.email}`} class="block truncate font-bold text-navy-900 hover:text-sky-500">{location.email}</a>
-          </div>
-        </li>
-        <li class="flex gap-4">
-          <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-navy-700"><Icon name="pin" /></span>
-          <div>
-            <p class="text-sm font-semibold text-muted">Address</p>
-            <address class="font-bold text-navy-900 not-italic">
-              {location.street}<br />{location.city}, FL {location.zip}
-            </address>
-            <a href={location.mapsUrl} target="_blank" rel="noopener" class="mt-1 inline-block text-sm font-semibold text-sky-500 hover:underline">Get directions</a>
-          </div>
-        </li>
-      </ul>
+      <a href={site.phoneHref} class="mt-8 flex items-center gap-4 rounded-2xl bg-sky-50 p-4 ring-1 ring-sky-100 transition hover:bg-sky-100">
+        <span class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-navy-700 text-white"><Icon name="phone" /></span>
+        <span>
+          <span class="block text-sm font-semibold text-muted">Call to schedule</span>
+          <span class="block text-xl font-extrabold text-navy-900">{site.phone}</span>
+        </span>
+      </a>
 
       <div class="mt-8">
         <p class="font-bold text-navy-900">Neighborhoods we serve</p>
@@ -50,11 +33,19 @@ const query = encodeURIComponent(`${location.businessName}, ${location.street}, 
           {location.neighborhoods.map((n) => <li class="rounded-full bg-sky-50 px-3 py-1.5 text-sm font-medium text-navy-800 ring-1 ring-sky-100">{n}</li>)}
         </ul>
       </div>
+      {
+        location.nearby.length > 0 && (
+          <div class="mt-6">
+            <p class="font-bold text-navy-900">Also nearby</p>
+            <p class="mt-2 text-muted">{location.nearby.join(', ')}</p>
+          </div>
+        )
+      }
     </div>
 
     <div class="min-h-[380px] overflow-hidden rounded-3xl bg-sky-50 shadow-sm ring-1 ring-slate-100 lg:col-span-3">
       <iframe
-        title={`Map of ${location.businessName}`}
+        title={`Map of ${location.city}, FL`}
         src={`https://www.google.com/maps?q=${query}&output=embed`}
         class="h-full min-h-[380px] w-full border-0"
         loading="lazy"

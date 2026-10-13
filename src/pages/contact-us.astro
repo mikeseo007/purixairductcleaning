@@ -4,63 +4,85 @@ import PageHeader from '../components/PageHeader.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Reviews from '../components/Reviews.astro';
 import Icon from '../components/Icon.astro';
-import { locations, site } from '../data/site';
-import { localBusinessSchema } from '../data/schema';
+import { site, fullAddress, locations } from '../data/site';
+import { businessId } from '../data/schema';
 
 const breadcrumbs = [
   { name: 'Home', path: '/' },
   { name: 'Contact Us', path: '/contact-us/' },
 ];
+const mapQuery = encodeURIComponent(`${site.name}, ${fullAddress}`);
 ---
 
 <BaseLayout
-  title="Contact Purix Air Duct Cleaning | Free Quotes & Same-Day Service"
-  description="Contact Purix Air Duct Cleaning for air duct, dryer vent and HVAC cleaning in Cape Coral, Naples, Fort Lauderdale and Boca Raton. Call (239) 441-3477 or request a free quote."
+  title="Contact Purix | Air Duct & HVAC Cleaning in Miami, FL"
+  description="Contact Purix Air Duct & Dryer Vent Cleaning in Miami. Call (305) 449-9881 or request a free quote. Open 24 hours Sunday through Friday."
   breadcrumbs={breadcrumbs}
-  schema={[{ '@type': 'ContactPage', name: 'Contact Purix Air Duct Cleaning', url: `${site.url}/contact-us/` }, ...locations.map(localBusinessSchema)]}
+  schema={[{ '@type': 'ContactPage', name: `Contact ${site.name}`, url: `${site.url}/contact-us/`, about: { '@id': businessId } }]}
 >
   <PageHeader
     eyebrow="Contact us"
-    title="Request Air Duct or Dryer Vent Cleaning"
-    subtitle="Need reliable air duct, dryer vent or HVAC cleaning? Call the office nearest you or send a service request and we’ll get back to you fast."
+    title="Book an Inspection or Get a Free Quote"
+    subtitle="Call us or send a service request for air duct, AC ductwork, HVAC or dryer vent cleaning, and we’ll get back to you to schedule."
     breadcrumbs={breadcrumbs}
   />
 
   <section class="section bg-sky-50">
     <div class="container-x grid gap-10 lg:grid-cols-12">
       <div class="lg:col-span-7">
-        <h2 class="text-3xl sm:text-4xl">Call Your Local Purix Team</h2>
-        <p class="mt-3 text-lg text-muted">Same-day service is often available. Choose the location closest to you.</p>
-        <div class="mt-8 grid gap-5 sm:grid-cols-2">
+        <h2 class="text-3xl sm:text-4xl">{site.name}</h2>
+        <p class="mt-3 text-lg text-muted">Based in Miami, serving Miami-Dade and communities across South and Southwest Florida.</p>
+
+        <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+          <li class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+            <p class="flex items-center gap-2 text-sm font-semibold text-muted"><Icon name="phone" class="size-4" /> Phone</p>
+            <a href={site.phoneHref} class="mt-2 block text-2xl font-extrabold text-navy-700 hover:text-sky-500">{site.phone}</a>
+          </li>
+          <li class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+            <p class="flex items-center gap-2 text-sm font-semibold text-muted"><Icon name="clock" class="size-4" /> Hours</p>
+            <p class="mt-2 font-bold text-navy-900">Sunday – Friday: Open 24 hours</p>
+            <p class="font-bold text-navy-900">Saturday: Closed</p>
+          </li>
+          <li class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+            <p class="flex items-center gap-2 text-sm font-semibold text-muted"><Icon name="pin" class="size-4" /> Address</p>
+            <address class="mt-2 font-bold text-navy-900 not-italic">
+              {site.address.street}<br />{site.address.city}, {site.address.region} {site.address.zip}
+            </address>
+            <a href={site.mapsUrl} target="_blank" rel="noopener" class="mt-1 inline-block text-sm font-semibold text-sky-500 hover:underline">Get directions</a>
+          </li>
+          <li class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+            <p class="flex items-center gap-2 text-sm font-semibold text-muted"><Icon name="mail" class="size-4" /> Email</p>
+            <a href={`mailto:${site.email}`} class="mt-2 block font-bold break-all text-navy-900 hover:text-sky-500">{site.email}</a>
+          </li>
+        </ul>
+
+        <div class="mt-8 overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-100">
+          <iframe
+            title={`Map of ${site.name}`}
+            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            class="h-80 w-full border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+
+        <p class="mt-8 font-bold text-navy-900">Areas we serve</p>
+        <ul class="mt-3 flex flex-wrap gap-2">
           {
-            locations.map((loc) => (
-              <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
-                <h3 class="text-xl">
-                  <a href={loc.path} class="hover:text-sky-500">
-                    {loc.city}, FL
-                  </a>
-                </h3>
-                <a href={loc.phoneHref} class="mt-3 flex items-center gap-2 text-lg font-extrabold text-navy-700 hover:text-sky-500">
-                  <Icon name="phone" class="size-5" />
-                  {loc.phone}
+            locations.map((l) => (
+              <li>
+                <a href={l.path} class="inline-block rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy-800 ring-1 ring-sky-100 hover:bg-sky-100">
+                  {l.city}, FL
                 </a>
-                <a href={`mailto:${loc.email}`} class="mt-2 flex items-center gap-2 text-sm break-all text-muted hover:text-navy-700">
-                  <Icon name="mail" class="size-4 shrink-0" />
-                  {loc.email}
-                </a>
-                <address class="mt-2 flex gap-2 text-sm text-muted not-italic">
-                  <Icon name="pin" class="mt-0.5 size-4 shrink-0" />
-                  <span>
-                    {loc.street}, {loc.city}, FL {loc.zip}
-                  </span>
-                </address>
-              </div>
+              </li>
             ))
           }
-        </div>
+        </ul>
       </div>
       <div class="lg:col-span-5">
-        <QuoteForm heading="Send a Service Request" />
+        <div class="lg:sticky lg:top-28">
+          <QuoteForm heading="Send a Service Request" />
+        </div>
       </div>
     </div>
   </section>

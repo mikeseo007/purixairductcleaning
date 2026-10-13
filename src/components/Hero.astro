@@ -4,7 +4,7 @@ import type { ImageMetadata } from 'astro';
 import Icon from './Icon.astro';
 import QuoteForm from './QuoteForm.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
-import { mainLocation, type Location } from '../data/site';
+import { site, type Location } from '../data/site';
 
 interface Props {
   eyebrow?: string;
@@ -24,10 +24,10 @@ const {
   subtitle,
   image,
   imageAlt,
-  location = mainLocation,
+  location,
   service,
   breadcrumbs,
-  points = ['Same-day service', 'Residential & commercial', 'Experienced technicians'],
+  points = ['Air duct & HVAC specialists', 'Residential & commercial', 'Open 24 hours, Sun–Fri'],
 } = Astro.props;
 ---
 
@@ -62,11 +62,11 @@ const {
       </ul>
 
       <div class="mt-9 flex flex-wrap gap-3">
-        <a href={location.phoneHref} class="btn-primary !px-7 !py-4 text-lg">
+        <a href={site.phoneHref} class="btn-primary !px-7 !py-4 text-lg">
           <Icon name="phone" class="size-5" />
-          Call {location.phone}
+          Call {site.phone}
         </a>
-        <a href="#quote" class="btn-outline !px-7 !py-4 text-lg">Get a Free Quote</a>
+        <a href="#quote" class="btn-outline !px-7 !py-4 text-lg">Book an Inspection</a>
       </div>
     </div>
 

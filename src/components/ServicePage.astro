@@ -3,15 +3,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from './Hero.astro';
 import TrustBar from './TrustBar.astro';
 import SplitSection from './SplitSection.astro';
+import SectionHeading from './SectionHeading.astro';
 import SignsBenefits from './SignsBenefits.astro';
-import ServicesGrid from './ServicesGrid.astro';
+import ProcessSteps from './ProcessSteps.astro';
+import ServicesSection from './ServicesSection.astro';
 import Reviews from './Reviews.astro';
 import LocationsGrid from './LocationsGrid.astro';
 import FAQ from './FAQ.astro';
 import CtaBand from './CtaBand.astro';
-import { getService } from '../data/services';
+import Icon from './Icon.astro';
+import { getService, serviceGroups } from '../data/services';
 import { serviceSchema, faqSchema } from '../data/schema';
-import { locations } from '../data/site';
+import { site } from '../data/site';
 
 interface Props {
   slug: string;
@@ -19,57 +22,108 @@ interface Props {
 
 const { slug } = Astro.props;
 const s = getService(slug);
+const group = serviceGroups.find((g) => g.id === s.group)!;
+const parent = s.parent ? getService(s.parent) : undefined;
+const related = s.related.map(getService);
 
 const breadcrumbs = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/our-services/' },
+  ...(parent ? [{ name: parent.name, path: parent.path }] : []),
   { name: s.name, path: s.path },
 ];
-
-const cityLinks = locations
-  .map((l) => `<a href="${l.path}">${s.name.toLowerCase()} in ${l.city}</a>`)
-  .join(', ')
-  .replace(/, ([^,]*)$/, ' and $1');
 ---
 
 <BaseLayout title={s.metaTitle} description={s.metaDescription} breadcrumbs={breadcrumbs} schema={[serviceSchema(s), faqSchema(s.faqs)]}>
   <Hero
-    eyebrow="Serving Cape Coral, Naples, Fort Lauderdale & Boca Raton"
+    eyebrow={group.name}
     title={s.h1}
     subtitle={s.heroSubtitle}
-    image={s.introImage}
-    imageAlt={s.introImageAlt}
+    image={s.image}
+    imageAlt={s.imageAlt}
     service={s.name}
     breadcrumbs={breadcrumbs}
   />
   <TrustBar />
 
-  <SplitSection eyebrow={s.name} heading={`${s.name} You Can Trust`} paragraphs={s.intro} image={s.cardImage} imageAlt={s.cardImageAlt}>
-    <p>We offer {s.name.toLowerCase()} from four local offices. See our pages for <Fragment set:html={cityLinks} />.</p>
-  </SplitSection>
+  <SplitSection eyebrow={s.name} heading={s.introHeading} paragraphs={s.intro} image={s.secondImage} imageAlt={s.secondImageAlt} phone={{ label: site.phone, href: site.phoneHref }} />
+
+  <section class="section bg-sky-50">
+    <div class="container-x">
+      <SectionHeading eyebrow="What’s included" title={s.componentsHeading} center />
+      <div class="mt-12 flex flex-wrap justify-center gap-6">
+        {
+          s.components.map((c) => (
+            <div
+              class:list={[
+                'w-full rounded-3xl bg-white p-7 shadow-sm sm:w-[calc(50%-12px)]',
+                s.components.length % 3 === 0 || s.components.length === 5 ? 'lg:w-[calc(33.333%-16px)]' : 'lg:w-[calc(25%-18px)]',
+              ]}
+            >
+              <span class="flex size-12 items-center justify-center rounded-2xl bg-navy-700 text-white">
+                <Icon name={s.icon} class="size-6" />
+              </span>
+              <h3 class="mt-5 text-lg">{c.title}</h3>
+              <p class="mt-2 leading-relaxed text-muted">{c.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
   <SignsBenefits signsHeading={s.signsHeading} signs={s.signs} benefitsHeading={s.benefitsHeading} benefits={s.benefits} />
 
+  <ProcessSteps title={s.processHeading} steps={s.process} />
+
   {
-    s.sections.map((section, i) =>
-      section.image ? (
-        <SplitSection heading={section.heading} paragraphs={section.paragraphs} image={section.image} imageAlt={section.imageAlt ?? section.heading} reverse={i % 2 === 0} tint={i % 2 === 0} />
-      ) : (
-        <section class:list={['section', i % 2 === 0 ? 'bg-sky-50' : 'bg-white']}>
-          <div class="container-x max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl">{section.heading}</h2>
-            <div class="prose-purix mt-6">
-              {section.paragraphs.map((p) => <p>{p}</p>)}
+    s.note && (
+      <section class="section bg-white">
+        <div class="container-x max-w-4xl">
+          <div class="rounded-3xl border border-sky-200 bg-sky-50 p-8 sm:p-10">
+            <div class="flex items-start gap-4">
+              <span class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white text-navy-700 shadow-sm">
+                <Icon name="shield" class="size-6" />
+              </span>
+              <div>
+                <h2 class="text-2xl sm:text-3xl">{s.note.heading}</h2>
+                <div class="prose-purix mt-4">
+                  {s.note.paragraphs.map((p) => <p set:html={p} />)}
+                </div>
+              </div>
             </div>
           </div>
-        </section>
-      ),
+        </div>
+      </section>
     )
   }
 
-  <Reviews />
+  <section class:list={['bg-white', s.note ? 'pb-16 sm:pb-20' : 'section']}>
+    <div class="container-x">
+      <h2 class="text-2xl sm:text-3xl">Related services</h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          related.map((r) => (
+            <li>
+              <a href={r.path} class="group flex h-full gap-4 rounded-2xl border border-slate-100 p-5 shadow-sm transition hover:border-sky-200 hover:bg-sky-50">
+                <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-navy-700">
+                  <Icon name={r.icon} class="size-5" />
+                </span>
+                <span>
+                  <span class="block font-bold text-navy-900 group-hover:text-sky-500">{r.name}</span>
+                  <span class="mt-1 block text-sm leading-snug text-muted">{r.card}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Reviews limit={3} />
   <FAQ faqs={s.faqs} title={`${s.name} FAQs`} />
-  <ServicesGrid eyebrow="More services" title="Other Services We Offer" exclude={s.slug} />
-  <LocationsGrid title={`${s.name} Near You`} />
-  <CtaBand title={`Schedule ${s.name.toLowerCase()} today`} />
+  <ServicesSection eyebrow="All services" title="Explore Our Air Duct & HVAC Services" current={s.slug} bg="sky" />
+  <LocationsGrid title={`${s.name} Service Areas`} service={s} />
+  <CtaBand title={`Schedule ${s.name} in Miami`} text={`Call ${site.phone} to schedule an inspection or get a quote. Open 24 hours Sunday through Friday.`} />
 </BaseLayout>

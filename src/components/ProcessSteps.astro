@@ -3,34 +3,37 @@ import SectionHeading from './SectionHeading.astro';
 
 interface Props {
   title?: string;
+  eyebrow?: string;
+  steps?: { title: string; text: string }[];
 }
 
-const { title = 'How Our Air Duct Cleaning Works' } = Astro.props;
-
-const steps = [
+const defaultSteps = [
   {
     title: 'Inspect',
-    text: 'We look at your vents, returns and accessible ductwork, and explain what we find before any work begins.',
+    text: 'We look at your vents, returns, accessible ductwork and AC equipment, and explain what we find before any work begins.',
   },
   {
     title: 'Protect',
-    text: 'Floors and work areas are covered, and the system is put under negative air pressure so debris leaves your home.',
+    text: 'Floors and work areas are covered, and the duct system is put under negative air pressure so loosened debris is pulled out, not pushed into the room.',
   },
   {
     title: 'Clean',
-    text: 'Brushes and air whips break buildup loose from every run, while our collection unit pulls it out.',
+    text: 'Brushes and air whips break buildup loose from the ductwork while the collection unit captures it. Equipment is cleaned according to the scope you approved.',
   },
   {
     title: 'Walk Through',
-    text: 'We show you the results, clean the grilles and registers, and recommend any optional next steps.',
+    text: 'We show you the results, clean the grilles and registers, and point out anything that may need attention later.',
   },
 ];
+
+const { title = 'How Our Air Duct & HVAC Cleaning Works', eyebrow = 'Our process', steps = defaultSteps } = Astro.props;
+const cols = steps.length === 3 ? 'lg:grid-cols-3' : steps.length === 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4';
 ---
 
 <section class="section bg-sky-50">
   <div class="container-x">
-    <SectionHeading eyebrow="Our process" title={title} center />
-    <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <SectionHeading eyebrow={eyebrow} title={title} center />
+    <ol class:list={['mt-12 grid gap-6 sm:grid-cols-2', cols]}>
       {
         steps.map((s, i) => (
           <li class="relative rounded-3xl bg-white p-7 shadow-sm">

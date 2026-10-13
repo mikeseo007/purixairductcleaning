@@ -30,18 +30,19 @@ export default defineConfig({
         const path = item.url.replace(site, '');
         item.lastmod = new Date().toISOString();
 
+        item.changefreq = 'monthly';
         if (path === '/') {
           item.changefreq = 'weekly';
           item.priority = 1.0;
-        } else if (['/boca-raton/', '/fort-lauderdale/', '/naples/'].includes(path) || path.includes('cleaning') || path.includes('sanitizing')) {
-          item.changefreq = 'monthly';
-          item.priority = 0.9;
         } else if (path.startsWith('/blog/')) {
-          item.changefreq = 'monthly';
           item.priority = 0.6;
+        } else if (['/our-services/', '/service-areas/'].includes(path)) {
+          item.priority = 0.8;
+        } else if (['/about-us/', '/contact-us/', '/privacy-policy/'].includes(path)) {
+          item.priority = path === '/privacy-policy/' ? 0.3 : 0.7;
         } else {
-          item.changefreq = 'monthly';
-          item.priority = 0.7;
+          // Service and location pages.
+          item.priority = 0.9;
         }
         return item;
       },

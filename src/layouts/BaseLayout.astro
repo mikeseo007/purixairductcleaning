@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileCallBar from '../components/MobileCallBar.astro';
 import { SITE_URL, site, mainLocation, type Location } from '../data/site';
-import { organizationSchema, websiteSchema, breadcrumbSchema } from '../data/schema';
+import { businessSchema, websiteSchema, breadcrumbSchema } from '../data/schema';
 
 interface Props {
   title: string;
@@ -35,7 +35,7 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
 const ogImage = new URL(image, SITE_URL).toString();
 
 const graph = [
-  organizationSchema(),
+  businessSchema(),
   websiteSchema(),
   ...(breadcrumbs ? [breadcrumbSchema(breadcrumbs)] : []),
   ...schema,
@@ -65,7 +65,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Purix Air Duct Cleaning service van" />
+    <meta property="og:image:alt" content="Purix technician cleaning AC ductwork" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@PurixAirDuct" />
     <meta name="twitter:title" content={fullTitle} />
@@ -83,11 +83,11 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2">
       Skip to content
     </a>
-    <Header location={location} />
+    <Header />
     <main id="main">
       <slot />
     </main>
     <Footer />
-    <MobileCallBar location={location} />
+    <MobileCallBar />
   </body>
 </html>

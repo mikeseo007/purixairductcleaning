@@ -3,13 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SplitSection from '../components/SplitSection.astro';
 import TrustBar from '../components/TrustBar.astro';
+import ServicesSection from '../components/ServicesSection.astro';
 import Reviews from '../components/Reviews.astro';
 import LocationsGrid from '../components/LocationsGrid.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icon.astro';
-import van from '../assets/images/purix-service-van-cape-coral.jpg';
+import technicianAttic from '../assets/images/technician-cleaning-attic-duct.jpg';
 import technicians from '../assets/images/technicians-living-room-duct-cleaning.png';
+import { site } from '../data/site';
 
 const breadcrumbs = [
   { name: 'Home', path: '/' },
@@ -17,47 +19,47 @@ const breadcrumbs = [
 ];
 
 const values = [
-  { icon: 'search', title: 'Honest inspections', text: 'We explain what we find before we start, and we never push services you don’t need.' },
-  { icon: 'shield', title: 'Careful, clean work', text: 'Floors and work areas are protected, and debris goes into our equipment, not your home.' },
-  { icon: 'users', title: 'Walkthrough after every job', text: 'We show you the results so you can see exactly what was removed from your system.' },
-  { icon: 'bolt', title: 'Fast, reliable scheduling', text: 'Same-day service is often available, and we show up when we say we will.' },
+  { icon: 'search', title: 'Honest inspections', text: 'We explain what we find before we start, and we recommend only the services your system actually needs.' },
+  { icon: 'shield', title: 'Careful, clean work', text: 'Floors and work areas are protected, and loosened debris goes into our collection equipment.' },
+  { icon: 'users', title: 'Walkthrough after every job', text: 'We show you the results and point out anything that may need attention later.' },
+  { icon: 'clock', title: 'Open 24 hours, Sun–Fri', text: 'Call any time Sunday through Friday to book an inspection or get a quote.' },
 ];
 ---
 
 <BaseLayout
-  title="About Purix Air Duct Cleaning | Florida Air Duct Experts"
-  description="Purix Air Duct Cleaning helps homeowners and businesses in Cape Coral, Naples, Fort Lauderdale and Boca Raton breathe cleaner air with professional duct and dryer vent cleaning."
+  title="About Purix | Miami Air Duct & HVAC Cleaning Company"
+  description="Purix Air Duct & Dryer Vent Cleaning is a Miami company focused on air duct, AC ductwork and HVAC cleaning for homes and businesses. Call (305) 449-9881."
   breadcrumbs={breadcrumbs}
 >
   <PageHeader
     eyebrow="About us"
-    title="Your Trusted Air Duct Cleaning Experts in Florida"
-    subtitle="Purix Air Duct Cleaning is dedicated to helping homeowners and businesses maintain cleaner, healthier and more comfortable indoor environments."
+    title="Miami’s Air Duct & HVAC Cleaning Team"
+    subtitle={`${site.name} helps homeowners and businesses keep their AC ductwork and HVAC equipment clean.`}
     breadcrumbs={breadcrumbs}
   />
   <TrustBar />
 
   <SplitSection
     eyebrow="Who we are"
-    heading="Professional Air Duct & Dryer Vent Cleaning Services"
-    image={van}
-    imageAlt="Purix Air Duct Cleaning service van at a customer's home in Cape Coral"
+    heading="Focused on the air side of your AC system"
+    image={technicianAttic}
+    imageAlt="Purix technician working on flexible AC ductwork through a ceiling opening"
     paragraphs={[
-      'Purix Air Duct Cleaning serves homes and businesses from local offices in Cape Coral, Naples, Fort Lauderdale and Boca Raton. We specialize in residential and commercial air duct cleaning, dryer vent cleaning, HVAC system cleaning and air duct sanitizing.',
-      'Using professional equipment and proven cleaning methods, our technicians remove dust, allergens, lint, debris and buildup from HVAC systems and dryer vents to improve system performance, safety and indoor comfort.',
+      'Purix is based in Miami and serves homes and businesses across South Florida, with service in Miami-Dade, Fort Lauderdale, Boca Raton, Naples and Cape Coral. Our main focus is air conditioning systems: air duct and AC ductwork cleaning, duct inspection and replacement, and cleaning for the coils, air handlers and blower wheels inside the equipment.',
+      'We also help homeowners deal with musty AC odors and suspected microbial buildup on HVAC components, and we offer dryer vent cleaning and installation for homes and commercial laundry.',
     ]}
   />
 
   <SplitSection
-    eyebrow="Our promise"
-    heading="Reliable Service You Can Count On"
+    eyebrow="How we approach each job"
+    heading="Clear scope, careful work, honest results"
     image={technicians}
     imageAlt="Purix technicians preparing equipment for an air duct cleaning"
     reverse
     tint
     paragraphs={[
-      'We focus on dependable workmanship, honest service and customer satisfaction. Whether you need routine maintenance or a complete duct cleaning, our team works hard to deliver detailed cleanings and long-lasting results for every property we service.',
-      'Clean air plays an important role in a safer and more comfortable home or workplace. Our goal is to help property owners maintain cleaner airflow, better energy efficiency and healthier indoor spaces through professional service you can trust.',
+      'Every system is different. A Miami condo with a closet air handler needs a different approach than a single-family home with long attic duct runs. We look at your system first, explain what we see, and agree on the scope before any work begins.',
+      'We’re straightforward about what cleaning can and can’t do. It removes buildup from your ducts and equipment. It doesn’t replace repairs, and it isn’t a medical treatment. If we see damaged ductwork or a moisture problem, we’ll tell you.',
     ]}
   />
 
@@ -83,15 +85,16 @@ const values = [
     </div>
   </section>
 
+  <ServicesSection bg="sky" />
   <Reviews />
-  <LocationsGrid />
+  <LocationsGrid tint />
 
   <section class="section bg-navy-950">
     <div class="container-x grid items-center gap-10 lg:grid-cols-2">
       <div>
         <p class="eyebrow !text-lime-500">Get in touch</p>
         <h2 class="text-3xl !text-white sm:text-4xl">Schedule Your Cleaning</h2>
-        <p class="mt-4 text-lg text-white/80">Send us a request and the team nearest you will call you back to confirm the details and give you a free quote.</p>
+        <p class="mt-4 text-lg text-white/80">Send us a request and we’ll call you back to confirm the details and give you a free quote.</p>
       </div>
       <QuoteForm />
     </div>

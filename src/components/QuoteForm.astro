@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { locations, type Location } from '../data/site';
-import { services } from '../data/services';
+import { serviceGroups, servicesByGroup } from '../data/services';
 
 interface Props {
   location?: Location;
@@ -11,7 +11,7 @@ interface Props {
   compact?: boolean;
 }
 
-const { location, service, heading = 'Request Same-Day Service', id = 'quote', compact = false } = Astro.props;
+const { location, service, heading = 'Request a Free Quote', id = 'quote', compact = false } = Astro.props;
 const cols = compact ? 'grid gap-4' : 'grid gap-4 sm:grid-cols-2';
 const field =
   'w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-ink placeholder:text-slate-400 transition focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none';
@@ -19,7 +19,7 @@ const field =
 
 <div id={id} class="scroll-mt-28 rounded-3xl bg-white p-6 shadow-2xl shadow-navy-950/25 sm:p-8">
   <p class="text-2xl font-extrabold text-navy-900">{heading}</p>
-  <p class="mt-1 text-muted">Tell us what you need and we’ll call you back fast.</p>
+  <p class="mt-1 text-muted">Tell us about your AC system or vent and we’ll get back to you to schedule.</p>
 
   <form name="service-request" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company" class="mt-6 grid gap-4">
     <input type="hidden" name="form-name" value="service-request" />
@@ -59,19 +59,23 @@ const field =
         <select class={field} name="service">
           <option value="">Service needed</option>
           {
-            services.map((s) => (
-              <option value={s.name} selected={s.name === service}>
-                {s.name}
-              </option>
+            serviceGroups.map((g) => (
+              <optgroup label={g.name}>
+                {servicesByGroup(g.id).map((s) => (
+                  <option value={s.name} selected={s.name === service}>
+                    {s.name}
+                  </option>
+                ))}
+              </optgroup>
             ))
           }
-          <option value="Not sure / Inspection">Not sure / Inspection</option>
+          <option value="Not sure">Not sure, please advise</option>
         </select>
       </label>
       <label class="block">
-        <span class="sr-only">Nearest location</span>
+        <span class="sr-only">Service area</span>
         <select class={field} name="location">
-          <option value="">Nearest location</option>
+          <option value="">Service area</option>
           {
             locations.map((l) => (
               <option value={l.city} selected={l.slug === location?.slug}>

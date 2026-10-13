@@ -3,30 +3,40 @@ import type { Service } from './services';
 
 const abs = (path: string) => new URL(path, SITE_URL).toString();
 
-export const orgId = `${SITE_URL}/#organization`;
+export const businessId = `${SITE_URL}/#business`;
 export const websiteId = `${SITE_URL}/#website`;
-const locationId = (loc: Location) => `${abs(loc.path)}#localbusiness`;
 
-const serviceTypes = [
-  'Air Duct Cleaning',
-  'Dryer Vent Cleaning',
-  'Air Duct Sanitizing',
-  'HVAC System Cleaning',
-  'Commercial Air Duct Cleaning',
-];
-
-export function organizationSchema() {
+export function businessSchema() {
   return {
-    '@type': 'Organization',
-    '@id': orgId,
+    '@type': 'HVACBusiness',
+    '@id': businessId,
     name: site.name,
     url: SITE_URL,
     logo: abs('/favicon.png'),
     image: abs('/og-image.jpg'),
     telephone: site.phone,
     email: site.email,
+    priceRange: '$$',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      postalCode: site.address.zip,
+      addressCountry: 'US',
+    },
+    hasMap: site.mapsUrl,
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: site.hours.days,
+        opens: '00:00',
+        closes: '23:59',
+      },
+    ],
+    areaServed: locations.map((l) => ({ '@type': 'City', name: `${l.city}, FL` })),
+    knowsAbout: ['Air duct cleaning', 'AC ductwork', 'HVAC cleaning', 'AC coil cleaning', 'Air handler cleaning', 'Dryer vent cleaning'],
     sameAs: Object.values(site.social),
-    department: locations.map((l) => ({ '@id': locationId(l) })),
   };
 }
 
@@ -36,47 +46,8 @@ export function websiteSchema() {
     '@id': websiteId,
     url: SITE_URL,
     name: site.name,
-    publisher: { '@id': orgId },
+    publisher: { '@id': businessId },
     inLanguage: 'en-US',
-  };
-}
-
-export function localBusinessSchema(loc: Location) {
-  return {
-    '@type': 'HVACBusiness',
-    '@id': locationId(loc),
-    name: loc.businessName,
-    url: abs(loc.path),
-    image: abs('/og-image.jpg'),
-    logo: abs('/favicon.png'),
-    telephone: loc.phone,
-    email: loc.email,
-    priceRange: '$$',
-    parentOrganization: { '@id': orgId },
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: loc.street,
-      addressLocality: loc.city,
-      addressRegion: 'FL',
-      postalCode: loc.zip,
-      addressCountry: 'US',
-    },
-    hasMap: loc.mapsUrl,
-    areaServed: [loc.city, ...loc.nearby].map((name) => ({
-      '@type': 'City',
-      name: `${name}, FL`,
-    })),
-    knowsAbout: serviceTypes,
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: `Air duct cleaning services in ${loc.city}`,
-      itemListElement: serviceTypes.map((name) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: `${name} in ${loc.city}, FL` },
-      })),
-    },
-    ...(loc.slug === 'cape-coral' ? { sameAs: Object.values(site.social) } : {}),
-    ...(loc.website ? { sameAs: [loc.website] } : {}),
   };
 }
 
@@ -88,8 +59,20 @@ export function serviceSchema(service: Service) {
     serviceType: service.name,
     description: service.metaDescription,
     url: abs(service.path),
-    provider: { '@id': orgId },
+    provider: { '@id': businessId },
     areaServed: locations.map((l) => ({ '@type': 'City', name: `${l.city}, FL` })),
+  };
+}
+
+export function serviceAreaSchema(loc: Location) {
+  return {
+    '@type': 'Service',
+    '@id': `${abs(loc.path)}#service-area`,
+    name: `Air duct & HVAC cleaning in ${loc.city}, FL`,
+    serviceType: 'Air duct and HVAC cleaning',
+    url: abs(loc.path),
+    provider: { '@id': businessId },
+    areaServed: { '@type': 'City', name: `${loc.city}, FL` },
   };
 }
 
@@ -126,7 +109,7 @@ export function articleSchema(a: { title: string; description: string; path: str
     datePublished: a.datePublished,
     dateModified: a.datePublished,
     image: a.image,
-    author: { '@id': orgId },
-    publisher: { '@id': orgId },
+    author: { '@id': businessId },
+    publisher: { '@id': businessId },
   };
 }

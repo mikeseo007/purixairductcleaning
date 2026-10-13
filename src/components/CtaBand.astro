@@ -1,17 +1,15 @@
 ---
 import Icon from './Icon.astro';
-import { mainLocation, type Location } from '../data/site';
+import { site } from '../data/site';
 
 interface Props {
-  location?: Location;
   title?: string;
   text?: string;
 }
 
 const {
-  location = mainLocation,
-  title = 'Ready to breathe cleaner air?',
-  text = 'Same-day service is often available. Call now or request a free quote and we’ll get back to you fast.',
+  title = 'Ready to get your AC system cleaned?',
+  text = `Call to book an inspection or request a free quote. We’re open 24 hours Sunday through Friday.`,
 } = Astro.props;
 ---
 
@@ -25,11 +23,11 @@ const {
         <p class="mt-3 max-w-2xl text-lg text-white/80">{text}</p>
       </div>
       <div class="relative mt-8 flex shrink-0 flex-wrap gap-3 lg:mt-0">
-        <a href={location.phoneHref} class="btn-primary !px-7 !py-4 text-lg">
+        <a href={site.phoneHref} class="btn-primary !px-7 !py-4 text-lg">
           <Icon name="phone" class="size-5" />
-          {location.phone}
+          {site.phone}
         </a>
-        <a href="/contact-us/" class="btn-outline !px-7 !py-4 text-lg">Request Service</a>
+        <a href="/contact-us/#quote" class="btn-outline !px-7 !py-4 text-lg">Get a Free Quote</a>
       </div>
     </div>
   </div>

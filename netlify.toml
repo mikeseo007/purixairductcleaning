@@ -11,9 +11,10 @@
   to = "/blog/"
   status = 301
 
+# Renamed when the service structure was reorganized.
 [[redirects]]
-  from = "/cape-coral/"
-  to = "/"
+  from = "/hvac-system-cleaning/"
+  to = "/hvac-cleaning/"
   status = 301
 
 [[redirects]]

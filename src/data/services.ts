@@ -1,430 +1,993 @@
 import type { ImageMetadata } from 'astro';
 import ceilingVentBrush from '../assets/images/ceiling-vent-brush-cleaning.webp';
-import negativeAirMachine from '../assets/images/negative-air-machine-duct-cleaning.jpg';
-import residentialDuct from '../assets/images/residential-air-duct-cleaning.webp';
+import negativeAir from '../assets/images/negative-air-machine-duct-cleaning.jpg';
 import technicianAttic from '../assets/images/technician-cleaning-attic-duct.jpg';
-import dryerBeforeAfter from '../assets/images/dryer-duct-before-after.webp';
+import livingRoom from '../assets/images/technicians-living-room-duct-cleaning.png';
+import floorVacuum from '../assets/images/floor-register-vacuum.webp';
+import dirtyFloorRegister from '../assets/images/dirty-floor-register.webp';
+import dirtySupply from '../assets/images/dirty-supply-register.webp';
+import commercialCeiling from '../assets/images/commercial-ceiling-duct-cleaning.webp';
+import commercialSpiral from '../assets/images/commercial-spiral-duct-diffuser.webp';
+import commercialBeforeAfter from '../assets/images/commercial-duct-before-after.webp';
+import fogging from '../assets/images/technician-fogging-vent-sanitizing.webp';
+import roundDuct from '../assets/images/round-duct-before-after.webp';
+import ceilingHose from '../assets/images/technician-ceiling-vent-hose.webp';
+import returnFilter from '../assets/images/return-grille-filter-change.webp';
+import grille from '../assets/images/vent-grille-cleaning.webp';
+import hoseTeam from '../assets/images/technicians-duct-hose-cleaning.webp';
+import trunkBrush from '../assets/images/trunk-duct-brush-cleaning.webp';
+import brushCeiling from '../assets/images/technician-brush-ceiling-vent.webp';
 import rooftopDryer from '../assets/images/rooftop-dryer-vent-cleaning.jpg';
-import dryerLint from '../assets/images/dryer-vent-lint-removal.webp';
-import dryerService from '../assets/images/dryer-vent-cleaning-service.webp';
-import sanitizing from '../assets/images/air-duct-sanitizing.webp';
-import ventTechnician from '../assets/images/air-vent-cleaning-technician.webp';
-import dustRemoval from '../assets/images/air-duct-dust-removal.webp';
-import grilleCleaning from '../assets/images/vent-grille-cleaning.webp';
-import hvacDeepClean from '../assets/images/hvac-system-deep-cleaning.webp';
-import hvacMaintenance from '../assets/images/hvac-air-duct-maintenance.webp';
-import commercialHvac from '../assets/images/commercial-hvac-duct-cleaning.webp';
-import commercialDuct from '../assets/images/commercial-air-duct-cleaning.webp';
-import professionalDuct from '../assets/images/professional-air-duct-cleaning.webp';
+import dryerBeforeAfter from '../assets/images/dryer-duct-before-after.webp';
+import roofCap from '../assets/images/roof-dryer-vent-cap.webp';
+import dryerBrush from '../assets/images/dryer-vent-brush-cleaning.webp';
+import dryerFlex from '../assets/images/dryer-vent-flex-before-after.webp';
 
-export type IconName = 'duct' | 'dryer' | 'sanitize' | 'hvac' | 'building';
+export type GroupId = 'duct' | 'hvac' | 'dryer';
 
-export interface ServiceSection {
-  heading: string;
-  paragraphs: string[];
-  image?: ImageMetadata;
-  imageAlt?: string;
+export interface ServiceGroup {
+  id: GroupId;
+  name: string;
+  intro: string;
+  hub: string;
+  image: ImageMetadata;
+  imageAlt: string;
 }
+
+export const serviceGroups: ServiceGroup[] = [
+  {
+    id: 'duct',
+    name: 'Air Duct & AC Ductwork Services',
+    intro: 'Cleaning, inspection, sanitizing and replacement for the supply and return ducts that carry your conditioned air.',
+    hub: '/air-duct-cleaning/',
+    image: ceilingVentBrush,
+    imageAlt: 'Technician cleaning inside a ceiling supply duct with a rotary brush',
+  },
+  {
+    id: 'hvac',
+    name: 'HVAC & Mold Cleaning Services',
+    intro: 'Cleaning for the components inside your AC system, including coils, air handlers and blower wheels, plus help with musty odors and suspected microbial buildup.',
+    hub: '/hvac-cleaning/',
+    image: ceilingHose,
+    imageAlt: 'Purix technician connecting cleaning equipment at a ceiling vent',
+  },
+  {
+    id: 'dryer',
+    name: 'Dryer Vent Services',
+    intro: 'Lint removal, new vent installation and commercial dryer vent cleaning.',
+    hub: '/dryer-vent-cleaning/',
+    image: rooftopDryer,
+    imageAlt: 'Technician cleaning a rooftop dryer vent',
+  },
+];
+
+export type IconName =
+  | 'duct'
+  | 'home'
+  | 'building'
+  | 'sanitize'
+  | 'search'
+  | 'wrench'
+  | 'hvac'
+  | 'droplet'
+  | 'coil'
+  | 'box'
+  | 'fan'
+  | 'dryer';
 
 export interface Service {
   slug: string;
   path: string;
   name: string;
+  group: GroupId;
+  parent?: string;
   icon: IconName;
   card: string;
-  cardImage: ImageMetadata;
-  cardImageAlt: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  secondImage: ImageMetadata;
+  secondImageAlt: string;
   metaTitle: string;
   metaDescription: string;
   h1: string;
   heroSubtitle: string;
+  introHeading: string;
   intro: string[];
-  introImage: ImageMetadata;
-  introImageAlt: string;
+  componentsHeading: string;
+  components: { title: string; text: string }[];
   signsHeading: string;
   signs: string[];
+  processHeading: string;
+  process: { title: string; text: string }[];
   benefitsHeading: string;
   benefits: { title: string; text: string }[];
-  sections: ServiceSection[];
+  note?: { heading: string; paragraphs: string[] };
   faqs: { q: string; a: string }[];
+  related: string[];
 }
 
+const a = (path: string, text: string) => `<a href="${path}">${text}</a>`;
+
 export const services: Service[] = [
+  // ───────────── Air Duct & AC Ductwork ─────────────
   {
     slug: 'air-duct-cleaning',
     path: '/air-duct-cleaning/',
     name: 'Air Duct Cleaning',
+    group: 'duct',
     icon: 'duct',
-    card: 'Deep cleaning of supply and return ducts to remove dust, pet dander, pollen and debris that circulate every time your AC runs.',
-    cardImage: residentialDuct,
-    cardImageAlt: 'Technician performing residential air duct cleaning in a Florida home',
-    metaTitle: 'Air Duct Cleaning in Cape Coral, Naples & South FL | Purix',
+    card: 'Full supply and return duct cleaning under negative pressure to remove the dust and debris that build up in your AC ductwork.',
+    image: negativeAir,
+    imageAlt: 'Negative air collection machine connected to a home duct system',
+    secondImage: hoseTeam,
+    secondImageAlt: 'Two Purix technicians running duct cleaning hoses through a wall register',
+    metaTitle: 'Air Duct Cleaning Miami, FL | AC Ductwork Cleaning | Purix',
     metaDescription:
-      'Professional residential and commercial air duct cleaning in Southwest and South Florida. Remove dust, allergens and odors and restore airflow. Same-day service. Call (239) 441-3477.',
-    h1: 'Professional Air Duct Cleaning',
-    heroSubtitle: 'Cleaner air, stronger airflow and a more efficient AC for homes and businesses across Florida.',
+      'Air duct cleaning in Miami for homes and businesses. We clean supply and return ducts, trunk lines and registers under negative pressure. Call (305) 449-9881.',
+    h1: 'Air Duct Cleaning in Miami, FL',
+    heroSubtitle:
+      'Supply and return duct cleaning that removes built-up dust, lint and debris from your AC ductwork, for homes, condos and businesses across Miami-Dade and South Florida.',
+    introHeading: 'What professional air duct cleaning covers',
     intro: [
-      'In Florida, your air conditioner runs almost all year. Every hour it runs, it pulls air from your living space through the return ducts, across the coil and back out through the supply vents. Over time, dust, pet dander, pollen, drywall debris, and even mold spores settle inside that ductwork and get blown back into the rooms you live in.',
-      'Purix Air Duct Cleaning removes that buildup at the source. Our technicians put the duct system under negative air pressure, agitate the debris loose with rotating brushes and air whips, and pull it out through a high-powered collection unit, so the dirt leaves your home instead of landing on your furniture.',
-      'The result is cleaner indoor air, more even airflow from room to room, fewer musty odors, and an AC system that doesn’t have to work as hard to keep you comfortable.',
+      'Every time your air conditioner runs, it moves air through a network of supply and return ducts. In Miami, where AC systems run for most of the year, dust, pet hair, lint and construction debris settle inside that ductwork, and some of it gets blown back into your rooms.',
+      'Purix cleans the full duct system under negative pressure. We connect a high-powered collection unit to the system, loosen buildup with rotary brushes and air whips, and pull the debris out of the ductwork so it leaves your property instead of landing on your floors.',
+      `This page covers our general air duct cleaning service. For service built around your property type, see ${a('/residential-air-duct-cleaning/', 'residential air duct cleaning')} and ${a('/commercial-air-duct-cleaning/', 'commercial air duct cleaning')}. If the problem is inside the AC unit itself, ${a('/hvac-cleaning/', 'HVAC cleaning')} covers the coil, air handler and blower.`,
     ],
-    introImage: negativeAirMachine,
-    introImageAlt: 'Negative air machine connected to a home duct system during air duct cleaning',
+    componentsHeading: 'Ductwork we clean',
+    components: [
+      { title: 'Supply ducts & registers', text: 'Every run that delivers cooled air to your rooms, plus the registers and diffusers at the end of each one.' },
+      { title: 'Return ducts & grilles', text: 'The return side pulls air back to the system and usually collects the heaviest buildup.' },
+      { title: 'Trunk lines & plenums', text: 'The main sheet-metal trunks and the supply and return plenums that connect to the air handler.' },
+      { title: 'Flex duct runs', text: 'Flexible duct in attics, soffits and drop ceilings, cleaned carefully to avoid damaging the inner liner.' },
+    ],
     signsHeading: 'Signs your air ducts need cleaning',
     signs: [
-      'Dust settles on furniture again within a day or two of cleaning',
-      'Visible dust or dark streaks around supply vents and return grilles',
-      'A musty or stale smell when the AC kicks on',
-      'Some rooms feel stuffy or get weaker airflow than others',
-      'Allergy or sinus symptoms that get worse indoors',
+      'Visible dust or dark streaks around supply registers',
+      'Dust settles on furniture again soon after you clean',
+      'Debris puffs out of the vents when the AC turns on',
+      'Some rooms get noticeably weaker airflow than others',
+      'A stale smell when the system starts up',
       'You recently renovated, moved in, or haven’t had the ducts cleaned in 3–5 years',
     ],
-    benefitsHeading: 'What a professional duct cleaning does for your home',
-    benefits: [
-      { title: 'Healthier indoor air', text: 'Removes dust, dander, pollen and debris that otherwise recirculate through every room.' },
-      { title: 'Better airflow', text: 'Clears restrictions so cool air reaches every room more evenly.' },
-      { title: 'Fewer odors', text: 'Eliminates trapped dust, pet hair and organic buildup that cause stale smells.' },
-      { title: 'Less strain on your AC', text: 'A cleaner system moves air more easily, which supports efficiency and equipment life.' },
+    processHeading: 'Our air duct cleaning process',
+    process: [
+      { title: 'Inspect', text: 'We check registers, returns and accessible ductwork and explain what we find before starting.' },
+      { title: 'Protect & connect', text: 'Floors and work areas are covered, and our collection unit puts the duct system under negative pressure.' },
+      { title: 'Agitate & extract', text: 'Each supply and return run is worked with brushes and air whips while loosened debris is pulled out.' },
+      { title: 'Registers & grilles', text: 'Vent covers and return grilles are removed and cleaned before they go back on.' },
+      { title: 'Walkthrough', text: 'We show you the results and point out anything that needs attention, such as damaged duct sections.' },
     ],
-    sections: [
-      {
-        heading: 'Residential air duct cleaning',
-        paragraphs: [
-          'Your home’s air should feel clean and comfortable every day. Over time, dust, pet dander, pollen, mold particles and debris build up inside your air ducts and spread through your home whenever the HVAC system runs. That buildup affects indoor air quality, can aggravate allergies, creates unpleasant odors and forces the system to work harder than necessary.',
-          'We clean every accessible supply and return line, the main trunk lines, the registers and grilles, and the return plenum. Before we start, we protect floors and furniture, and when we finish we walk you through the work so you can see exactly what came out of your system.',
-        ],
-        image: technicianAttic,
-        imageAlt: 'Purix technician cleaning flexible attic ductwork through a ceiling opening',
-      },
-      {
-        heading: 'Our air duct cleaning process',
-        paragraphs: [
-          'Inspection: we check the registers, returns and accessible ductwork, and note anything unusual such as disconnected runs, crushed flex duct, or signs of moisture.',
-          'Negative air and agitation: we connect a powerful collection unit to the system, then work through each run with brushes and air whips to break buildup loose so it is pulled out of the home.',
-          'Registers, grilles and returns: vent covers are removed and cleaned, and the return side, which collects the most debris, gets special attention.',
-          'Final walkthrough: we show you the results and recommend any optional follow-up, such as air duct sanitizing for odor or microbial concerns.',
-        ],
-        image: ceilingVentBrush,
-        imageAlt: 'Rotating brush cleaning the inside of a ceiling supply vent',
-      },
-      {
-        heading: 'Commercial air duct cleaning',
-        paragraphs: [
-          'Offices, restaurants, retail stores, medical suites and other commercial spaces move a lot more air than a typical home, and their ductwork collects dust, debris and contaminants faster. Dirty commercial ducts lead to poor airflow, higher energy costs, odors, and an uncomfortable environment for employees and customers.',
-          'We schedule commercial cleanings around your business hours to keep disruption to a minimum.',
-        ],
-      },
+    benefitsHeading: 'What you can expect afterward',
+    benefits: [
+      { title: 'Less recirculated dust', text: 'Removing the buildup inside the ducts means less of it gets blown back into your rooms.' },
+      { title: 'Clearer air paths', text: 'Debris that restricted individual runs is removed, which can help airflow reach every room.' },
+      { title: 'Fewer dust-related odors', text: 'Stale smells caused by dust and debris in the ductwork are often reduced once it’s removed.' },
+      { title: 'A clear picture of your ducts', text: 'You’ll know the condition of your ductwork, including any sections that are damaged or disconnected.' },
     ],
     faqs: [
       {
-        q: 'How often should air ducts be cleaned?',
-        a: 'Most homes benefit from professional air duct cleaning every 3 to 5 years. Homes with pets, allergy sufferers, smokers, recent renovations, or heavy year-round AC use, which is common in Florida, may benefit from cleaning more often.',
+        q: 'How often should air ducts be cleaned in Miami?',
+        a: 'Most homes benefit from duct cleaning every 3 to 5 years. Because AC systems in South Florida run nearly year-round, homes with pets, recent renovations or visible dust around the vents may need it sooner.',
       },
       {
-        q: 'How long does an air duct cleaning take?',
-        a: 'A typical single-family home takes a few hours, depending on the size of the home, the number of vents and how much buildup is in the system. We will give you a time estimate when you book.',
+        q: 'What’s the difference between air duct cleaning and HVAC cleaning?',
+        a: 'Air duct cleaning focuses on the ductwork, registers and plenums. HVAC cleaning focuses on the equipment, such as the evaporator coil, blower wheel and air handler cabinet. Many systems benefit from both, and we can do them in the same visit.',
       },
       {
-        q: 'Will air duct cleaning make a mess in my home?',
-        a: 'No. The system is kept under negative pressure, so loosened debris is pulled into our collection unit instead of blowing into your rooms. We also protect floors and work areas before we start.',
+        q: 'Will duct cleaning make a mess in my home?',
+        a: 'No. The ductwork stays under negative pressure while we work, so loosened debris is pulled into our collection unit. We also protect floors and work areas before we start.',
       },
       {
-        q: 'Does air duct cleaning help with allergies?',
-        a: 'Removing dust, pet dander and pollen from the duct system reduces how much of it gets recirculated through your home. Many customers notice their home feels fresher and less dusty after a cleaning.',
+        q: 'Will air duct cleaning help with allergies?',
+        a: 'Duct cleaning removes dust and debris that would otherwise recirculate, and many customers notice their home feels less dusty. It isn’t a medical treatment, though, and results vary from home to home.',
       },
       {
-        q: 'Do you offer same-day air duct cleaning?',
-        a: 'Yes. Same-day service is often available depending on our schedule in your area. Call the location nearest you to check availability.',
+        q: 'How long does air duct cleaning take?',
+        a: 'Most homes and condos take a few hours. The time depends on the number of vents, the length of the duct runs and how much buildup is in the system.',
       },
     ],
+    related: ['residential-air-duct-cleaning', 'commercial-air-duct-cleaning', 'air-duct-inspection', 'air-duct-sanitizing', 'hvac-cleaning'],
   },
   {
-    slug: 'dryer-vent-cleaning',
-    path: '/dryer-vent-cleaning/',
-    name: 'Dryer Vent Cleaning',
-    icon: 'dryer',
-    card: 'Remove trapped lint from the full length of your dryer vent to cut drying times, lower energy use and reduce fire risk.',
-    cardImage: dryerService,
-    cardImageAlt: 'Technician cleaning a residential dryer vent line',
-    metaTitle: 'Dryer Vent Cleaning in Cape Coral, Naples & South FL | Purix',
+    slug: 'residential-air-duct-cleaning',
+    path: '/residential-air-duct-cleaning/',
+    name: 'Residential Air Duct Cleaning',
+    group: 'duct',
+    parent: 'air-duct-cleaning',
+    icon: 'home',
+    card: 'Duct cleaning planned around houses, condos and townhomes, with attic flex duct, closet air handlers and pets in mind.',
+    image: livingRoom,
+    imageAlt: 'Two Purix technicians preparing duct cleaning equipment in a living room',
+    secondImage: floorVacuum,
+    secondImageAlt: 'Floor register removed and connected to a duct cleaning vacuum hose',
+    metaTitle: 'Residential Air Duct Cleaning Miami | Home AC Ducts | Purix',
     metaDescription:
-      'Professional dryer vent cleaning to remove lint buildup, shorten drying times and reduce fire risk. Serving Cape Coral, Naples, Fort Lauderdale and Boca Raton. Call (239) 441-3477.',
-    h1: 'Professional Dryer Vent Cleaning',
-    heroSubtitle: 'Faster drying, lower energy bills and a safer home, without the lint fire risk.',
+      'Air duct cleaning for Miami houses, condos and townhomes. Careful in-home service that protects your floors and works around pets. Call (305) 449-9881.',
+    h1: 'Residential Air Duct Cleaning in Miami',
+    heroSubtitle: 'Careful, clean duct cleaning for single-family homes, condos and townhomes, with your floors, furniture and pets in mind.',
+    introHeading: 'Duct cleaning built around how you live',
     intro: [
-      'Your dryer’s lint trap only catches part of the lint. The rest gets pushed into the vent line that runs through your walls, attic or roof. Over months of laundry it builds up, narrows the vent, and traps hot, moist air inside the dryer.',
-      'The U.S. Fire Administration reports that failure to clean is the leading cause of home clothes dryer fires. A clogged vent also means longer cycles, damp clothes, higher electric bills and extra wear on the dryer’s heating element and motor.',
-      'Purix Air Duct Cleaning clears the entire vent run, from the back of the dryer to the exterior termination on the wall or roof, so your dryer can breathe again.',
+      'Cleaning the ducts in a lived-in home is different from cleaning an empty building. There are pets to keep safe, floors and furniture to protect, and in many Miami condos, building rules about access, elevators and working hours.',
+      'Our residential service adapts to the type of home you have. Single-family homes often have long flex duct runs in a hot attic. Condos and apartments usually have a closet air handler with short duct runs above the ceiling. Townhomes fall somewhere in between. We plan each visit around your layout.',
+      `This page is for homeowners and renters. For an overview of how we clean ductwork, see our main ${a('/air-duct-cleaning/', 'air duct cleaning')} page.`,
     ],
-    introImage: dryerBeforeAfter,
-    introImageAlt: 'Before and after dryer vent duct cleaning showing heavy lint removed',
-    signsHeading: 'Signs your dryer vent is clogged',
+    componentsHeading: 'What we clean in your home',
+    components: [
+      { title: 'Bedroom & living area supplies', text: 'Every supply run and register in the home, including hard-to-reach high ceilings.' },
+      { title: 'Central return & filter grille', text: 'The main return where pet hair and household dust collect fastest.' },
+      { title: 'Attic flex duct', text: 'Flexible runs in single-family attics, cleaned with tools sized for flex liner.' },
+      { title: 'Condo ceiling ducts', text: 'Short duct runs above drop ceilings and soffits in condos and apartments.' },
+      { title: 'Floor registers', text: 'Floor vents in older homes, which tend to collect debris dropped from above.' },
+    ],
+    signsHeading: 'When homeowners typically call us',
     signs: [
-      'Clothes need two or more cycles to dry',
-      'The dryer or laundry room gets unusually hot',
-      'A burning smell while the dryer runs',
-      'Lint collecting around the dryer door or behind the dryer',
-      'The exterior vent flap barely opens when the dryer is running',
-      'It has been more than a year since the vent was last cleaned',
+      'Pet hair building up on return grilles',
+      'Lingering dust after a remodel or flooring project',
+      'You just bought or moved into a home and don’t know the duct history',
+      'A household member is bothered by dust indoors',
+      'A stale smell when the AC kicks on',
+      'Uneven cooling between bedrooms',
     ],
-    benefitsHeading: 'Why regular dryer vent cleaning matters',
+    processHeading: 'How a home visit works',
+    process: [
+      { title: 'Walk the home', text: 'We go room by room with you to locate every supply and return and note any concerns.' },
+      { title: 'Protect your space', text: 'Floors, furniture and work areas are covered, and pets are kept safely away from equipment.' },
+      { title: 'Clean every run', text: 'Supplies and returns are cleaned under negative pressure, room by room.' },
+      { title: 'Clean the vents', text: 'Registers and grilles are cleaned and reinstalled.' },
+      { title: 'Final walkthrough', text: 'We show you the results and recommend a filter schedule that fits your household.' },
+    ],
+    benefitsHeading: 'What homeowners can expect',
     benefits: [
-      { title: 'Reduced fire risk', text: 'Lint is highly flammable. Removing it from the vent line is one of the simplest ways to protect your home.' },
-      { title: 'Shorter drying times', text: 'A clear vent lets moist air escape, so clothes dry in one cycle again.' },
-      { title: 'Lower energy bills', text: 'Your dryer runs fewer and shorter cycles, using less electricity or gas.' },
-      { title: 'Longer dryer life', text: 'Less heat and strain on the heating element, thermostat and blower motor.' },
-    ],
-    sections: [
-      {
-        heading: 'How we clean your dryer vent',
-        paragraphs: [
-          'We disconnect the dryer and inspect the transition hose behind it. Then we run rotary brushes through the full length of the vent line while a vacuum pulls the loosened lint out. Long runs and attic or roof terminations get cleaned from both ends when needed.',
-          'We clear the exterior vent hood or roof cap, check that the flap opens freely, reconnect everything, and run the dryer to confirm strong airflow at the exterior.',
-        ],
-        image: rooftopDryer,
-        imageAlt: 'Purix technician removing lint from a rooftop dryer vent',
-      },
-      {
-        heading: 'Roof and long-run dryer vents',
-        paragraphs: [
-          'Many Florida homes and condos vent the dryer up through the roof or through long runs in the attic. These vents clog faster because lint has farther to travel and gravity works against it. They are also the hardest for homeowners to reach, so they often go years without a cleaning.',
-          'Our technicians are equipped to safely clean roof-terminated and long-run vents, and we will let you know if we find crushed sections, bird nests, or a damaged vent cap that needs attention.',
-        ],
-        image: dryerLint,
-        imageAlt: 'Lint removed from a long dryer vent line',
-      },
+      { title: 'Less dust around the house', text: 'Removing buildup from the ducts reduces how much dust gets blown back into living areas.' },
+      { title: 'Clean, respectful service', text: 'Covered floors, cleaned-up work areas and no debris left behind.' },
+      { title: 'Pet-friendly scheduling', text: 'We work with you to keep pets comfortable and away from the equipment.' },
+      { title: 'Condo-ready', text: 'We coordinate with building management on access, parking and work hours.' },
     ],
     faqs: [
-      {
-        q: 'How often should dryer vents be professionally cleaned?',
-        a: 'Most dryer vents should be cleaned at least once a year. Large families, homes with pets, and long or roof-terminated vents may need cleaning more often.',
-      },
-      {
-        q: 'What are the signs of a clogged dryer vent?',
-        a: 'Long drying times, a hot dryer or laundry room, burning smells, excess lint around the dryer, and weak airflow at the exterior vent are all common signs.',
-      },
-      {
-        q: 'Isn’t cleaning the lint trap enough?',
-        a: 'No. The lint trap catches only part of the lint. The rest builds up inside the vent line, which can only be cleared by cleaning the duct itself.',
-      },
-      {
-        q: 'Can dryer vent cleaning help my dryer last longer?',
-        a: 'Yes. A clear vent reduces heat and strain on the dryer’s components, which helps extend the life of the appliance.',
-      },
-      {
-        q: 'How long does dryer vent cleaning take?',
-        a: 'Most dryer vent cleanings take about an hour. Long attic runs and roof vents can take a little longer.',
-      },
+      { q: 'Do I need to be home during the cleaning?', a: 'An adult should be home to let us in and do the walkthrough at the start and end. You don’t need to stay in the room while we work.' },
+      { q: 'How do you protect my floors and furniture?', a: 'We cover floors and work areas, and the duct system stays under negative pressure so debris is pulled into our equipment instead of into your home.' },
+      { q: 'Can you clean ducts in a condo or high-rise?', a: 'Yes. We regularly work in condos and coordinate with building management on elevator use, parking and allowed work hours.' },
+      { q: 'Is duct cleaning safe with pets in the house?', a: 'Yes. We ask that pets be kept in a separate room while equipment is running so they stay calm and safe.' },
+      { q: 'How long does it take to clean a typical home?', a: 'Most condos and average-size homes take a few hours. Larger homes with multiple AC systems take longer.' },
     ],
-  },
-  {
-    slug: 'air-duct-sanitizing',
-    path: '/air-duct-sanitizing/',
-    name: 'Air Duct Sanitizing',
-    icon: 'sanitize',
-    card: 'Professional-grade sanitizing treatment after cleaning to target odors, bacteria and mold particles inside your ductwork.',
-    cardImage: sanitizing,
-    cardImageAlt: 'Air duct sanitizing treatment being applied inside a home duct system',
-    metaTitle: 'Air Duct Sanitizing in Cape Coral, Naples & South FL | Purix',
-    metaDescription:
-      'Air duct sanitizing to reduce odors, bacteria and mold particles in your HVAC system. Ideal after duct cleaning in humid Florida homes. Call Purix at (239) 441-3477.',
-    h1: 'Air Duct Sanitizing',
-    heroSubtitle: 'Target lingering odors and microbial growth in your duct system after a thorough cleaning.',
-    intro: [
-      'Florida’s heat and humidity create the conditions mold and bacteria love. When warm, moist air meets cold ductwork and AC components, condensation forms, and dust inside the ducts gives microbes something to feed on. The result can be a musty smell every time the AC turns on.',
-      'Air duct sanitizing is a professional treatment applied to the duct system after it has been cleaned. It helps reduce bacteria, mold particles and odor-causing contaminants that remain on duct surfaces, leaving your system smelling fresher.',
-      'Purix Air Duct Cleaning uses professional-grade products and application equipment, and we always clean the system first, because sanitizing over dust and debris doesn’t work.',
-    ],
-    introImage: dustRemoval,
-    introImageAlt: 'Dust and debris being removed from an air duct before sanitizing',
-    signsHeading: 'When to consider air duct sanitizing',
-    signs: [
-      'A musty or mildew smell from the vents when the AC runs',
-      'Recent water leaks, flooding, or high indoor humidity',
-      'Visible mold spots around supply vents or on register covers',
-      'Pet, smoke or cooking odors that linger in the HVAC system',
-      'Moving into a home that sat closed up for a long time',
-      'Anyone in the household who is sensitive to indoor air quality',
-    ],
-    benefitsHeading: 'Benefits of air duct sanitizing',
-    benefits: [
-      { title: 'Fresher-smelling air', text: 'Targets odor-causing contaminants trapped on duct surfaces.' },
-      { title: 'Reduced microbial growth', text: 'Helps reduce bacteria and mold particles inside the duct system.' },
-      { title: 'Ideal after cleaning', text: 'Finishes a deep duct cleaning so your system starts as fresh as possible.' },
-      { title: 'Residential & commercial', text: 'Available for homes, condos, offices, restaurants and retail spaces.' },
-    ],
-    sections: [
-      {
-        heading: 'Remove odors and airborne contaminants',
-        paragraphs: [
-          'Dust, moisture, pets, smoke and cooking can all leave odors trapped in your ductwork. After a complete duct cleaning, a sanitizing treatment targets the hidden particles that cleaning alone can leave behind and helps create a fresher indoor environment.',
-          'Our technicians apply the treatment through the system with professional fogging equipment so it reaches the supply and return lines, not just the areas you can see.',
-        ],
-        image: ventTechnician,
-        imageAlt: 'Technician treating an air vent during air duct sanitizing',
-      },
-      {
-        heading: 'Mold in air ducts',
-        paragraphs: [
-          'If you notice a persistent musty smell or see dark spots around your vents, there may be moisture and microbial growth in the system. We will inspect the ductwork, clean it thoroughly, and recommend sanitizing where it makes sense.',
-          'Ongoing mold usually has a moisture source, such as a clogged condensate line, poorly insulated ducts, or high indoor humidity. We will tell you what we see so the root cause can be addressed and the problem doesn’t come back.',
-        ],
-        image: grilleCleaning,
-        imageAlt: 'Cleaning a dirty return air grille during an air duct service',
-      },
-    ],
-    faqs: [
-      {
-        q: 'What is air duct sanitizing?',
-        a: 'Air duct sanitizing is a professional treatment applied inside the HVAC duct system to help reduce bacteria, odors, mold particles and other contaminants on duct surfaces.',
-      },
-      {
-        q: 'When should air duct sanitizing be done?',
-        a: 'It is typically done right after a professional air duct cleaning, especially when there are concerns about odors, mold, moisture or indoor air quality.',
-      },
-      {
-        q: 'Can air duct sanitizing help with odors?',
-        a: 'Yes. Sanitizing helps reduce odors caused by dust, moisture, pets, smoke and other contaminants trapped inside the ductwork.',
-      },
-      {
-        q: 'Is sanitizing a replacement for duct cleaning?',
-        a: 'No. Sanitizing works best on a clean surface. We clean the duct system first, then apply the sanitizing treatment.',
-      },
-    ],
-  },
-  {
-    slug: 'hvac-system-cleaning',
-    path: '/hvac-system-cleaning/',
-    name: 'HVAC System Cleaning',
-    icon: 'hvac',
-    card: 'Cleaning of the air handler, blower and return areas to improve airflow, comfort and system efficiency.',
-    cardImage: hvacDeepClean,
-    cardImageAlt: 'HVAC system deep cleaning by a Purix technician',
-    metaTitle: 'HVAC System Cleaning in Cape Coral, Naples & South FL | Purix',
-    metaDescription:
-      'HVAC system cleaning to remove dust and buildup from your air handler and ductwork, improve airflow and support efficiency. Homes and businesses. Call (239) 441-3477.',
-    h1: 'HVAC System Cleaning',
-    heroSubtitle: 'Help your AC breathe easier with a deep clean of the components that move your air.',
-    intro: [
-      'Your ductwork is only part of the system. Dust and debris also build up on the blower, inside the air handler cabinet, around the return plenum and on the components that move air through your home. That buildup restricts airflow, makes the system work harder, and can reduce indoor air quality.',
-      'Purix Air Duct Cleaning provides HVAC system cleaning for homes and businesses in Cape Coral, Naples, Fort Lauderdale and Boca Raton. We pair it with a full duct cleaning, so the whole air path from return to supply is clean.',
-      'With Florida AC systems running most of the year, keeping the system clean is one of the easiest ways to support comfort and efficiency.',
-    ],
-    introImage: hvacMaintenance,
-    introImageAlt: 'Technician performing HVAC air duct maintenance',
-    signsHeading: 'Signs your HVAC system needs cleaning',
-    signs: [
-      'Weak airflow even with a new filter',
-      'The system runs longer to reach the set temperature',
-      'Dust blows out of the vents when the system starts',
-      'Musty smells from the air handler closet',
-      'Higher energy bills without a change in usage',
-      'It has been several years since the system was cleaned',
-    ],
-    benefitsHeading: 'Benefits of HVAC system cleaning',
-    benefits: [
-      { title: 'Improved airflow', text: 'Removes buildup that restricts how much air your system can move.' },
-      { title: 'Efficiency support', text: 'A clean system doesn’t have to work as hard to cool your home.' },
-      { title: 'Cleaner indoor air', text: 'Less dust and debris for the system to recirculate.' },
-      { title: 'Homes & businesses', text: 'Residential systems and commercial rooftop and split systems.' },
-    ],
-    sections: [
-      {
-        heading: 'Residential HVAC cleaning',
-        paragraphs: [
-          'A clean HVAC system helps maintain comfortable temperatures and healthier air throughout your home. We clean the return plenum, accessible air handler components, registers and duct system, and we’ll point out anything that may need attention from your HVAC contractor.',
-        ],
-        image: professionalDuct,
-        imageAlt: 'Professional air duct and HVAC cleaning service in a home',
-      },
-      {
-        heading: 'Commercial HVAC cleaning',
-        paragraphs: [
-          'Dust, bacteria and pollutants trapped in commercial systems spread through your workspace and affect employee comfort, customer experience and HVAC performance. We clean commercial systems for offices, shops, restaurants and commercial buildings, and schedule work to minimize disruption to your business.',
-        ],
-        image: commercialHvac,
-        imageAlt: 'Commercial HVAC duct cleaning in a business property',
-      },
-    ],
-    faqs: [
-      {
-        q: 'What is included in HVAC system cleaning?',
-        a: 'HVAC system cleaning focuses on the components that move air, such as the return plenum, accessible air handler areas, registers and the duct system, to remove dust and debris that restrict airflow.',
-      },
-      {
-        q: 'How often should my HVAC system be cleaned?',
-        a: 'Most homes benefit from a full system and duct cleaning every 3 to 5 years, and sooner if you have pets, allergies, recent renovations or visible dust coming from the vents.',
-      },
-      {
-        q: 'Does HVAC cleaning help with energy efficiency?',
-        a: 'Removing dust and debris reduces airflow restrictions, which helps your system run with less strain.',
-      },
-      {
-        q: 'Do you clean commercial HVAC systems?',
-        a: 'Yes. We provide HVAC and air duct cleaning for offices, restaurants, retail stores and other commercial properties.',
-      },
-    ],
+    related: ['air-duct-cleaning', 'air-duct-sanitizing', 'air-duct-inspection', 'hvac-cleaning', 'dryer-vent-cleaning'],
   },
   {
     slug: 'commercial-air-duct-cleaning',
     path: '/commercial-air-duct-cleaning/',
     name: 'Commercial Air Duct Cleaning',
+    group: 'duct',
+    parent: 'air-duct-cleaning',
     icon: 'building',
-    card: 'Air duct and HVAC cleaning for offices, restaurants, retail stores and commercial buildings, scheduled around your hours.',
-    cardImage: commercialDuct,
-    cardImageAlt: 'Commercial air duct cleaning in an office building',
-    metaTitle: 'Commercial Air Duct Cleaning in Southwest & South FL | Purix',
+    card: 'Ductwork cleaning for offices, restaurants, retail and managed buildings, scheduled around your business hours.',
+    image: commercialCeiling,
+    imageAlt: 'Duct cleaning hose run through a commercial drop ceiling',
+    secondImage: commercialBeforeAfter,
+    secondImageAlt: 'Commercial rectangular duct before and after cleaning',
+    metaTitle: 'Commercial Air Duct Cleaning Miami, FL | Purix',
     metaDescription:
-      'Commercial air duct cleaning for offices, restaurants, retail stores and commercial buildings in Cape Coral, Naples, Fort Lauderdale and Boca Raton. Call (239) 441-3477.',
-    h1: 'Commercial Air Duct Cleaning',
-    heroSubtitle: 'Cleaner air for your employees and customers, with scheduling that works around your business.',
+      'Commercial air duct cleaning in Miami for offices, restaurants, retail, medical suites and managed buildings. After-hours scheduling available. Call (305) 449-9881.',
+    h1: 'Commercial Air Duct Cleaning in Miami, FL',
+    heroSubtitle: 'Duct cleaning for offices, restaurants, retail spaces and managed properties, scheduled to keep your business running.',
+    introHeading: 'Built for larger systems and busy spaces',
     intro: [
-      'Commercial HVAC systems move far more air than residential systems, and they collect dust, debris and contaminants faster. Dirty commercial ductwork leads to poor airflow, uneven temperatures, odors, higher energy costs and an uncomfortable space for employees and customers.',
-      'Purix Air Duct Cleaning provides commercial air duct cleaning for offices, restaurants, retail stores, medical and professional suites, and other commercial properties across Cape Coral, Naples, Fort Lauderdale and Boca Raton.',
-      'We remove heavy buildup, improve air circulation, and help your HVAC system run with less strain, with scheduling built around your business hours.',
+      'Commercial HVAC systems move far more air than residential systems, often for longer hours and with more people coming and going. Their ductwork is larger, includes long rectangular trunk lines and multiple zones, and is often connected to rooftop or packaged units.',
+      'Purix cleans commercial ductwork with equipment sized for these systems, and we plan the work around your hours, whether that means early mornings, evenings or days you’re closed.',
+      `For the commercial HVAC equipment itself, see ${a('/hvac-cleaning/', 'HVAC cleaning')}. If your property has laundry equipment, we also offer ${a('/commercial-dryer-vent-cleaning/', 'commercial dryer vent cleaning')}.`,
     ],
-    introImage: commercialHvac,
-    introImageAlt: 'Commercial HVAC ductwork being cleaned',
-    signsHeading: 'Signs your commercial ducts need cleaning',
+    componentsHeading: 'Commercial ductwork we clean',
+    components: [
+      { title: 'Rectangular trunk lines', text: 'Large sheet-metal mains that feed multiple branches and zones.' },
+      { title: 'Ceiling diffusers & returns', text: 'Diffusers and return grilles in drop ceilings and open ceilings.' },
+      { title: 'Exposed spiral duct', text: 'Round spiral duct common in restaurants, retail and open-plan offices.' },
+      { title: 'Rooftop & packaged unit connections', text: 'Supply and return plenums connected to rooftop and packaged equipment.' },
+      { title: 'Multi-zone systems', text: 'Larger floor plans served by several systems or zones.' },
+    ],
+    signsHeading: 'Signs it’s time for commercial duct cleaning',
     signs: [
-      'Employees or customers complaining about stuffy or stale air',
-      'Dust buildup on vents, ceiling tiles and surfaces',
+      'Staff or customers mention stale or stuffy air',
+      'Dust on diffusers, ceiling tiles and surfaces near vents',
       'Hot and cold spots across the space',
-      'Persistent odors from the HVAC system',
-      'Recent tenant build-out or renovation',
-      'Rising energy costs without a change in usage',
+      'Persistent odors when the system runs',
+      'A recent tenant build-out or renovation',
+      'No record of when the ducts were last cleaned',
+    ],
+    processHeading: 'How we handle commercial projects',
+    process: [
+      { title: 'Site walkthrough', text: 'We review the space, systems and access points, then provide a written quote.' },
+      { title: 'Schedule around you', text: 'Work is planned for hours that keep disruption to a minimum.' },
+      { title: 'Section-by-section cleaning', text: 'Ductwork is cleaned zone by zone under negative pressure, with work areas protected.' },
+      { title: 'Diffusers & grilles', text: 'Diffusers and return grilles are cleaned and reinstalled.' },
+      { title: 'Review with your team', text: 'We walk your manager through the results and any issues we found.' },
     ],
     benefitsHeading: 'Why businesses choose Purix',
     benefits: [
-      { title: 'Flexible scheduling', text: 'Early, late or off-day appointments to keep your business running.' },
-      { title: 'Professional equipment', text: 'Commercial-grade negative air and agitation tools for larger systems.' },
-      { title: 'Cleaner workplace', text: 'Less dust and fewer odors for staff and customers.' },
-      { title: 'Multiple locations', text: 'Service across Southwest and South Florida from four local offices.' },
-    ],
-    sections: [
-      {
-        heading: 'Properties we serve',
-        paragraphs: [
-          'We clean ductwork and HVAC systems in offices, restaurants, retail stores, salons, medical and dental offices, gyms, warehouses, property-managed buildings, and short-term rentals. Whether you have a single suite or a multi-unit property, we’ll put together a plan that fits your space and schedule.',
-        ],
-        image: commercialDuct,
-        imageAlt: 'Clean commercial air duct after professional cleaning',
-      },
+      { title: 'Flexible scheduling', text: 'Early, late and off-day appointments to keep your doors open.' },
+      { title: 'Equipment for larger systems', text: 'Collection units and tools sized for commercial trunk lines.' },
+      { title: 'Cleaner-looking spaces', text: 'Less dust on diffusers and surfaces near the vents.' },
+      { title: 'Clear communication', text: 'A walkthrough of what was cleaned and what we found.' },
     ],
     faqs: [
-      {
-        q: 'Can you clean ducts outside of business hours?',
-        a: 'Yes. We can schedule commercial air duct cleaning early in the morning, in the evening or on off days to minimize disruption.',
-      },
-      {
-        q: 'How often should commercial air ducts be cleaned?',
-        a: 'It depends on the type of business, occupancy and environment. Restaurants, gyms and high-traffic spaces generally need more frequent cleaning than standard offices.',
-      },
-      {
-        q: 'Do you work with property managers?',
-        a: 'Yes. We work with property managers and building owners on single units and multi-unit properties.',
-      },
+      { q: 'Can you clean ducts outside business hours?', a: 'Yes. We can schedule work early in the morning, in the evening or on days you’re closed.' },
+      { q: 'What types of businesses do you work with?', a: 'Offices, restaurants, retail stores, salons, medical and dental suites, gyms, warehouses and property-managed buildings.' },
+      { q: 'How often should commercial ducts be cleaned?', a: 'It depends on occupancy and use. Restaurants, gyms and high-traffic spaces generally need cleaning more often than standard offices.' },
+      { q: 'Do you work with property managers?', a: 'Yes. We work with property managers and owners on single suites and multi-unit buildings.' },
     ],
+    related: ['air-duct-cleaning', 'hvac-cleaning', 'air-duct-inspection', 'commercial-dryer-vent-cleaning'],
+  },
+  {
+    slug: 'air-duct-sanitizing',
+    path: '/air-duct-sanitizing/',
+    name: 'Air Duct Sanitizing',
+    group: 'duct',
+    icon: 'sanitize',
+    card: 'An antimicrobial treatment applied to duct surfaces after cleaning to help with lingering odors.',
+    image: fogging,
+    imageAlt: 'Technician applying a sanitizing treatment through a ceiling vent',
+    secondImage: roundDuct,
+    secondImageAlt: 'Round air duct interior before and after cleaning',
+    metaTitle: 'Air Duct Sanitizing Miami | Duct Odor Treatment | Purix',
+    metaDescription:
+      'Air duct sanitizing in Miami: an antimicrobial treatment applied after duct cleaning to help reduce pet, smoke and stale odors in ductwork. Call (305) 449-9881.',
+    h1: 'Air Duct Sanitizing in Miami, FL',
+    heroSubtitle: 'An antimicrobial treatment applied to your ductwork after cleaning to help reduce lingering odors.',
+    introHeading: 'What air duct sanitizing is, and when it makes sense',
+    intro: [
+      'Sometimes a home still has a smell after its ducts are cleaned, such as pet odor, old smoke, or the stale smell of a system that sat unused. Air duct sanitizing is an optional treatment that follows a full duct cleaning. We apply a professional antimicrobial product to the duct surfaces to help reduce odor-causing bacteria.',
+      `Sanitizing is not a substitute for cleaning, because the product works on clean surfaces, not on top of dust. It also isn’t the same as cleaning the AC equipment. If the smell seems to come from the air handler, coil or drain pan, ${a('/hvac-mold-cleaning/', 'HVAC mold cleaning')} or ${a('/ac-coil-cleaning/', 'AC coil cleaning')} is the better fit.`,
+    ],
+    componentsHeading: 'Where the treatment is applied',
+    components: [
+      { title: 'Supply duct interiors', text: 'The duct runs that deliver air to each room.' },
+      { title: 'Return duct interiors', text: 'The return side, where odors from the living space are pulled into the system.' },
+      { title: 'Accessible plenums', text: 'The supply and return plenums connected to the air handler, where accessible.' },
+      { title: 'Registers & grilles', text: 'Vent covers are cleaned and treated before being reinstalled.' },
+    ],
+    signsHeading: 'When to consider sanitizing',
+    signs: [
+      'Pet, smoke or cooking odors that linger after duct cleaning',
+      'A stale smell from a home or unit that sat closed for months',
+      'Moving into a home after previous owners with pets or smokers',
+      'After a past water leak has been repaired and dried out',
+      'You want an extra step after a deep duct cleaning',
+    ],
+    processHeading: 'How we sanitize your ductwork',
+    process: [
+      { title: 'Clean first', text: 'The duct system is fully cleaned so the treatment reaches clean surfaces.' },
+      { title: 'Prepare the space', text: 'We explain the product and any time you should stay out of the treated area.' },
+      { title: 'Apply through the system', text: 'The product is applied through the ductwork with fogging equipment, following the label directions.' },
+      { title: 'Ventilate & review', text: 'The system is run to clear the space, and we review the results with you.' },
+    ],
+    benefitsHeading: 'What sanitizing can do',
+    benefits: [
+      { title: 'Help with lingering odors', text: 'Targets odor-causing bacteria on duct surfaces after cleaning.' },
+      { title: 'A fresher start', text: 'Useful after move-ins, renovations or a system that sat unused.' },
+      { title: 'Applied as directed', text: 'Professional products, used according to label directions.' },
+      { title: 'Paired with cleaning', text: 'Done in the same visit as your duct cleaning.' },
+    ],
+    faqs: [
+      { q: 'Is sanitizing the same as duct cleaning?', a: 'No. Cleaning removes dust and debris. Sanitizing is an optional treatment applied after cleaning to help reduce odor-causing bacteria on duct surfaces.' },
+      { q: 'Does air duct sanitizing remove mold?', a: 'Sanitizing isn’t mold removal. If you suspect microbial growth on AC components, see our HVAC mold cleaning service. Confirming whether mold is present requires testing by a qualified professional.' },
+      { q: 'Is the product safe for kids and pets?', a: 'We use professional products according to label directions and will tell you how long to stay out of treated areas before we begin.' },
+      { q: 'Will sanitizing permanently stop odors?', a: 'It helps with odors coming from the ductwork. If there’s an ongoing source, such as moisture or smoking indoors, odors can return.' },
+    ],
+    related: ['air-duct-cleaning', 'hvac-mold-cleaning', 'residential-air-duct-cleaning', 'ac-coil-cleaning'],
+  },
+  {
+    slug: 'air-duct-inspection',
+    path: '/air-duct-inspection/',
+    name: 'Air Duct Inspection',
+    group: 'duct',
+    icon: 'search',
+    card: 'A hands-on look at your ductwork and vents so you know whether you need cleaning, repair or replacement.',
+    image: dirtySupply,
+    imageAlt: 'Dust buildup on a ceiling supply register',
+    secondImage: dirtyFloorRegister,
+    secondImageAlt: 'Floor register lifted to inspect debris inside the duct opening',
+    metaTitle: 'Air Duct Inspection Miami, FL | AC Duct Check | Purix',
+    metaDescription:
+      'Air duct inspection in Miami. We check registers, returns and accessible ductwork for buildup, damage and disconnections. Call (305) 449-9881.',
+    h1: 'Air Duct Inspection in Miami, FL',
+    heroSubtitle: 'Find out what’s really going on in your ductwork before you decide on cleaning, repair or replacement.',
+    introHeading: 'Know the condition of your ducts before you spend',
+    intro: [
+      'Not every airflow problem or dusty vent means you need the same fix. Some systems just need cleaning. Others have crushed, torn or disconnected duct runs that no amount of cleaning will solve. An inspection tells you which situation you’re in.',
+      `We look at your registers, returns and the ductwork we can access, then explain what we found and what we’d recommend, whether that’s ${a('/air-duct-cleaning/', 'air duct cleaning')}, ${a('/ac-duct-replacement/', 'AC duct replacement')} or nothing at all.`,
+    ],
+    componentsHeading: 'What we check',
+    components: [
+      { title: 'Supply registers & returns', text: 'Buildup, airflow at each vent, and the condition of grilles and boots.' },
+      { title: 'Accessible duct runs', text: 'Attic, ceiling and soffit runs we can reach: crushing, kinks, tears and sagging.' },
+      { title: 'Connections & seals', text: 'Loose or disconnected joints that leak air into the attic or ceiling.' },
+      { title: 'Insulation & condensation', text: 'Damaged duct insulation and signs of sweating or water staining.' },
+      { title: 'Air handler surroundings', text: 'Visible buildup or moisture around the air handler and return plenum.' },
+    ],
+    signsHeading: 'Good times to schedule an inspection',
+    signs: [
+      'One or more rooms get little or no airflow',
+      'Water stains on the ceiling near a vent',
+      'You’re buying or just bought a home',
+      'After a renovation that touched walls or ceilings',
+      'Before deciding between duct cleaning and duct replacement',
+      'Recurring dust or odors you can’t explain',
+    ],
+    processHeading: 'How the inspection works',
+    process: [
+      { title: 'Talk through concerns', text: 'You tell us what you’ve noticed, such as dust, odors, hot rooms or noise.' },
+      { title: 'Check every vent', text: 'We look at each supply and return and check airflow room by room.' },
+      { title: 'Inspect accessible ductwork', text: 'We check the duct runs, connections and insulation we can safely reach.' },
+      { title: 'Explain & recommend', text: 'You get a plain-language explanation of what we found and a quote for any work we recommend.' },
+    ],
+    benefitsHeading: 'Why an inspection helps',
+    benefits: [
+      { title: 'The right fix the first time', text: 'Avoid paying for cleaning when the real problem is damaged duct, or the other way around.' },
+      { title: 'Clear priorities', text: 'Know what needs attention now and what can wait.' },
+      { title: 'Useful for home buyers', text: 'Understand the condition of the ductwork in a home you’re buying.' },
+      { title: 'No-pressure advice', text: 'We explain your options and let you decide.' },
+    ],
+    faqs: [
+      { q: 'What does an air duct inspection include?', a: 'We check supply registers, returns, accessible duct runs, connections and insulation, and look for visible buildup or moisture around the air handler.' },
+      { q: 'Can you tell if I have mold during an inspection?', a: 'We can point out visible buildup, moisture and conditions where microbial growth is more likely, but mold can’t be confirmed by looking. Confirmation requires sampling and lab analysis by a qualified professional.' },
+      { q: 'Do I need an inspection before duct cleaning?', a: 'We inspect as the first step of every cleaning. A stand-alone inspection is useful if you’re unsure what the problem is or are comparing cleaning against replacement.' },
+      { q: 'Is an inspection useful when buying a home?', a: 'Yes. It helps you understand the condition of the ductwork and whether cleaning or repairs may be needed.' },
+    ],
+    related: ['air-duct-cleaning', 'ac-duct-replacement', 'hvac-cleaning', 'hvac-mold-cleaning'],
+  },
+  {
+    slug: 'ac-duct-replacement',
+    path: '/ac-duct-replacement/',
+    name: 'AC Duct Replacement',
+    group: 'duct',
+    icon: 'wrench',
+    card: 'Replacement of crushed, torn, disconnected or deteriorated AC ductwork, from one damaged run to a full system.',
+    image: technicianAttic,
+    imageAlt: 'Technician working with flexible AC ductwork through a ceiling opening',
+    secondImage: trunkBrush,
+    secondImageAlt: 'Inside view of a rectangular sheet-metal duct trunk',
+    metaTitle: 'AC Duct Replacement Miami, FL | Flex Duct Replacement | Purix',
+    metaDescription:
+      'AC duct replacement in Miami for crushed, torn, disconnected or sweating ductwork, from single runs to full systems. Call (305) 449-9881.',
+    h1: 'AC Duct Replacement in Miami, FL',
+    heroSubtitle: 'When ductwork is damaged beyond cleaning, we replace the sections that need it, or the whole system.',
+    introHeading: 'When cleaning isn’t enough',
+    intro: [
+      'Ductwork doesn’t last forever. In South Florida attics and ceilings, flex duct can be crushed during other work, pulled loose from its connections, or have its insulation break down from heat and humidity. Damaged ducts can leak cooled air into the attic, sweat and drip onto ceilings, or leave rooms with little airflow.',
+      `Purix replaces damaged AC ductwork, whether that’s one torn run or an entire system. If you’re not sure whether you need replacement or just ${a('/air-duct-cleaning/', 'cleaning')}, start with an ${a('/air-duct-inspection/', 'air duct inspection')}.`,
+    ],
+    componentsHeading: 'What we replace',
+    components: [
+      { title: 'Flex duct runs', text: 'Crushed, torn, kinked or deteriorated flexible duct between the plenum and each room.' },
+      { title: 'Connections & collars', text: 'Loose or failed connections at the plenum, takeoffs and registers.' },
+      { title: 'Register boots', text: 'The fittings where duct meets the ceiling, wall or floor register.' },
+      { title: 'Duct insulation', text: 'Insulated duct where the jacket or insulation has broken down and is sweating.' },
+      { title: 'Supports & straps', text: 'Proper support so new runs don’t sag or kink.' },
+    ],
+    signsHeading: 'Signs your ductwork may need replacing',
+    signs: [
+      'Torn, crushed or collapsed duct visible in the attic or ceiling',
+      'A room that gets almost no air, which can mean a disconnected run',
+      'Water stains or dripping near ceiling vents from sweating ducts',
+      'Duct insulation that is falling apart or missing',
+      'Ductwork that was damaged by water or a roof leak',
+      'An older duct system with repeated problems',
+    ],
+    processHeading: 'How duct replacement works',
+    process: [
+      { title: 'Inspect & measure', text: 'We inspect the existing ductwork and measure the runs that need replacing.' },
+      { title: 'Written quote', text: 'You get a clear recommendation for partial or full replacement and a written quote.' },
+      { title: 'Remove old duct', text: 'Damaged sections are removed and hauled away.' },
+      { title: 'Install & seal', text: 'New duct is installed, connected, sealed and properly supported.' },
+      { title: 'Test airflow', text: 'We check airflow at each register and walk you through the finished work.' },
+    ],
+    benefitsHeading: 'What new ductwork can do',
+    benefits: [
+      { title: 'Air reaches the rooms', text: 'Sealed, connected ducts deliver cooled air to the rooms instead of the attic.' },
+      { title: 'Less sweating', text: 'Properly insulated duct reduces condensation and ceiling drips.' },
+      { title: 'Fewer weak rooms', text: 'Replacing crushed or disconnected runs restores airflow to affected rooms.' },
+      { title: 'A clean start', text: 'New ductwork starts clean, with no years of buildup inside.' },
+    ],
+    faqs: [
+      { q: 'Should I repair or replace my ductwork?', a: 'If the damage is limited to one or two runs, replacing just those sections is often enough. If problems are widespread or the system is old and deteriorating, full replacement can make more sense. We’ll explain both options.' },
+      { q: 'How long does duct replacement take?', a: 'Replacing a few runs can often be done in a day. Full-system replacement takes longer, depending on the size of the home and access to the ductwork.' },
+      { q: 'Will new ducts lower my energy bill?', a: 'Sealed, properly connected ducts deliver more of your system’s air where it’s needed. Actual savings depend on your system, your home and how much leakage there was before.' },
+      { q: 'Can you replace just one section?', a: 'Yes. We often replace individual crushed or disconnected runs without touching the rest of the system.' },
+    ],
+    related: ['air-duct-inspection', 'air-duct-cleaning', 'hvac-cleaning'],
+  },
+
+  // ───────────── HVAC & Mold Cleaning ─────────────
+  {
+    slug: 'hvac-cleaning',
+    path: '/hvac-cleaning/',
+    name: 'HVAC Cleaning',
+    group: 'hvac',
+    icon: 'hvac',
+    card: 'Cleaning for the equipment side of your AC: the coil, air handler, blower, drain pan and plenums.',
+    image: ceilingHose,
+    imageAlt: 'Purix technician connecting cleaning equipment at a ceiling vent',
+    secondImage: returnFilter,
+    secondImageAlt: 'Return air grille opened to access the filter',
+    metaTitle: 'HVAC Cleaning Miami, FL | AC System Cleaning | Purix',
+    metaDescription:
+      'HVAC cleaning in Miami for the inside of your AC system: evaporator coil, air handler cabinet, blower wheel, drain pan and plenums. Call (305) 449-9881.',
+    h1: 'HVAC Cleaning in Miami, FL',
+    heroSubtitle: 'Cleaning for the equipment inside your AC system, the parts that move, cool and dehumidify every bit of air in your home.',
+    introHeading: 'Your AC equipment collects buildup too',
+    intro: [
+      'Ductwork gets most of the attention, but the equipment at the center of your system also collects dust and debris. In Miami’s climate, the evaporator coil and drain pan are wet for much of the year. Dust that reaches them sticks, builds up, and can restrict airflow or contribute to musty odors.',
+      `HVAC cleaning focuses on that equipment rather than the ducts. It covers the coil, blower, air handler cabinet, drain pan and plenums. We often pair it with ${a('/air-duct-cleaning/', 'air duct cleaning')} so the whole air path is clean. Each component also has its own page: ${a('/ac-coil-cleaning/', 'AC coil cleaning')}, ${a('/air-handler-cleaning/', 'air handler cleaning')} and ${a('/blower-wheel-cleaning/', 'blower wheel cleaning')}.`,
+    ],
+    componentsHeading: 'Components included in HVAC cleaning',
+    components: [
+      { title: 'Evaporator coil', text: 'The indoor coil that cools and dehumidifies the air. See AC coil cleaning.' },
+      { title: 'Blower wheel & housing', text: 'The fan that moves air through the system. See blower wheel cleaning.' },
+      { title: 'Air handler cabinet', text: 'Interior surfaces, panels and the filter rack. See air handler cleaning.' },
+      { title: 'Drain pan & condensate line', text: 'Where moisture from the coil collects and drains away.' },
+      { title: 'Supply & return plenums', text: 'The boxes connecting the air handler to the ductwork.' },
+    ],
+    signsHeading: 'Signs your HVAC system needs cleaning',
+    signs: [
+      'Weak airflow even with a clean filter',
+      'The AC runs longer than it used to',
+      'A musty smell from the air handler closet or vents',
+      'Visible dust on the blower or coil when the panel is open',
+      'Water around the air handler or a slow-draining condensate line',
+      'The equipment hasn’t been cleaned in years',
+    ],
+    processHeading: 'Our HVAC cleaning process',
+    process: [
+      { title: 'Shut down & inspect', text: 'Power is turned off and we open the air handler to inspect each component.' },
+      { title: 'Clean the components', text: 'Coil, blower, cabinet and plenums are cleaned using methods suited to each part.' },
+      { title: 'Clear the drain', text: 'The drain pan is cleaned and condensate drainage is checked.' },
+      { title: 'Reassemble & test', text: 'Panels are sealed, power restored, and the system is run to confirm operation.' },
+      { title: 'Walkthrough', text: 'We show you the results and note anything for your HVAC service company to review.' },
+    ],
+    benefitsHeading: 'What clean equipment can do',
+    benefits: [
+      { title: 'Less airflow restriction', text: 'A clean coil and blower move air with less resistance.' },
+      { title: 'Less strain on the system', text: 'Equipment that isn’t fighting buildup doesn’t have to work as hard.' },
+      { title: 'Fewer buildup-related odors', text: 'Removing buildup from wet components can reduce musty smells.' },
+      { title: 'A full-system clean', text: 'Paired with duct cleaning, the whole air path is cleaned.' },
+    ],
+    faqs: [
+      { q: 'What’s the difference between HVAC cleaning and air duct cleaning?', a: 'HVAC cleaning focuses on the equipment, such as the coil, blower, air handler and drain pan. Air duct cleaning focuses on the ductwork and vents. They’re often done together.' },
+      { q: 'Does HVAC cleaning replace regular AC maintenance?', a: 'No. HVAC cleaning focuses on removing buildup. Refrigerant, electrical and mechanical service should still be handled by your HVAC service company.' },
+      { q: 'How often should my AC system be cleaned?', a: 'Many systems benefit from equipment cleaning every few years, and more often if you notice odors, weak airflow or visible buildup.' },
+      { q: 'Do you clean commercial HVAC systems?', a: 'Yes. We clean air handlers and related components for offices, restaurants and other commercial properties.' },
+    ],
+    related: ['ac-coil-cleaning', 'air-handler-cleaning', 'blower-wheel-cleaning', 'hvac-mold-cleaning', 'air-duct-cleaning'],
+  },
+  {
+    slug: 'hvac-mold-cleaning',
+    path: '/hvac-mold-cleaning/',
+    name: 'HVAC Mold Cleaning',
+    group: 'hvac',
+    parent: 'hvac-cleaning',
+    icon: 'droplet',
+    card: 'Cleaning of AC components and accessible ductwork with suspected microbial buildup, plus help finding the moisture behind it.',
+    image: grille,
+    imageAlt: 'Gloved technician cleaning a dirty return air grille',
+    secondImage: fogging,
+    secondImageAlt: 'Technician applying an antimicrobial treatment through a ceiling vent',
+    metaTitle: 'HVAC Mold Cleaning Miami | AC & Duct Mold Cleaning | Purix',
+    metaDescription:
+      'HVAC mold cleaning in Miami for musty AC odors and suspected microbial buildup on coils, drain pans, blowers and accessible ductwork. Call (305) 449-9881.',
+    h1: 'HVAC Mold Cleaning in Miami, FL',
+    heroSubtitle: 'Musty smell from your AC? We clean the components and accessible ductwork where moisture and buildup collect.',
+    introHeading: 'Why AC systems in Miami get musty',
+    intro: [
+      'Your air conditioner cools air by passing it over a cold coil, and in Miami’s humidity that coil is wet much of the time. Water drips into the drain pan, and the air handler cabinet stays damp. When dust and organic debris settle on those wet surfaces, they can support microbial growth. That’s one of the most common causes of the musty smell people notice when the AC turns on.',
+      'Our HVAC mold cleaning service targets those areas: the evaporator coil, drain pan, blower, air handler cabinet, plenums and accessible ductwork where buildup is present. We clean the affected surfaces, apply an antimicrobial product where appropriate, and point out moisture problems we see so they can be corrected.',
+      `For general system cleaning without odor or microbial concerns, see ${a('/hvac-cleaning/', 'HVAC cleaning')}. For odors in the ductwork only, ${a('/air-duct-sanitizing/', 'air duct sanitizing')} may be enough.`,
+    ],
+    componentsHeading: 'Areas we clean',
+    components: [
+      { title: 'Evaporator coil', text: 'The wet coil surface where buildup often starts.' },
+      { title: 'Drain pan & condensate line', text: 'Standing water and sludge in the pan, and a slow or clogged drain.' },
+      { title: 'Blower wheel & housing', text: 'Buildup carried from the coil area onto the fan blades.' },
+      { title: 'Air handler cabinet', text: 'Interior panels and surfaces inside the unit.' },
+      { title: 'Plenums & accessible ductwork', text: 'The plenums and the duct sections closest to the equipment.' },
+    ],
+    signsHeading: 'Signs worth having checked',
+    signs: [
+      'A musty or mildew-like smell when the AC starts',
+      'Dark buildup on supply registers or around vents, which could be dust or something else',
+      'Water standing in the drain pan or overflowing',
+      'Condensation or sweating on the air handler or nearby ducts',
+      'The AC was off for a long stretch, such as summer travel or after a storm',
+      'Indoor humidity that stays high even with the AC running',
+    ],
+    processHeading: 'How our HVAC mold cleaning works',
+    process: [
+      { title: 'Discuss & inspect', text: 'We talk through your concerns and inspect the accessible components and ductwork.' },
+      { title: 'Protect the area', text: 'The work area around the air handler is protected before cleaning begins.' },
+      { title: 'Clean affected components', text: 'Coil, drain pan, blower, cabinet and plenums are cleaned as needed.' },
+      { title: 'Antimicrobial application', text: 'Where appropriate, a professional antimicrobial product is applied according to label directions.' },
+      { title: 'Moisture notes', text: 'We point out moisture sources we see, such as a clogged drain or sweating duct, so they can be fixed.' },
+    ],
+    benefitsHeading: 'What this service can and can’t do',
+    benefits: [
+      { title: 'Removes visible buildup', text: 'Buildup is cleaned from the AC components and accessible ductwork we work on.' },
+      { title: 'Can reduce musty odors', text: 'When the odor comes from buildup in the HVAC system, cleaning often helps.' },
+      { title: 'Highlights moisture sources', text: 'Fixing the moisture problem is key to keeping buildup from returning.' },
+      { title: 'Honest limits', text: 'We don’t test for mold, and cleaning isn’t a guarantee that all growth is gone or that health symptoms will change.' },
+    ],
+    note: {
+      heading: 'Important to know',
+      paragraphs: [
+        'Not every dirty duct or vent contains mold. Most buildup is ordinary dust and debris. Mold also can’t be identified just by looking; confirming it requires sampling and lab analysis by a qualified professional. Purix does not provide mold testing.',
+        'This service covers cleaning of HVAC components and accessible ductwork. If you suspect growth on walls, ceilings, insulation or other building materials, or if growth is widespread, we recommend contacting a qualified mold professional.',
+      ],
+    },
+    faqs: [
+      { q: 'Do you test for mold?', a: 'No. We clean HVAC components and accessible ductwork. If you want to confirm whether mold is present, or identify what kind, that requires testing by a qualified professional.' },
+      { q: 'Can you tell if it’s mold just by looking?', a: 'No. Dark buildup can be dust, debris or microbial growth, and it can’t be confirmed visually. We describe what we see and clean the affected components.' },
+      { q: 'Will cleaning get rid of the musty smell?', a: 'If the smell comes from buildup on the coil, drain pan, blower or nearby ductwork, cleaning often helps. If an underlying moisture problem isn’t fixed, the smell can return.' },
+      { q: 'Does every dirty AC duct have mold?', a: 'No. Most duct buildup is ordinary dust, lint and debris. Microbial growth is more likely where there’s ongoing moisture, which is why we focus on the wet components of the system.' },
+      { q: 'How can I keep it from coming back?', a: 'Keep the condensate drain flowing, replace filters on schedule, avoid shutting the AC off for long periods in humid weather, and have sweating or leaking ductwork repaired.' },
+    ],
+    related: ['hvac-cleaning', 'ac-coil-cleaning', 'air-handler-cleaning', 'air-duct-sanitizing', 'air-duct-inspection'],
+  },
+  {
+    slug: 'ac-coil-cleaning',
+    path: '/ac-coil-cleaning/',
+    name: 'AC Coil Cleaning',
+    group: 'hvac',
+    parent: 'hvac-cleaning',
+    icon: 'coil',
+    card: 'Evaporator coil cleaning to clear the dust mat that restricts airflow, plus the drain pan underneath.',
+    image: returnFilter,
+    imageAlt: 'Technician opening a return air grille to reach the AC filter',
+    secondImage: dirtySupply,
+    secondImageAlt: 'Dusty AC supply register on a ceiling',
+    metaTitle: 'AC Coil Cleaning Miami, FL | Evaporator Coil Cleaning | Purix',
+    metaDescription:
+      'Evaporator coil cleaning in Miami. We clear dust and buildup from the indoor AC coil and drain pan to reduce airflow restriction. Call (305) 449-9881.',
+    h1: 'AC Coil Cleaning in Miami, FL',
+    heroSubtitle: 'Indoor evaporator coil cleaning that clears the buildup restricting your AC’s airflow.',
+    introHeading: 'Why the evaporator coil gets dirty',
+    intro: [
+      'The evaporator coil sits inside your air handler, and every bit of air your AC moves passes through its thin metal fins. Because the coil is cold and wet while the system runs, dust that gets past the filter sticks to it. Over time it can form a mat across the coil face.',
+      `A dirty coil restricts airflow and makes it harder for the system to remove heat and humidity. Coil cleaning is one part of a full ${a('/hvac-cleaning/', 'HVAC cleaning')}, and it’s often done together with ${a('/blower-wheel-cleaning/', 'blower wheel cleaning')}, since both affect how much air reaches your rooms.`,
+    ],
+    componentsHeading: 'What coil cleaning includes',
+    components: [
+      { title: 'Coil face & fins', text: 'Dust and debris are removed from the coil surface and between the fins.' },
+      { title: 'Coil drain pan', text: 'The pan under the coil is cleaned of sludge and standing water.' },
+      { title: 'Condensate drain connection', text: 'We check that water drains freely from the pan.' },
+      { title: 'Coil cabinet area', text: 'Surrounding surfaces inside the coil compartment.' },
+    ],
+    signsHeading: 'Signs of a dirty evaporator coil',
+    signs: [
+      'Weak airflow from every vent, not just one room',
+      'The AC runs a long time without reaching the set temperature',
+      'Ice on the coil or refrigerant lines (also worth having your HVAC company check)',
+      'A musty smell from the air handler',
+      'Water overflowing from the drain pan',
+      'Visible dust matting on the coil face',
+    ],
+    processHeading: 'How we clean AC coils',
+    process: [
+      { title: 'Power down & access', text: 'The system is shut off and the coil compartment is opened.' },
+      { title: 'Inspect', text: 'We check the coil face, fins and drain pan and show you what we find.' },
+      { title: 'Clean the coil', text: 'Coil cleaner made for HVAC coils is applied and buildup is lifted and rinsed, without bending the fins.' },
+      { title: 'Clean the pan & check drainage', text: 'The drain pan is cleaned and condensate flow is checked.' },
+      { title: 'Reassemble & verify', text: 'Panels are sealed and the system is run to confirm normal operation.' },
+    ],
+    benefitsHeading: 'What a clean coil can do',
+    benefits: [
+      { title: 'Less airflow restriction', text: 'Air passes through the coil more freely once buildup is removed.' },
+      { title: 'Better heat transfer', text: 'A clean coil surface exchanges heat more effectively than a matted one.' },
+      { title: 'Cleaner drain pan', text: 'Less sludge and standing water under the coil.' },
+      { title: 'Fewer coil-related odors', text: 'Removing buildup from the wet coil can reduce musty smells.' },
+    ],
+    faqs: [
+      { q: 'What’s the difference between the evaporator coil and the condenser coil?', a: 'The evaporator coil is indoors, inside the air handler, and cools the air. The condenser coil is in the outdoor unit and releases heat outside. This service covers the indoor evaporator coil.' },
+      { q: 'Can a dirty coil cause my AC to freeze?', a: 'A heavily restricted coil can contribute to freezing, but so can refrigerant and other mechanical problems. If your system is icing, have your HVAC service company check it as well.' },
+      { q: 'How often should the evaporator coil be cleaned?', a: 'It depends on filter maintenance, run time and household dust. Many systems benefit from a coil cleaning every few years, or whenever buildup is visible.' },
+      { q: 'Can I clean the coil myself?', a: 'Coil fins are thin and bend easily, and the coil sits close to electrical parts. Professional cleaning reduces the risk of damage.' },
+    ],
+    related: ['hvac-cleaning', 'blower-wheel-cleaning', 'air-handler-cleaning', 'hvac-mold-cleaning'],
+  },
+  {
+    slug: 'air-handler-cleaning',
+    path: '/air-handler-cleaning/',
+    name: 'Air Handler Cleaning',
+    group: 'hvac',
+    parent: 'hvac-cleaning',
+    icon: 'box',
+    card: 'Cleaning of the indoor AC cabinet, including panels, filter rack and plenum connections, often found in Miami condo closets.',
+    image: hoseTeam,
+    imageAlt: 'Two technicians running cleaning hoses from a wall register',
+    secondImage: trunkBrush,
+    secondImageAlt: 'Brush cleaning inside a rectangular duct connected to the air handler',
+    metaTitle: 'Air Handler Cleaning Miami, FL | Purix',
+    metaDescription:
+      'Air handler cleaning in Miami homes, condos and businesses. We clean the cabinet interior, filter rack, return plenum and connections. Call (305) 449-9881.',
+    h1: 'Air Handler Cleaning in Miami, FL',
+    heroSubtitle: 'Cleaning for the indoor AC cabinet at the center of your system, whether it’s in a condo closet, garage or attic.',
+    introHeading: 'The box every bit of air passes through',
+    intro: [
+      'The air handler is the indoor cabinet that houses your evaporator coil and blower and connects to the supply and return ductwork. In many Miami condos and apartments, it sits in a closet right next to living space. In houses, it may be in a garage, utility room or attic.',
+      `Over time, the inside of the cabinet collects dust, and the area around the filter rack and return plenum can get especially dirty. Air handler cleaning focuses on the cabinet itself. The components inside it have their own services: ${a('/ac-coil-cleaning/', 'AC coil cleaning')} and ${a('/blower-wheel-cleaning/', 'blower wheel cleaning')}. All of them are included in a full ${a('/hvac-cleaning/', 'HVAC cleaning')}.`,
+    ],
+    componentsHeading: 'Parts of the air handler we clean',
+    components: [
+      { title: 'Cabinet interior', text: 'Interior panels and surfaces where dust settles.' },
+      { title: 'Filter rack', text: 'The slot or grille where the filter sits, and the area around it.' },
+      { title: 'Return plenum', text: 'Where return air enters the cabinet, which is often the dirtiest section.' },
+      { title: 'Supply plenum connection', text: 'Where conditioned air leaves the cabinet into the ductwork.' },
+      { title: 'Access panels & seals', text: 'Panels are cleaned and reinstalled so they close properly.' },
+    ],
+    signsHeading: 'Signs your air handler needs cleaning',
+    signs: [
+      'Dust and debris visible when you open the cabinet or change the filter',
+      'An odor coming from the AC closet',
+      'Water stains on the floor or walls around the unit',
+      'Gaps around the filter that let dust bypass it',
+      'The unit has never been cleaned since installation',
+    ],
+    processHeading: 'How we clean your air handler',
+    process: [
+      { title: 'Power off & open', text: 'The system is shut off and access panels are removed.' },
+      { title: 'Vacuum & wipe', text: 'Cabinet surfaces are vacuumed and wiped clean.' },
+      { title: 'Filter rack & plenums', text: 'The filter area and return and supply plenum connections are cleaned.' },
+      { title: 'Coil & blower as needed', text: 'If the coil or blower needs attention, we’ll recommend those services.' },
+      { title: 'Close up & test', text: 'Panels are reinstalled and the system is run to confirm operation.' },
+    ],
+    benefitsHeading: 'Why it’s worth doing',
+    benefits: [
+      { title: 'A cleaner core system', text: 'The cabinet that every bit of air passes through is free of buildup.' },
+      { title: 'Better filter fit', text: 'A clean filter rack helps the filter seat properly.' },
+      { title: 'Fewer closet odors', text: 'Removing dust and buildup can reduce smells from the AC closet.' },
+      { title: 'Condo-friendly', text: 'Compact closet units cleaned with care for the living space around them.' },
+    ],
+    faqs: [
+      { q: 'What is an air handler?', a: 'It’s the indoor part of a central AC system. The cabinet houses the evaporator coil and blower and connects to your ductwork.' },
+      { q: 'Is air handler cleaning the same as HVAC cleaning?', a: 'Air handler cleaning is one part of HVAC cleaning. A full HVAC cleaning also includes the coil, blower wheel and drain pan.' },
+      { q: 'Can you clean air handlers in condo closets?', a: 'Yes. Closet air handlers are very common in Miami condos, and we protect the surrounding area while we work.' },
+      { q: 'Should I clean the ducts at the same time?', a: 'Often, yes. If the air handler is dirty, the return and supply ducts connected to it usually are too.' },
+    ],
+    related: ['hvac-cleaning', 'ac-coil-cleaning', 'blower-wheel-cleaning', 'air-duct-cleaning'],
+  },
+  {
+    slug: 'blower-wheel-cleaning',
+    path: '/blower-wheel-cleaning/',
+    name: 'Blower Wheel Cleaning',
+    group: 'hvac',
+    parent: 'hvac-cleaning',
+    icon: 'fan',
+    card: 'Removing packed-in buildup from the curved fan blades that move all of your system’s air.',
+    image: trunkBrush,
+    imageAlt: 'Rotary brush cleaning inside sheet-metal ductwork',
+    secondImage: brushCeiling,
+    secondImageAlt: 'Technician on a ladder cleaning a ceiling vent with a brush',
+    metaTitle: 'Blower Wheel Cleaning Miami, FL | AC Blower Cleaning | Purix',
+    metaDescription:
+      'AC blower wheel cleaning in Miami. We remove packed buildup from the blower wheel and housing to reduce airflow restriction. Call (305) 449-9881.',
+    h1: 'Blower Wheel Cleaning in Miami, FL',
+    heroSubtitle: 'Clearing the buildup packed into the fan that moves every bit of air through your AC system.',
+    introHeading: 'Small blades, big impact on airflow',
+    intro: [
+      'The blower wheel, sometimes called a squirrel cage, is the fan inside your air handler. Its rows of small curved blades push air across the coil and into your ductwork. When dust gets past the filter, it packs into the curve of each blade. In humid conditions, that buildup can become sticky and dense.',
+      `A loaded blower wheel moves less air, and uneven buildup can make it run less smoothly. Blower cleaning is part of a full ${a('/hvac-cleaning/', 'HVAC cleaning')} and pairs naturally with ${a('/ac-coil-cleaning/', 'AC coil cleaning')}, since both affect how much air your system can move.`,
+    ],
+    componentsHeading: 'What blower cleaning includes',
+    components: [
+      { title: 'Blower wheel blades', text: 'Buildup is removed from each curved blade.' },
+      { title: 'Blower housing', text: 'The scroll-shaped housing around the wheel is cleaned.' },
+      { title: 'Motor exterior', text: 'Dust is cleared from the outside of the motor.' },
+      { title: 'Blower compartment', text: 'Surrounding surfaces inside the blower section.' },
+    ],
+    signsHeading: 'Signs your blower wheel needs cleaning',
+    signs: [
+      'Weaker airflow at every vent',
+      'New humming, rattling or vibration from the air handler',
+      'Visible gray or dark buildup on the fan blades',
+      'A musty smell when the fan starts',
+      'A dirty coil, since the blower usually needs attention too',
+    ],
+    processHeading: 'How we clean blower wheels',
+    process: [
+      { title: 'Power off & access', text: 'The system is shut down and the blower compartment is opened.' },
+      { title: 'Remove when accessible', text: 'Where the design allows, the blower assembly is removed for a thorough cleaning.' },
+      { title: 'Clean wheel & housing', text: 'Buildup is cleaned from the blades and housing.' },
+      { title: 'Reinstall & check', text: 'The assembly is reinstalled and checked for smooth, balanced operation.' },
+      { title: 'Test airflow', text: 'The system is run and airflow is checked at the vents.' },
+    ],
+    benefitsHeading: 'What a clean blower can do',
+    benefits: [
+      { title: 'More air movement', text: 'Clean blades move air more effectively than packed ones.' },
+      { title: 'Smoother operation', text: 'Removing uneven buildup can reduce vibration and noise.' },
+      { title: 'Less buildup downstream', text: 'Less debris gets blown into the supply ductwork.' },
+      { title: 'Pairs with coil cleaning', text: 'Cleaning both restores the main path air takes through the unit.' },
+    ],
+    faqs: [
+      { q: 'What is a blower wheel?', a: 'It’s the cylindrical fan inside your air handler with rows of small curved blades. It moves air across the coil and into the ductwork.' },
+      { q: 'Does the blower have to be removed to clean it?', a: 'For a thorough cleaning, removal is best when the unit’s design allows. We’ll let you know what’s possible with your system.' },
+      { q: 'Can a dirty blower wheel cause noise?', a: 'Uneven buildup can throw the wheel out of balance and cause vibration. Noise can also come from motor or mechanical issues, which your HVAC service company should check.' },
+      { q: 'Do you repair blower motors?', a: 'We clean the blower assembly. Motor diagnosis and replacement should be handled by your HVAC service company.' },
+    ],
+    related: ['hvac-cleaning', 'ac-coil-cleaning', 'air-handler-cleaning', 'hvac-mold-cleaning'],
+  },
+
+  // ───────────── Dryer Vent ─────────────
+  {
+    slug: 'dryer-vent-cleaning',
+    path: '/dryer-vent-cleaning/',
+    name: 'Dryer Vent Cleaning',
+    group: 'dryer',
+    icon: 'dryer',
+    card: 'Full-length lint removal from the dryer to the wall or roof cap, to shorten drying times and reduce lint buildup.',
+    image: rooftopDryer,
+    imageAlt: 'Purix technician removing lint from a rooftop dryer vent',
+    secondImage: dryerBeforeAfter,
+    secondImageAlt: 'Dryer vent duct before and after lint removal',
+    metaTitle: 'Dryer Vent Cleaning Miami, FL | Purix',
+    metaDescription:
+      'Dryer vent cleaning in Miami homes and condos. We clear lint from the full vent run, from the dryer to the wall or roof cap. Call (305) 449-9881.',
+    h1: 'Dryer Vent Cleaning in Miami, FL',
+    heroSubtitle: 'Full-length lint removal from the back of your dryer to the outside vent cap.',
+    introHeading: 'Your lint trap doesn’t catch it all',
+    intro: [
+      'Lint that gets past the dryer’s lint trap ends up in the vent line running through your wall, ceiling or roof. Over months of laundry it builds up, narrows the vent and traps hot, moist air inside the dryer.',
+      'The U.S. Fire Administration reports that failure to clean is the leading cause of home clothes dryer fires. A clogged vent also means longer cycles and extra wear on the dryer. Purix clears the entire vent run, including long condo runs and roof terminations.',
+      `If your vent is damaged, too long or made of foil or vinyl, see ${a('/dryer-vent-installation/', 'dryer vent installation')}. For laundromats, hotels and multi-unit buildings, see ${a('/commercial-dryer-vent-cleaning/', 'commercial dryer vent cleaning')}.`,
+    ],
+    componentsHeading: 'What we clean',
+    components: [
+      { title: 'Transition duct', text: 'The connector between the dryer and the wall.' },
+      { title: 'Vent run', text: 'The full length of duct through the wall, ceiling or attic.' },
+      { title: 'Exterior or roof cap', text: 'The vent hood or roof cap, including the flap or screen.' },
+      { title: 'Dryer exhaust outlet', text: 'Lint buildup at the back of the dryer.' },
+    ],
+    signsHeading: 'Signs your dryer vent is clogged',
+    signs: [
+      'Clothes need more than one cycle to dry',
+      'The dryer or laundry room gets unusually hot',
+      'A burning smell while the dryer runs',
+      'Lint around the dryer door or behind the dryer',
+      'Weak airflow at the outside vent',
+      'It’s been more than a year since the last cleaning',
+    ],
+    processHeading: 'How we clean dryer vents',
+    process: [
+      { title: 'Disconnect & inspect', text: 'We pull the dryer out and inspect the transition duct and vent connection.' },
+      { title: 'Brush & vacuum', text: 'Rotary brushes clean the full vent run while lint is vacuumed out.' },
+      { title: 'Clear the cap', text: 'The exterior hood or roof cap is cleared and the flap is checked.' },
+      { title: 'Reconnect & test', text: 'The dryer is reconnected and airflow is checked at the exterior.' },
+    ],
+    benefitsHeading: 'Why it matters',
+    benefits: [
+      { title: 'Less lint buildup', text: 'Removing lint addresses the leading cause of dryer fires reported by the USFA.' },
+      { title: 'Shorter drying times', text: 'Moist air can escape, so loads dry faster.' },
+      { title: 'Less wear on the dryer', text: 'Less heat and strain on the dryer’s components.' },
+      { title: 'Condo & roof vents', text: 'Long runs and roof caps cleaned safely.' },
+    ],
+    faqs: [
+      { q: 'How often should dryer vents be cleaned?', a: 'At least once a year for most homes. Large households, pets and long or roof-terminated vents may need more frequent cleaning.' },
+      { q: 'Isn’t cleaning the lint trap enough?', a: 'No. The lint trap catches only part of the lint. The rest builds up inside the vent and has to be cleaned out of the duct itself.' },
+      { q: 'Do you clean dryer vents in condos?', a: 'Yes. Many Miami condos have long vent runs, and we can coordinate access with building management.' },
+      { q: 'How long does dryer vent cleaning take?', a: 'Most cleanings take about an hour. Long runs and roof vents can take longer.' },
+    ],
+    related: ['dryer-vent-installation', 'commercial-dryer-vent-cleaning', 'air-duct-cleaning'],
+  },
+  {
+    slug: 'dryer-vent-installation',
+    path: '/dryer-vent-installation/',
+    name: 'Dryer Vent Installation',
+    group: 'dryer',
+    parent: 'dryer-vent-cleaning',
+    icon: 'wrench',
+    card: 'New or rerouted dryer vent runs, metal transition ducts and new wall or roof caps.',
+    image: roofCap,
+    imageAlt: 'Roof-mounted dryer vent cap',
+    secondImage: dryerBrush,
+    secondImageAlt: 'Brush cleaning inside a dryer vent opening',
+    metaTitle: 'Dryer Vent Installation Miami, FL | Purix',
+    metaDescription:
+      'Dryer vent installation in Miami: new and rerouted vent runs, metal transition ducts and new wall or roof caps for homes and condos. Call (305) 449-9881.',
+    h1: 'Dryer Vent Installation in Miami, FL',
+    heroSubtitle: 'New, rerouted or upgraded dryer vents, from metal transition ducts to new wall and roof caps.',
+    introHeading: 'When a vent needs more than cleaning',
+    intro: [
+      'Some dryer vents can’t be fixed with a cleaning. Plastic or foil transition hoses crush and trap lint. Runs with too many turns clog quickly. Missing or broken vent caps let in pests and weather. And when you move your laundry area, you need a new vent route.',
+      `We install new dryer vent runs and components following the dryer manufacturer’s specifications. If your existing vent is in good shape and just full of lint, ${a('/dryer-vent-cleaning/', 'dryer vent cleaning')} is all you need.`,
+    ],
+    componentsHeading: 'What we install',
+    components: [
+      { title: 'Metal transition ducts', text: 'Replace foil or vinyl hoses behind the dryer.' },
+      { title: 'New vent runs', text: 'New duct routes through walls, ceilings or attics.' },
+      { title: 'Rerouted vents', text: 'Shorter, straighter routes for vents with too many turns.' },
+      { title: 'Wall & roof caps', text: 'New exterior hoods and roof caps with working flaps.' },
+    ],
+    signsHeading: 'When to consider a new dryer vent',
+    signs: [
+      'You’re moving the dryer or remodeling the laundry area',
+      'The transition hose is plastic, foil or crushed',
+      'The vent clogs again soon after each cleaning',
+      'The outside cap is missing, broken or stuck shut',
+      'The vent run is damaged or disconnected inside the wall or ceiling',
+    ],
+    processHeading: 'How installation works',
+    process: [
+      { title: 'Assess the route', text: 'We look at the dryer location, the existing vent and possible routes outside.' },
+      { title: 'Recommend & quote', text: 'You get a recommended route and materials with a written quote.' },
+      { title: 'Install & seal', text: 'The new vent is installed, connected and sealed.' },
+      { title: 'Test airflow', text: 'The dryer is run and airflow is checked at the exterior cap.' },
+    ],
+    benefitsHeading: 'Benefits of a properly installed vent',
+    benefits: [
+      { title: 'Better airflow', text: 'A shorter, smoother route moves lint and moist air outside.' },
+      { title: 'Slower lint buildup', text: 'Smooth metal duct collects less lint than ribbed foil or vinyl.' },
+      { title: 'Weather & pest protection', text: 'A working cap keeps out rain, insects and nesting birds.' },
+      { title: 'Easier future cleaning', text: 'A well-routed vent is easier to inspect and clean.' },
+    ],
+    faqs: [
+      { q: 'Rigid or flexible dryer vent: which is better?', a: 'Smooth metal duct is generally preferred for the vent run because it collects less lint. A short metal transition duct connects the dryer to the wall.' },
+      { q: 'How long can a dryer vent be?', a: 'It depends on your dryer manufacturer’s specifications and the number of turns. We plan the route so it stays within those limits.' },
+      { q: 'Can you vent a dryer through the roof?', a: 'Yes, when that’s the best route available. Roof vents need a proper roof cap and regular cleaning.' },
+      { q: 'Do you install dryer vents in condos?', a: 'We can, depending on building rules. We coordinate with building management where needed.' },
+    ],
+    related: ['dryer-vent-cleaning', 'commercial-dryer-vent-cleaning'],
+  },
+  {
+    slug: 'commercial-dryer-vent-cleaning',
+    path: '/commercial-dryer-vent-cleaning/',
+    name: 'Commercial Dryer Vent Cleaning',
+    group: 'dryer',
+    parent: 'dryer-vent-cleaning',
+    icon: 'building',
+    card: 'Scheduled lint removal for laundromats, hotels, salons, gyms and multi-unit buildings.',
+    image: dryerFlex,
+    imageAlt: 'Dryer vent duct before and after lint removal',
+    secondImage: dryerBrush,
+    secondImageAlt: 'Brush cleaning lint from a dryer vent opening',
+    metaTitle: 'Commercial Dryer Vent Cleaning Miami, FL | Purix',
+    metaDescription:
+      'Commercial dryer vent cleaning in Miami for laundromats, hotels, salons, gyms and condo buildings. Scheduled service around your hours. Call (305) 449-9881.',
+    h1: 'Commercial Dryer Vent Cleaning in Miami',
+    heroSubtitle: 'Scheduled lint removal for businesses and buildings that run dryers all day.',
+    introHeading: 'Commercial dryers produce lint fast',
+    intro: [
+      'Laundromats, hotels, salons, gyms and multi-unit buildings run dryers far more than a household does, and their vents fill with lint much faster. Many condo and apartment buildings also have long or shared vent runs that individual residents can’t reach.',
+      `Purix cleans commercial and multi-unit dryer vents on a schedule that fits your operation. For the building’s HVAC ductwork, see ${a('/commercial-air-duct-cleaning/', 'commercial air duct cleaning')}.`,
+    ],
+    componentsHeading: 'Commercial vent systems we clean',
+    components: [
+      { title: 'Commercial dryer vents', text: 'High-volume dryer exhaust runs in laundromats and on-premise laundries.' },
+      { title: 'Multi-unit building vents', text: 'Individual unit vents in condo and apartment buildings.' },
+      { title: 'Roof & wall terminations', text: 'Roof caps and wall hoods on commercial buildings.' },
+      { title: 'Long horizontal runs', text: 'Extended runs through ceilings and service corridors.' },
+    ],
+    signsHeading: 'Signs your commercial dryer vents need service',
+    signs: [
+      'Drying cycles getting longer',
+      'Dryers running hot or shutting off',
+      'Lint collecting around dryers or at exterior caps',
+      'Residents reporting slow dryers in multiple units',
+      'No regular cleaning schedule in place',
+    ],
+    processHeading: 'How we handle commercial dryer vents',
+    process: [
+      { title: 'Site review', text: 'We review your dryers, vent routes and access, then provide a quote.' },
+      { title: 'Schedule', text: 'Work is planned around operating hours or resident availability.' },
+      { title: 'Clean & clear', text: 'Vent runs and terminations are cleaned and lint is removed.' },
+      { title: 'Report back', text: 'We let you know about damaged vents or caps that need attention.' },
+    ],
+    benefitsHeading: 'Why businesses schedule regular cleaning',
+    benefits: [
+      { title: 'Less lint buildup', text: 'Regular cleaning keeps lint from accumulating in high-use vents.' },
+      { title: 'Faster turnaround', text: 'Clear vents help dryers finish cycles on time.' },
+      { title: 'Less equipment strain', text: 'Dryers don’t have to work against blocked vents.' },
+      { title: 'One point of contact', text: 'For property managers handling many units.' },
+    ],
+    faqs: [
+      { q: 'How often should commercial dryer vents be cleaned?', a: 'It depends on usage. High-volume operations like laundromats and hotels often need cleaning much more often than a household.' },
+      { q: 'Do you clean dryer vents in condo and apartment buildings?', a: 'Yes. We work with property managers and associations to clean vents across multiple units.' },
+      { q: 'Can you work outside business hours?', a: 'Yes. We schedule around your operating hours where possible.' },
+    ],
+    related: ['dryer-vent-cleaning', 'dryer-vent-installation', 'commercial-air-duct-cleaning'],
   },
 ];
 
@@ -433,3 +996,5 @@ export const getService = (slug: string) => {
   if (!s) throw new Error(`Unknown service: ${slug}`);
   return s;
 };
+
+export const servicesByGroup = (group: GroupId) => services.filter((s) => s.group === group);
