@@ -42,7 +42,7 @@ All service pages are generated from `src/data/services.ts` by `src/pages/[servi
 
 ## Editing content
 
-- `src/data/site.ts` — business name, address, phone, email, hours, service areas, social links, reviews
+- `src/data/site.ts` — business name, address, phone, email, hours, service areas, social links, the Google Maps embed and Google reviews. When new Google reviews come in, paste them into `reviews` word for word and update `google.rating` / `google.reviewCount`.
 - `src/data/services.ts` — service groups and every service page's copy, FAQs, images and related services
 - `src/data/location-content.ts` — homepage (Miami) and city page copy and FAQs
 - `src/content/blog/*.md` — blog posts (frontmatter: `title`, `description`, `date`, `cover`, `coverAlt`, `service`)

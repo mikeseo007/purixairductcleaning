@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = 'h-[450px]' } = Astro.props;
+---
+
+<figure class="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-100">
+  <iframe
+    src={site.google.mapEmbed}
+    title={`${site.name} on Google Maps`}
+    class:list={['w-full flex-1 border-0', className]}
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen></iframe>
+  <figcaption class="flex flex-wrap items-center justify-between gap-2 px-5 py-4">
+    <span class="flex items-center gap-2 font-bold text-navy-900">
+      <Icon name="pin" class="size-5 text-sky-500" />
+      {site.name}
+    </span>
+    <a href={site.google.profileUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-semibold text-sky-600 hover:underline">
+      <span class="flex text-[#FBBC04]"><Icon name="star" class="size-4" /></span>
+      {site.google.rating.toFixed(1)} on Google · Directions
+    </a>
+  </figcaption>
+</figure>

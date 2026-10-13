@@ -8,7 +8,7 @@ import SignsBenefits from './SignsBenefits.astro';
 import ProcessSteps from './ProcessSteps.astro';
 import ServicesSection from './ServicesSection.astro';
 import Reviews from './Reviews.astro';
-import LocationsGrid from './LocationsGrid.astro';
+import LocationsSection from './LocationsSection.astro';
 import FAQ from './FAQ.astro';
 import CtaBand from './CtaBand.astro';
 import Icon from './Icon.astro';
@@ -121,9 +121,9 @@ const breadcrumbs = [
     </div>
   </section>
 
-  <Reviews limit={3} />
+  <Reviews />
   <FAQ faqs={s.faqs} title={`${s.name} FAQs`} />
   <ServicesSection eyebrow="All services" title="Explore Our Air Duct & HVAC Services" current={s.slug} bg="sky" />
-  <LocationsGrid title={`${s.name} Service Areas`} service={s} />
+  <LocationsSection title={`${s.name} Service Areas`} service={s} />
   <CtaBand title={`Schedule ${s.name} in Miami`} text={`Call ${site.phone} to schedule an inspection or get a quote. Open 24 hours Sunday through Friday.`} />
 </BaseLayout>

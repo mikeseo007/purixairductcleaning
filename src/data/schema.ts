@@ -25,7 +25,7 @@ export function businessSchema() {
       postalCode: site.address.zip,
       addressCountry: 'US',
     },
-    hasMap: site.mapsUrl,
+    hasMap: site.google.profileUrl,
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -36,7 +36,7 @@ export function businessSchema() {
     ],
     areaServed: locations.map((l) => ({ '@type': 'City', name: `${l.city}, FL` })),
     knowsAbout: ['Air duct cleaning', 'AC ductwork', 'HVAC cleaning', 'AC coil cleaning', 'Air handler cleaning', 'Dryer vent cleaning'],
-    sameAs: Object.values(site.social),
+    sameAs: [site.google.profileUrl, ...Object.values(site.social)],
   };
 }
 

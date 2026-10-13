@@ -1,0 +1,101 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import GoogleMap from './GoogleMap.astro';
+import { locations, site } from '../data/site';
+
+interface Props {
+  title?: string;
+  intro?: string;
+  current?: string;
+  service?: { name: string };
+  showMap?: boolean;
+  tint?: boolean;
+}
+
+const {
+  title = 'Areas We Serve in South & Southwest Florida',
+  intro = 'Based in Miami, Purix serves homes and businesses across Miami-Dade, Broward, Palm Beach, Collier and Lee counties.',
+  current,
+  service,
+  showMap = true,
+  tint = false,
+} = Astro.props;
+
+const what = service ? service.name : 'Air duct & HVAC cleaning';
+---
+
+<section class:list={['section', tint ? 'bg-sky-50' : 'bg-white']}>
+  <div class="container-x">
+    <SectionHeading eyebrow="Service areas" title={title} intro={intro} center />
+
+    <div class:list={['mt-12 grid gap-8', showMap && 'lg:grid-cols-12']}>
+      {
+        showMap && (
+          <div class="lg:col-span-5">
+            <GoogleMap class="h-[360px] lg:h-full lg:min-h-[460px]" />
+          </div>
+        )
+      }
+
+      <div class:list={[showMap && 'lg:col-span-7']}>
+        <ul class:list={['grid gap-4 sm:grid-cols-2', !showMap && 'lg:grid-cols-3']}>
+          {
+            locations.map((loc) => {
+              const isCurrent = loc.slug === current;
+              return (
+                <li>
+                  <a
+                    href={loc.path}
+                    aria-current={isCurrent ? 'page' : undefined}
+                    class:list={[
+                      'group flex h-full gap-4 rounded-3xl border p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-lg hover:shadow-navy-900/10',
+                      isCurrent ? 'border-sky-300 bg-sky-50' : 'border-slate-100 bg-white',
+                    ]}
+                  >
+                    <span class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-sky-100 text-navy-700">
+                      <Icon name="pin" class="size-5" />
+                    </span>
+                    <span class="min-w-0">
+                      <span class="flex items-center gap-1 text-lg font-bold text-navy-900 group-hover:text-sky-500">
+                        {loc.city}, FL
+                        <Icon name="arrowRight" class="size-4 opacity-0 transition group-hover:opacity-100" />
+                      </span>
+                      <span class="block text-sm font-medium text-muted">
+                        {loc.county}
+                        {isCurrent && <span class="ml-1 rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-sky-600 ring-1 ring-sky-200">You’re here</span>}
+                      </span>
+                      <span class="mt-2 block text-sm leading-snug text-muted">
+                        {what} in {loc.neighborhoods.slice(0, 3).join(', ')} and nearby.
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              );
+            })
+          }
+          <li>
+            <a
+              href="/service-areas/"
+              class="group flex h-full items-center justify-between gap-4 rounded-3xl bg-navy-900 p-5 text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-navy-800"
+            >
+              <span>
+                <span class="block text-lg font-bold">All service areas</span>
+                <span class="mt-1 block text-sm text-white/70">Neighborhoods and nearby communities we cover</span>
+              </span>
+              <Icon name="arrowRight" class="size-5 shrink-0 text-lime-500 transition group-hover:translate-x-1" />
+            </a>
+          </li>
+        </ul>
+
+        <p class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
+          Not sure if we cover your area?
+          <a href={site.phoneHref} class="inline-flex items-center gap-2 font-bold text-navy-700 hover:text-sky-500">
+            <Icon name="phone" class="size-4" />
+            Call {site.phone}
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

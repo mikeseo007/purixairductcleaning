@@ -1,12 +1,14 @@
 ---
 import Icon from './Icon.astro';
-import { site, type Location } from '../data/site';
+import GoogleMap from './GoogleMap.astro';
+import { site, mainLocation, type Location } from '../data/site';
 
 interface Props {
   location: Location;
 }
 
 const { location } = Astro.props;
+const isMain = location.slug === mainLocation.slug;
 const query = encodeURIComponent(`${location.city}, FL`);
 ---
 
@@ -43,14 +45,23 @@ const query = encodeURIComponent(`${location.city}, FL`);
       }
     </div>
 
-    <div class="min-h-[380px] overflow-hidden rounded-3xl bg-sky-50 shadow-sm ring-1 ring-slate-100 lg:col-span-3">
-      <iframe
-        title={`Map of ${location.city}, FL`}
-        src={`https://www.google.com/maps?q=${query}&output=embed`}
-        class="h-full min-h-[380px] w-full border-0"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen></iframe>
+    <div class="lg:col-span-3">
+      {
+        isMain ? (
+          <GoogleMap class="h-[380px] lg:h-full lg:min-h-[440px]" />
+        ) : (
+          <div class="h-full min-h-[380px] overflow-hidden rounded-3xl bg-sky-50 shadow-sm ring-1 ring-slate-100">
+            <iframe
+              title={`Map of ${location.city}, FL`}
+              src={`https://www.google.com/maps?q=${query}&output=embed`}
+              class="h-full min-h-[380px] w-full border-0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            />
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

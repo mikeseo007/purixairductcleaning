@@ -14,7 +14,15 @@ export const site = {
     region: 'FL',
     zip: '33179',
   },
-  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Purix+Air+Duct+%26+Dryer+Vent+Cleaning+1021+Ives+Dairy+Rd+Ste+212+Miami+FL+33179',
+  mapsUrl: 'https://maps.app.goo.gl/avWn1kiFfo1b6v2aA',
+  google: {
+    profileUrl: 'https://www.google.com/maps?cid=15042423643415340158',
+    reviewsUrl: 'https://maps.app.goo.gl/avWn1kiFfo1b6v2aA',
+    mapEmbed:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.358026683085!2d-80.1822319!3d25.9657381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9ad0d9d62c0b1%3A0xd0c16c9b02b5647e!2sPurix%20Air%20Duct%20%26%20Dryer%20vent%20cleaning!5e1!3m2!1sen!2sus!4v1791927742995!5m2!1sen!2sus',
+    rating: 5.0,
+    reviewCount: 4,
+  },
   hours: {
     short: 'Open 24 hours, Sun–Fri',
     long: 'Open 24 hours Sunday through Friday. Closed Saturday.',
@@ -103,35 +111,52 @@ export const getLocation = (slug: string) => {
   return loc;
 };
 
-export const reviews = [
+export interface Review {
+  name: string;
+  meta?: string;
+  rating: number;
+  date: string;
+  text: string;
+  services?: string;
+  ownerReply?: string;
+}
+
+// Copied word for word from the Google Business Profile; don't edit the review text.
+export const reviews: Review[] = [
   {
-    name: 'Camilla G.',
-    text: 'After running the AC all day the house still felt stuffy, so thank you for handling the air duct deep cleaning. It actually made a noticeable difference.',
-    service: 'Air Duct Deep Cleaning',
+    name: 'Tanisha Ebanks',
+    meta: 'Local Guide · 16 reviews',
+    rating: 5,
+    date: '2026-10',
+    text: 'Had a wonderful experience with Zack. He was knowledgeable and pleasant. He explained everything to us and was able to clean and sanitize our system. We will definitely be recommending and using this company in the future.',
+    services: 'HVAC system maintenance',
+    ownerReply:
+      'Tanisha Wow, thank you for such an awesome review! We’re so glad Zack and Mike could turn a stressful next day into a smooth, hassle-free experience. Honesty and fast service are top priorities for us, so hearing your feedback means the world to our team. Thanks for choosing Purix Air Duct & Dryer Vent Cleaning Team!',
   },
   {
-    name: 'Moy Z.',
-    text: 'We decided to go with your air duct deep cleaning, and I didn’t expect a big change, but now the airflow feels more even in every room.',
-    service: 'Air Duct Deep Cleaning',
+    name: 'Mark olive',
+    meta: '4 reviews',
+    rating: 5,
+    date: '2026-10',
+    text: 'We had Mike as our mold buildup technician today, and he was informed and professional. We decided on Deep cleaning sanitation, and UV light therapy as a more permanent solution, and the fee was Great! . Happy with the work and would suggest it.Thnk you Purix Team',
+    services: 'HVAC duct & vent cleaning',
+    ownerReply:
+      "Hello Mr Olive ,Thank you for taking the time to write this. We're glad Mike was able to help you out quickly and that King kept things smooth on the communication end. That kind of straightforward service is what we aim for every time.Purix Air Duct & Dryer vent cleaning Team :) .",
   },
   {
-    name: 'Peter L.',
-    text: 'Respect how your crew handled the air duct inspection, since it gave us a clear picture of what needed to be done.',
-    service: 'Air Duct Inspection',
+    name: 'Edgardo Flores',
+    rating: 5,
+    date: '2026-10',
+    text: 'They did a great job! Amazing both of them\nThank you!!',
+    services: 'HVAC duct & vent repair, HVAC duct & vent cleaning',
   },
   {
-    name: 'Cody M.',
-    text: 'I want to say thank you for the air duct cleaning because the air in my house feels so much cleaner now and the bad smell from the vents is totally gone.',
-    service: 'Air Duct Cleaning',
-  },
-  {
-    name: 'Aja D.',
-    text: 'For months something just felt off in the house and I couldn’t really explain it, but after the air duct cleaning it finally clicked, because the air feels lighter!',
-    service: 'Air Duct Cleaning',
-  },
-  {
-    name: 'Trishelle L.',
-    text: 'Crazy enough, after the air duct deep cleaning, rooms that felt stuffy now feel normal again.',
-    service: 'Air Duct Deep Cleaning',
+    name: 'ccabral725',
+    meta: 'Local Guide · 24 reviews',
+    rating: 5,
+    date: '2026-10',
+    text: 'Very good service',
+    ownerReply:
+      "Hi ccabra, thanks for the review. We're glad Purix Air Duct & Dryer Vent Cleaning could help you out. That's the kind of service we aim for every time, and we appreciate you choosing us.",
   },
 ];
