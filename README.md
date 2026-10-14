@@ -49,7 +49,7 @@ Service pages (`src/data/services.ts`) and city pages (`locations` in `src/data/
 - `src/data/services.ts` — service groups and every service page's copy, FAQs, images and related services
 - `src/data/location-content.ts` — homepage (Miami) and city page copy and FAQs
 - `src/content/blog/*.md` — blog posts (frontmatter: `title`, `description`, `date`, `cover`, `coverAlt`, `service`)
-- `src/assets/images/` — photos (automatically resized and converted to WebP at build)
+- `src/assets/images/` — photos. Drop new photos here in any common format and name. `scripts/optimize-images.mjs` runs before every `npm run dev` and `npm run build` (including on Netlify), or on demand with `npm run images`. It converts photos to WebP (max 2400px, quality 82, EXIF rotation applied, metadata stripped), renames them to kebab-case and updates their references in `src/`. Transparent PNG logos stay PNG, and oversized JPGs in `public/` are recompressed in place. HEIC isn't supported, so export iPhone photos as JPG first. Astro then builds responsive WebP sizes from these files. Keep `public/og-image.jpg` a 1200×630 JPG, because some apps don't show WebP link previews.
 - `src/data/photos.ts` — the photo library: every photo with its alt text and a "family" for look-alike shots. Pages use it to avoid showing the same photo twice; the services section and related-service cards automatically swap to an unused photo. When you add a photo, add it here too.
 
 Location pages show only the phone number in page content; the full address, hours and email appear in the header, footer and contact page.

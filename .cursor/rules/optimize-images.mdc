@@ -1,0 +1,17 @@
+---
+description: Optimize every photo added to the project before using or committing it
+alwaysApply: true
+---
+
+# Images must be optimized before use
+
+- Put site photos in `src/assets/images/` and render them with `astro:assets` (`<Image>` / `getImage`), never as raw `<img src>` to an unoptimized file.
+- After adding or replacing any image, run `npm run images` (it also runs automatically before `npm run dev` and `npm run build`). It:
+  - converts photos to WebP, max 2400px on the long edge, quality 82, with EXIF rotation applied and metadata stripped
+  - renames files to kebab-case and rewrites their references in `src/`
+  - keeps transparent PNG logos as PNG (max 1600px wide)
+  - recompresses oversized JPGs in `public/` in place (names are kept because they're referenced by URL)
+- Commit only the optimized output. Don't commit camera originals (multi-MB JPG/PNG/HEIC files).
+- HEIC from iPhones isn't supported. Export it as JPG first.
+- `public/og-image.jpg` must stay a 1200×630 JPG. WebP previews don't show in some apps (WhatsApp, iMessage, LinkedIn).
+- Register new photos in `src/data/photos.ts` (with a `family` for look-alikes) so pages don't repeat them.
