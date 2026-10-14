@@ -141,6 +141,10 @@
     @apply transition duration-500 ease-out hover:-translate-y-1 hover:border-sky-200 hover:shadow-[0_2px_4px_rgb(13_31_77/0.04),0_28px_56px_-24px_rgb(13_31_77/0.32)];
   }
 
+  .slider-btn {
+    @apply flex size-11 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-800 shadow-sm transition hover:border-sky-200 hover:bg-sky-50 disabled:pointer-events-none disabled:opacity-35;
+  }
+
   .icon-chip {
     @apply flex shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_8px_18px_-8px] shadow-navy-900/50 ring-1 ring-white/10;
   }

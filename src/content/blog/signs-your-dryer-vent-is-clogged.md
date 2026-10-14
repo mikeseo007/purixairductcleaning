@@ -2,7 +2,7 @@
 title: '7 Signs Your Dryer Vent Is Clogged (and Why It Matters)'
 description: 'Long drying times, a hot laundry room and burning smells are warning signs of a clogged dryer vent. Learn the signs, the risks and how often to clean it.'
 date: 2026-10-13
-cover: ../../assets/images/dryer-vent-exterior.jpg
+cover: ../../assets/images/dryer-vent-exterior.webp
 coverAlt: 'Purix technician cleaning a dryer vent from the exterior wall'
 service: dryer-vent-cleaning
 ---

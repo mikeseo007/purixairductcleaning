@@ -128,31 +128,44 @@ const breadcrumbs = [
     )
   }
 
-  <section class:list={['bg-white', s.note ? 'pb-16 sm:pb-20' : 'section']}>
+  <section class:list={['bg-white', s.note ? 'pb-16 sm:pb-20' : 'section']} data-slider>
     <div class="container-x">
       <div class="flex items-end justify-between gap-6" data-reveal>
         <div>
           <p class="eyebrow">Keep exploring</p>
           <h2 class="text-3xl sm:text-4xl">Related services</h2>
         </div>
-        <a href="/our-services/" class="hidden items-center gap-1.5 font-bold text-navy-700 hover:text-sky-500 sm:inline-flex">
-          All services <Icon name="arrowRight" class="size-4" />
-        </a>
+        <div class="flex items-center gap-5">
+          <a href="/our-services/" class="hidden items-center gap-1.5 font-bold text-navy-700 hover:text-sky-500 sm:inline-flex">
+            All services <Icon name="arrowRight" class="size-4" />
+          </a>
+          <div class="hidden items-center gap-2" data-slider-nav>
+            <button type="button" class="slider-btn" aria-label="Previous services" data-slider-prev>
+              <Icon name="chevronRight" class="size-5 rotate-180" />
+            </button>
+            <button type="button" class="slider-btn" aria-label="Next services" data-slider-next>
+              <Icon name="chevronRight" class="size-5" />
+            </button>
+          </div>
+        </div>
       </div>
       <ul
-        class="mt-10 flex flex-wrap justify-center gap-6"
+        class="-mx-1 mt-4 flex snap-x snap-mandatory scroll-px-1 gap-6 overflow-x-auto scroll-smooth px-1 py-6 [justify-content:safe_center] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        data-slider-track
         data-stagger
       >
         {
           related.map((r) => (
-            <li class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
+            <li class="w-[82%] shrink-0 snap-start sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
               <a href={r.path} class="card card-hover group flex h-full flex-col overflow-hidden">
                 <span class="relative block aspect-[16/10] overflow-hidden bg-navy-950">
                   <Image
                     src={r.image}
                     alt={r.imageAlt}
+                    title={r.imageAlt}
+                    format="webp"
                     widths={[400, 640, 800, 1000, 1200]}
-                    sizes="(min-width: 1280px) 290px, (min-width: 1024px) 23vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1280px) 290px, (min-width: 1024px) 23vw, (min-width: 640px) 50vw, 82vw"
                     class="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                   />
                   <span class="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
@@ -184,3 +197,29 @@ const breadcrumbs = [
   <LocationsSection title={`${s.name} Service Areas`} service={s} />
   <CtaBand title={`Schedule ${s.name} in Miami`} text={`Call ${site.phone} to schedule an inspection or get a quote. Open 24 hours Sunday through Friday.`} />
 </BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-slider]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-slider-track]');
+    const nav = root.querySelector<HTMLElement>('[data-slider-nav]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-slider-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-slider-next]');
+    if (!track || !nav || !prev || !next) return;
+    const update = () => {
+      const overflowing = track.scrollWidth > track.clientWidth + 1;
+      nav.classList.toggle('hidden', !overflowing);
+      nav.classList.toggle('flex', overflowing);
+      prev.disabled = track.scrollLeft <= 1;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    };
+    const step = () => {
+      const card = track.firstElementChild as HTMLElement | null;
+      return card ? card.offsetWidth + parseFloat(getComputedStyle(track).columnGap || '0') : track.clientWidth;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step() }));
+    next.addEventListener('click', () => track.scrollBy({ left: step() }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+</script>

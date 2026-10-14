@@ -137,6 +137,8 @@ const faqs = [
                     <Image
                       src={s.image}
                       alt={s.imageAlt}
+                      title={s.imageAlt}
+                      format="webp"
                       widths={[400, 560, 800, 1000]}
                       sizes="(min-width: 1280px) 390px, (min-width: 1024px) 31vw, (min-width: 640px) 50vw, 100vw"
                       class="h-full w-full object-cover transition duration-[1.2s] ease-out group-hover:scale-110"
@@ -172,7 +174,7 @@ const faqs = [
         secondary.map((g) => (
           <div class="card grid items-center gap-8 p-6 sm:p-8 lg:grid-cols-[280px_1fr]" id={g.id} data-reveal>
             <div class="hidden overflow-hidden rounded-2xl lg:block">
-              <Image src={g.image} alt={g.imageAlt} widths={[560, 840]} sizes="280px" class="parallax aspect-[4/3] w-full object-cover" />
+              <Image src={g.image} alt={g.imageAlt} title={g.imageAlt} format="webp" widths={[560, 840]} sizes="280px" class="parallax aspect-[4/3] w-full object-cover" />
             </div>
             <div>
               <p class="eyebrow">Also available</p>

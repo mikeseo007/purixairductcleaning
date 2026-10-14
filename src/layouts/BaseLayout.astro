@@ -20,7 +20,7 @@ interface Props {
 const {
   title,
   description,
-  image = '/og-image.jpg',
+  image = '/og-image.webp',
   location = mainLocation,
   schema = [],
   breadcrumbs,
@@ -65,12 +65,16 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Purix technicians with the service van and dryer vent cleaning equipment" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@PurixAirDuct" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Purix technicians with the service van and dryer vent cleaning equipment" />
 
     <meta name="geo.region" content="US-FL" />
     <meta name="geo.placename" content={location.city} />

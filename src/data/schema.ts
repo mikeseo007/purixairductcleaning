@@ -13,7 +13,7 @@ export function businessSchema() {
     name: site.name,
     url: SITE_URL,
     logo: abs('/favicon.png'),
-    image: abs('/og-image.jpg'),
+    image: abs('/og-image.webp'),
     telephone: site.phone,
     email: site.email,
     priceRange: '$$',
