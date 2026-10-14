@@ -55,37 +55,46 @@ const fmt = post.data.date.toLocaleDateString('en-US', { year: 'numeric', month:
   <section class="section bg-white">
     <div class="container-x grid gap-12 lg:grid-cols-12">
       <article class="lg:col-span-8">
-        <p class="mb-6 flex items-center gap-2 text-sm font-semibold text-muted">
+        <p class="mb-6 inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-semibold text-muted ring-1 ring-slate-200/70">
           <Icon name="clock" class="size-4 text-sky-500" />
           <time datetime={post.data.date.toISOString()}>{fmt}</time>
           <span class="text-slate-300">•</span>
           {site.name}
         </p>
-        <Image
-          src={post.data.cover}
-          alt={post.data.coverAlt}
-          widths={[640, 960]}
-          sizes="(min-width: 1024px) 800px, 100vw"
-          loading="eager"
-          class="mb-10 aspect-[19/10] w-full rounded-3xl object-cover shadow-lg"
-        />
+        <div class="card mb-12 p-1.5">
+          <Image
+            src={post.data.cover}
+            alt={post.data.coverAlt}
+            widths={[640, 960, 1280, 1600]}
+            sizes="(min-width: 1024px) 800px, 100vw"
+            loading="eager"
+            class="aspect-[19/10] w-full rounded-[1.4rem] object-cover"
+          />
+        </div>
         <div class="prose-purix">
           <Content />
         </div>
       </article>
 
       <aside class="lg:col-span-4">
-        <div class="space-y-6 lg:sticky lg:top-28">
+        <div class="space-y-6 lg:sticky lg:top-28" data-reveal="right">
           {
             service && (
-              <a href={service.path} class="group block rounded-3xl bg-sky-50 p-6 ring-1 ring-sky-100 transition hover:ring-sky-300">
-                <p class="text-sm font-bold tracking-wider text-sky-500 uppercase">Related service</p>
-                <p class="mt-2 text-xl font-extrabold text-navy-900 group-hover:text-sky-500">{service.name}</p>
-                <p class="mt-2 text-muted">{service.card}</p>
+              <a href={service.path} class="card card-hover spotlight group flex items-start gap-4 p-6">
+                <span class="icon-chip size-12">
+                  <Icon name="arrowRight" class="size-5 transition group-hover:translate-x-0.5" />
+                </span>
+                <span>
+                  <span class="block text-xs font-bold tracking-[0.18em] text-sky-500 uppercase">Related service</span>
+                  <span class="mt-1.5 block font-display text-xl font-bold text-navy-900 group-hover:text-navy-700">{service.name}</span>
+                  <span class="mt-2 block text-sm leading-relaxed text-muted">{service.card}</span>
+                </span>
               </a>
             )
           }
-          <QuoteForm heading="Get a Free Quote" compact />
+          <div class="rounded-[2rem] bg-gradient-to-br from-sky-300 via-sky-100 to-lime-400 p-px">
+            <QuoteForm heading="Get a Free Quote" compact />
+          </div>
         </div>
       </aside>
     </div>

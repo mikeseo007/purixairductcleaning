@@ -5,7 +5,8 @@ import ServicesSection from '../components/ServicesSection.astro';
 import LocationsSection from '../components/LocationsSection.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
-import QuoteForm from '../components/QuoteForm.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import SectionHeading from '../components/SectionHeading.astro';
 import Icon from '../components/Icon.astro';
 import { regions, locationsByRegion, mainLocation, milesFromOffice, site } from '../data/site';
 
@@ -16,36 +17,36 @@ const breadcrumbs = [
 ---
 
 <BaseLayout
-  title="Service Areas in South Florida | Purix Air Duct & HVAC"
-  description="Air duct and HVAC cleaning across Miami-Dade and Broward, from Miami and Aventura to Hollywood, Pembroke Pines and Fort Lauderdale. Call (305) 449-9881."
+  title="South Florida Service Areas | Purix Air Duct & Dryer Vent"
+  description="Air duct and dryer vent cleaning across Miami-Dade and Broward, from Miami and Aventura to Hollywood, Pembroke Pines and Fort Lauderdale. Call (305) 449-9881."
   breadcrumbs={breadcrumbs}
 >
   <PageHeader
     eyebrow="Service areas"
-    title="Air Duct & HVAC Cleaning Across South Florida"
+    title="Air Duct & Dryer Vent Cleaning Across South Florida"
     subtitle="Based in Miami, we provide air duct, AC ductwork and HVAC cleaning in Miami-Dade, Broward, Palm Beach, Collier and Lee counties."
     breadcrumbs={breadcrumbs}
   />
 
   <LocationsSection title="Find Your Service Area" />
 
-  <section class="section bg-sky-50">
-    <div class="container-x">
-      <h2 class="mx-auto max-w-3xl text-center text-3xl sm:text-4xl">Neighborhoods and Communities We Serve</h2>
+  <section class="section relative overflow-hidden bg-surface">
+    <div class="container-x relative">
+      <SectionHeading eyebrow="Neighborhoods" title="Neighborhoods and Communities We Serve" center />
     </div>
-    <div class="container-x mt-12 space-y-14">
+    <div class="container-x relative mt-14 space-y-16">
       {
         regions.map((r) => (
           <div>
-            <h3 class="flex items-center gap-4 text-2xl">
+            <h3 class="flex items-center gap-4 text-2xl sm:text-3xl" data-reveal>
               {r.name}
-              <span class="h-px flex-1 bg-sky-200" />
+              <span class="h-px flex-1 bg-gradient-to-r from-sky-200 to-transparent" />
             </h3>
-            <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div class="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-stagger>
               {locationsByRegion(r.id).map((loc) => {
                 const isMain = loc.slug === mainLocation.slug;
                 return (
-                  <article class:list={['flex flex-col rounded-3xl bg-white p-7 shadow-sm ring-1', isMain ? 'ring-sky-300' : 'ring-slate-100']}>
+                  <article class:list={['card card-hover spotlight flex flex-col p-7', isMain && '!border-sky-300']}>
                     <h4 class="text-xl">
                       <a href={loc.path} class="hover:text-sky-500">
                         {loc.city}, FL
@@ -89,16 +90,11 @@ const breadcrumbs = [
 
   <Reviews tint />
 
-  <section class="section bg-navy-950">
-    <div class="container-x grid items-center gap-10 lg:grid-cols-2">
-      <div>
-        <p class="eyebrow !text-lime-500">Not sure if we cover your area?</p>
-        <h2 class="text-3xl !text-white sm:text-4xl">Send us a request</h2>
-        <p class="mt-4 text-lg text-white/80">Enter your address and we’ll confirm service availability and get back to you to schedule.</p>
-      </div>
-      <QuoteForm />
-    </div>
-  </section>
+  <QuoteSection
+    eyebrow="Not sure if we cover your area?"
+    title="Send us a request"
+    text="Enter your address and we’ll confirm service availability and get back to you to schedule."
+  />
 
   <CtaBand />
 </BaseLayout>

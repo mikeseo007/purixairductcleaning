@@ -4,14 +4,15 @@ interface Props {
   title: string;
   intro?: string;
   center?: boolean;
+  dark?: boolean;
   as?: 'h2' | 'h3';
 }
 
-const { eyebrow, title, intro, center = false, as: Tag = 'h2' } = Astro.props;
+const { eyebrow, title, intro, center = false, dark = false, as: Tag = 'h2' } = Astro.props;
 ---
 
-<div class:list={['max-w-3xl', center && 'mx-auto text-center']}>
-  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-  <Tag class="text-3xl sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">{title}</Tag>
-  {intro && <p class="mt-4 text-lg leading-relaxed text-muted">{intro}</p>}
+<div class:list={['max-w-3xl', center && 'mx-auto text-center']} data-reveal>
+  {eyebrow && <p class:list={['eyebrow', dark && '!text-lime-500']}>{eyebrow}</p>}
+  <Tag class:list={['text-[2.1rem] leading-[1.08] sm:text-[2.75rem] lg:text-[3.25rem]', dark && '!text-white']}>{title}</Tag>
+  {intro && <p class:list={['mt-5 text-lg leading-relaxed', dark ? 'text-white/70' : 'text-muted']}>{intro}</p>}
 </div>

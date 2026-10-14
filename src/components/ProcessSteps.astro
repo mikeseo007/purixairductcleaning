@@ -27,22 +27,37 @@ const defaultSteps = [
 ];
 
 const { title = 'How Our Air Duct & HVAC Cleaning Works', eyebrow = 'Our process', steps = defaultSteps } = Astro.props;
-const cols = steps.length === 3 ? 'lg:grid-cols-3' : steps.length === 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4';
+const n = steps.length;
+const wide = n <= 3;
+const cols = wide ? 'lg:grid-cols-3' : n === 5 ? 'xl:grid-cols-5' : 'xl:grid-cols-4';
+const inset = `calc((100% - ${n - 1} * 2rem) / ${n * 2})`;
 ---
 
-<section class="section bg-sky-50">
-  <div class="container-x">
+<section class="section relative overflow-hidden bg-surface">
+  <div class="container-x relative">
     <SectionHeading eyebrow={eyebrow} title={title} center />
-    <ol class:list={['mt-12 grid gap-6 sm:grid-cols-2', cols]}>
-      {
-        steps.map((s, i) => (
-          <li class="relative rounded-3xl bg-white p-7 shadow-sm">
-            <span class="text-5xl font-extrabold text-sky-100">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="mt-2 text-xl">{s.title}</h3>
-            <p class="mt-2 leading-relaxed text-muted">{s.text}</p>
-          </li>
-        ))
-      }
-    </ol>
+
+    <div class="process relative mt-16">
+      <div class:list={['absolute top-8 hidden h-[3px] rounded-full bg-gradient-to-r from-sky-500 to-lime-500', wide ? 'lg:block' : 'xl:block']} style={`left:${inset};right:${inset}`} aria-hidden="true"></div>
+      <div class:list={['absolute top-0 bottom-0 left-8 w-[3px] overflow-hidden rounded-full bg-sky-200/70', wide ? 'lg:hidden' : 'xl:hidden']} aria-hidden="true">
+        <div class="fill-line-y h-full w-full origin-top rounded-full bg-gradient-to-b from-sky-500 to-lime-500"></div>
+      </div>
+
+      <ol class:list={['relative grid gap-10 lg:gap-8', cols]} data-stagger>
+        {
+          steps.map((s, i) => (
+            <li class:list={['group flex gap-6', wide ? 'lg:flex-col lg:items-center lg:gap-0 lg:text-center' : 'xl:flex-col xl:items-center xl:gap-0 xl:text-center']}>
+              <span class="relative flex size-16 shrink-0 items-center justify-center rounded-full bg-white font-display text-xl font-bold text-navy-900 shadow-[0_10px_30px_-10px_rgb(13_31_77/0.35)] ring-[6px] ring-surface transition duration-500 group-hover:scale-110 group-hover:bg-navy-900 group-hover:text-lime-400">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div class:list={['min-w-0 pt-2', wide ? 'lg:mt-7 lg:px-2 lg:pt-0' : 'xl:mt-7 xl:px-2 xl:pt-0']}>
+                <h3 class="text-xl sm:text-2xl">{s.title}</h3>
+                <p class="mt-2.5 leading-relaxed text-muted">{s.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
   </div>
 </section>

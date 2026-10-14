@@ -47,7 +47,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 <html lang="en-US">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -56,7 +56,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#0f2252" />
+    <meta name="theme-color" content="#071330" />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
@@ -65,7 +65,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Purix technician cleaning AC ductwork" />
+    <meta property="og:image:alt" content="Purix technicians with the service van and dryer vent cleaning equipment" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@PurixAirDuct" />
     <meta name="twitter:title" content={fullTitle} />
@@ -77,9 +77,16 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" set:html={jsonLd} />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      setTimeout(function () {
+        if (!window.__motion) document.documentElement.classList.add('motion-off');
+      }, 2500);
+    </script>
     <slot name="head" />
   </head>
-  <body class="pb-16 lg:pb-0">
+  <body class="pb-[calc(6.25rem+env(safe-area-inset-bottom))] lg:pb-0">
+    <div class="scroll-progress" aria-hidden="true"></div>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2">
       Skip to content
     </a>
@@ -89,5 +96,8 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     </main>
     <Footer />
     <MobileCallBar />
+    <script>
+      import '../scripts/motion';
+    </script>
   </body>
 </html>

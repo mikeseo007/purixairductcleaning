@@ -2,8 +2,8 @@
 title: 'How Often Should You Clean Your Air Ducts in Florida?'
 description: 'Florida AC systems run most of the year. Here is how often to schedule air duct cleaning, the signs it is time, and what affects the schedule for your home.'
 date: 2026-10-13
-cover: ../../assets/images/technician-cleaning-attic-duct.jpg
-coverAlt: 'Purix technician cleaning attic ductwork in a Florida home'
+cover: ../../assets/images/ceiling-inspection.jpg
+coverAlt: 'Purix technician inspecting an open ceiling vent from a ladder'
 service: air-duct-cleaning
 ---
 

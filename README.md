@@ -50,8 +50,19 @@ Service pages (`src/data/services.ts`) and city pages (`locations` in `src/data/
 - `src/data/location-content.ts` — homepage (Miami) and city page copy and FAQs
 - `src/content/blog/*.md` — blog posts (frontmatter: `title`, `description`, `date`, `cover`, `coverAlt`, `service`)
 - `src/assets/images/` — photos (automatically resized and converted to WebP at build)
+- `src/data/photos.ts` — the photo library: every photo with its alt text and a "family" for look-alike shots. Pages use it to avoid showing the same photo twice; the services section and related-service cards automatically swap to an unused photo. When you add a photo, add it here too.
 
 Location pages show only the phone number in page content; the full address, hours and email appear in the header, footer and contact page.
+
+## Design system and motion
+
+- **Type:** Bricolage Grotesque (headings, `font-display`) and Plus Jakarta Sans (body), both self-hosted variable fonts.
+- **Tokens and components** live in `src/styles/global.css`: navy, sky and lime palettes, `card`, `card-hover`, `icon-chip`, `spotlight` (a glow that follows the pointer), `text-gradient` and the `btn-*` buttons. The wind-stream graphic (`AirStream.astro`) is used only in the inner-page banner (`PageHeader.astro`), so it appears once per page.
+- **Reveal on scroll:** add `data-reveal` to any element. Variants are `left`, `right`, `zoom` and `blur`, for example `data-reveal="left"`. Add `data-stagger` to a list or grid to reveal its children one after another. Both are driven by `src/scripts/motion.ts`.
+- **Scroll-linked effects** (pure CSS scroll timelines, in browsers that support them): `hero-parallax`, `parallax` (image drift inside its frame), `unmask` (image clip reveal), `fill-line` / `fill-line-y` (process timeline), `scale-in` (CTA card) and the top `scroll-progress` bar. Unsupported browsers show the final state.
+- **Services section** (`ServicesSection.astro`) is a tabbed explorer: one tab per service group, with the group's photo and linked service pages. Without JavaScript all groups are shown stacked, so every link stays crawlable.
+- **Other motion:** count-up numbers (`data-count`), header that compacts on scroll and the marquee ribbon in `CtaBand.astro`.
+- Content stays visible without JavaScript. All motion is turned off for visitors who set "reduce motion" in their OS.
 
 ## SEO features
 

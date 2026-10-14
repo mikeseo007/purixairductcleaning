@@ -3,7 +3,7 @@ export const SITE_URL = 'https://purixairductcleaning.com';
 export const site = {
   name: 'Purix Air Duct & Dryer Vent Cleaning',
   shortName: 'Purix',
-  tagline: 'Air Duct, AC Ductwork & HVAC Cleaning Specialists',
+  tagline: 'Air Duct & Dryer Vent Cleaning Specialists',
   url: SITE_URL,
   phone: '(305) 449-9881',
   phoneHref: 'tel:+13054499881',

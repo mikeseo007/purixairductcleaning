@@ -1,27 +1,23 @@
 import type { ImageMetadata } from 'astro';
-import ceilingVentBrush from '../assets/images/ceiling-vent-brush-cleaning.webp';
-import negativeAir from '../assets/images/negative-air-machine-duct-cleaning.jpg';
-import technicianAttic from '../assets/images/technician-cleaning-attic-duct.jpg';
-import livingRoom from '../assets/images/technicians-living-room-duct-cleaning.png';
-import floorVacuum from '../assets/images/floor-register-vacuum.webp';
-import dirtyFloorRegister from '../assets/images/dirty-floor-register.webp';
-import dirtySupply from '../assets/images/dirty-supply-register.webp';
-import commercialCeiling from '../assets/images/commercial-ceiling-duct-cleaning.webp';
-import commercialSpiral from '../assets/images/commercial-spiral-duct-diffuser.webp';
-import commercialBeforeAfter from '../assets/images/commercial-duct-before-after.webp';
-import fogging from '../assets/images/technician-fogging-vent-sanitizing.webp';
-import roundDuct from '../assets/images/round-duct-before-after.webp';
-import ceilingHose from '../assets/images/technician-ceiling-vent-hose.webp';
-import returnFilter from '../assets/images/return-grille-filter-change.webp';
-import grille from '../assets/images/vent-grille-cleaning.webp';
-import hoseTeam from '../assets/images/technicians-duct-hose-cleaning.webp';
-import trunkBrush from '../assets/images/trunk-duct-brush-cleaning.webp';
-import brushCeiling from '../assets/images/technician-brush-ceiling-vent.webp';
-import rooftopDryer from '../assets/images/rooftop-dryer-vent-cleaning.jpg';
-import dryerBeforeAfter from '../assets/images/dryer-duct-before-after.webp';
-import roofCap from '../assets/images/roof-dryer-vent-cap.webp';
-import dryerBrush from '../assets/images/dryer-vent-brush-cleaning.webp';
-import dryerFlex from '../assets/images/dryer-vent-flex-before-after.webp';
+import ceilingVentHose from '../assets/images/ceiling-vent-hose.jpg';
+import serviceTrucks from '../assets/images/service-trucks.jpg';
+import ceilingInspection from '../assets/images/ceiling-inspection.jpg';
+import negativeAirLadder from '../assets/images/negative-air-ladder.jpg';
+import ductPlans from '../assets/images/duct-plans.jpg';
+import ductCamera from '../assets/images/duct-camera.jpg';
+import negativeAirHose from '../assets/images/negative-air-hose.jpg';
+import furnaceFilter from '../assets/images/furnace-filter.jpg';
+import hvacFilterService from '../assets/images/hvac-filter-service.jpg';
+import teamWithVan from '../assets/images/team-with-van.jpg';
+import dryerVentExterior from '../assets/images/dryer-vent-exterior.jpg';
+import vanDryerCrew from '../assets/images/van-dryer-crew.jpg';
+import brandedVan from '../assets/images/branded-van.jpg';
+import insulationRemoval from '../assets/images/insulation-removal.jpg';
+import insulationBlownIn from '../assets/images/insulation-blown-in.jpg';
+import insulationReplacement from '../assets/images/insulation-replacement.jpg';
+import hvacCoilCleaning from '../assets/images/hvac-coil-cleaning.jpg';
+import airHandlerCleaning from '../assets/images/air-handler-cleaning.jpg';
+import blowerCleaning from '../assets/images/blower-wheel-cleaning.jpg';
 
 export type GroupId = 'duct' | 'hvac' | 'dryer' | 'insulation';
 
@@ -41,24 +37,24 @@ export const serviceGroups: ServiceGroup[] = [
     name: 'Air Duct & AC Ductwork Services',
     intro: 'Cleaning, inspection, sanitizing and replacement for the supply and return ducts that carry your conditioned air.',
     hub: '/air-duct-cleaning/',
-    image: ceilingVentBrush,
-    imageAlt: 'Technician cleaning inside a ceiling supply duct with a rotary brush',
+    image: ceilingVentHose,
+    imageAlt: 'Purix technician connecting a cleaning hose to a ceiling supply vent',
   },
   {
     id: 'hvac',
     name: 'HVAC & Mold Cleaning Services',
     intro: 'Cleaning for the components inside your AC system, including coils, air handlers and blower wheels, plus help with musty odors and suspected microbial buildup.',
     hub: '/hvac-cleaning/',
-    image: ceilingHose,
-    imageAlt: 'Purix technician connecting cleaning equipment at a ceiling vent',
+    image: furnaceFilter,
+    imageAlt: 'Purix technician servicing a home air handler',
   },
   {
     id: 'dryer',
     name: 'Dryer Vent Services',
     intro: 'Lint removal, new vent installation and commercial dryer vent cleaning.',
     hub: '/dryer-vent-cleaning/',
-    image: rooftopDryer,
-    imageAlt: 'Technician cleaning a rooftop dryer vent',
+    image: dryerVentExterior,
+    imageAlt: 'Purix technician cleaning a dryer vent from the exterior wall',
     secondary: true,
   },
   {
@@ -66,8 +62,8 @@ export const serviceGroups: ServiceGroup[] = [
     name: 'Attic Insulation Services',
     intro: 'Old insulation removal, blown-in insulation and full attic insulation replacement.',
     hub: '/insulation-replacement/',
-    image: technicianAttic,
-    imageAlt: 'Technician working through a ceiling opening into the attic',
+    image: insulationBlownIn,
+    imageAlt: 'Technician blowing new insulation between attic joists',
     secondary: true,
   },
 ];
@@ -134,10 +130,10 @@ export const services: Service[] = [
     group: 'duct',
     icon: 'duct',
     card: 'Full supply and return duct cleaning under negative pressure to remove the dust and debris that build up in your AC ductwork.',
-    image: negativeAir,
-    imageAlt: 'Negative air collection machine connected to a home duct system',
-    secondImage: hoseTeam,
-    secondImageAlt: 'Two Purix technicians running duct cleaning hoses through a wall register',
+    image: negativeAirHose,
+    imageAlt: 'Purix technician running a negative-air hose up to a ceiling duct',
+    secondImage: ceilingVentHose,
+    secondImageAlt: 'Purix technician connecting a cleaning hose to a ceiling supply vent',
     metaTitle: 'Air Duct Cleaning Miami, FL | AC Ductwork Cleaning | Purix',
     metaDescription:
       'Air duct cleaning in Miami for homes and businesses. We clean supply and return ducts, trunk lines and registers under negative pressure. Call (305) 449-9881.',
@@ -213,10 +209,10 @@ export const services: Service[] = [
     parent: 'air-duct-cleaning',
     icon: 'home',
     card: 'Duct cleaning planned around houses, condos and townhomes, with attic flex duct, closet air handlers and pets in mind.',
-    image: livingRoom,
-    imageAlt: 'Two Purix technicians preparing duct cleaning equipment in a living room',
-    secondImage: floorVacuum,
-    secondImageAlt: 'Floor register removed and connected to a duct cleaning vacuum hose',
+    image: ceilingVentHose,
+    imageAlt: 'Purix technician connecting a cleaning hose to a ceiling supply vent',
+    secondImage: ceilingInspection,
+    secondImageAlt: 'Purix technician on a ladder at an open ceiling vent in a living room',
     metaTitle: 'Residential Air Duct Cleaning Miami | Home AC Ducts | Purix',
     metaDescription:
       'Air duct cleaning for Miami houses, condos and townhomes. Careful in-home service that protects your floors and works around pets. Call (305) 449-9881.',
@@ -277,10 +273,10 @@ export const services: Service[] = [
     parent: 'air-duct-cleaning',
     icon: 'building',
     card: 'Ductwork cleaning for offices, restaurants, retail and managed buildings, scheduled around your business hours.',
-    image: commercialCeiling,
-    imageAlt: 'Duct cleaning hose run through a commercial drop ceiling',
-    secondImage: commercialBeforeAfter,
-    secondImageAlt: 'Commercial rectangular duct before and after cleaning',
+    image: negativeAirLadder,
+    imageAlt: 'Purix technician on a ladder with a negative-air hose connected to a ceiling duct',
+    secondImage: brandedVan,
+    secondImageAlt: 'Purix Air Solution service van',
     metaTitle: 'Commercial Air Duct Cleaning Miami, FL | Purix',
     metaDescription:
       'Commercial air duct cleaning in Miami for offices, restaurants, retail, medical suites and managed buildings. After-hours scheduling available. Call (305) 449-9881.',
@@ -339,10 +335,10 @@ export const services: Service[] = [
     group: 'duct',
     icon: 'sanitize',
     card: 'An antimicrobial treatment applied to duct surfaces after cleaning to help with lingering odors.',
-    image: fogging,
-    imageAlt: 'Technician applying a sanitizing treatment through a ceiling vent',
-    secondImage: roundDuct,
-    secondImageAlt: 'Round air duct interior before and after cleaning',
+    image: serviceTrucks,
+    imageAlt: 'Purix technicians with service trucks at a South Florida home',
+    secondImage: brandedVan,
+    secondImageAlt: 'Purix Air Solution service van',
     metaTitle: 'Air Duct Sanitizing Miami | Duct Odor Treatment | Purix',
     metaDescription:
       'Air duct sanitizing in Miami: an antimicrobial treatment applied after duct cleaning to help reduce pet, smoke and stale odors in ductwork. Call (305) 449-9881.',
@@ -397,10 +393,10 @@ export const services: Service[] = [
     group: 'duct',
     icon: 'search',
     card: 'A hands-on look at your ductwork and vents so you know whether you need cleaning, repair or replacement.',
-    image: dirtySupply,
-    imageAlt: 'Dust buildup on a ceiling supply register',
-    secondImage: dirtyFloorRegister,
-    secondImageAlt: 'Floor register lifted to inspect debris inside the duct opening',
+    image: ductCamera,
+    imageAlt: 'Camera view inside an air duct during a Purix inspection',
+    secondImage: ceilingInspection,
+    secondImageAlt: 'Purix technician inspecting an open ceiling vent from a ladder',
     metaTitle: 'Air Duct Inspection Miami, FL | AC Duct Check | Purix',
     metaDescription:
       'Air duct inspection in Miami. We check registers, returns and accessible ductwork for buildup, damage and disconnections. Call (305) 449-9881.',
@@ -457,10 +453,10 @@ export const services: Service[] = [
     group: 'duct',
     icon: 'wrench',
     card: 'Replacement of crushed, torn, disconnected or deteriorated AC ductwork, from one damaged run to a full system.',
-    image: technicianAttic,
-    imageAlt: 'Technician working with flexible AC ductwork through a ceiling opening',
-    secondImage: trunkBrush,
-    secondImageAlt: 'Inside view of a rectangular sheet-metal duct trunk',
+    image: ductPlans,
+    imageAlt: 'Purix technician reviewing duct layout plans before replacement',
+    secondImage: serviceTrucks,
+    secondImageAlt: 'Purix technicians with service trucks at a South Florida home',
     metaTitle: 'AC Duct Replacement Miami, FL | Flex Duct Replacement | Purix',
     metaDescription:
       'AC duct replacement in Miami for crushed, torn, disconnected or sweating ductwork, from single runs to full systems. Call (305) 449-9881.',
@@ -520,10 +516,10 @@ export const services: Service[] = [
     group: 'hvac',
     icon: 'hvac',
     card: 'Cleaning for the equipment side of your AC: the coil, air handler, blower, drain pan and plenums.',
-    image: ceilingHose,
-    imageAlt: 'Purix technician connecting cleaning equipment at a ceiling vent',
-    secondImage: returnFilter,
-    secondImageAlt: 'Return air grille opened to access the filter',
+    image: furnaceFilter,
+    imageAlt: 'Purix technician replacing an air filter at a home furnace',
+    secondImage: hvacFilterService,
+    secondImageAlt: 'Purix technician installing a clean air filter during an HVAC service',
     metaTitle: 'HVAC Cleaning Miami, FL | AC System Cleaning | Purix',
     metaDescription:
       'HVAC cleaning in Miami for the inside of your AC system: evaporator coil, air handler cabinet, blower wheel, drain pan and plenums. Call (305) 449-9881.',
@@ -582,10 +578,10 @@ export const services: Service[] = [
     parent: 'hvac-cleaning',
     icon: 'droplet',
     card: 'Cleaning of AC components and accessible ductwork with suspected microbial buildup, plus help finding the moisture behind it.',
-    image: grille,
-    imageAlt: 'Gloved technician cleaning a dirty return air grille',
-    secondImage: fogging,
-    secondImageAlt: 'Technician applying an antimicrobial treatment through a ceiling vent',
+    image: hvacCoilCleaning,
+    imageAlt: 'Technician cleaning an evaporator coil where buildup collects',
+    secondImage: serviceTrucks,
+    secondImageAlt: 'Purix technicians with service trucks at a South Florida home',
     metaTitle: 'HVAC Mold Cleaning Miami | AC & Duct Mold Cleaning | Purix',
     metaDescription:
       'HVAC mold cleaning in Miami for musty AC odors and suspected microbial buildup on coils, drain pans, blowers and accessible ductwork. Call (305) 449-9881.',
@@ -653,10 +649,10 @@ export const services: Service[] = [
     parent: 'hvac-cleaning',
     icon: 'coil',
     card: 'Evaporator coil cleaning to clear the dust mat that restricts airflow, plus the drain pan underneath.',
-    image: returnFilter,
-    imageAlt: 'Technician opening a return air grille to reach the AC filter',
-    secondImage: dirtySupply,
-    secondImageAlt: 'Dusty AC supply register on a ceiling',
+    image: hvacCoilCleaning,
+    imageAlt: 'Technician brushing an evaporator coil inside an open air handler',
+    secondImage: brandedVan,
+    secondImageAlt: 'Purix Air Solution service van',
     metaTitle: 'AC Coil Cleaning Miami, FL | Evaporator Coil Cleaning | Purix',
     metaDescription:
       'Evaporator coil cleaning in Miami. We clear dust and buildup from the indoor AC coil and drain pan to reduce airflow restriction. Call (305) 449-9881.',
@@ -714,10 +710,10 @@ export const services: Service[] = [
     parent: 'hvac-cleaning',
     icon: 'box',
     card: 'Cleaning of the indoor AC cabinet, including panels, filter rack and plenum connections, often found in Miami condo closets.',
-    image: hoseTeam,
-    imageAlt: 'Two technicians running cleaning hoses from a wall register',
-    secondImage: trunkBrush,
-    secondImageAlt: 'Brush cleaning inside a rectangular duct connected to the air handler',
+    image: airHandlerCleaning,
+    imageAlt: 'Technician cleaning the inside of an open air handler',
+    secondImage: brandedVan,
+    secondImageAlt: 'Purix Air Solution service van',
     metaTitle: 'Air Handler Cleaning Miami, FL | Purix',
     metaDescription:
       'Air handler cleaning in Miami homes, condos and businesses. We clean the cabinet interior, filter rack, return plenum and connections. Call (305) 449-9881.',
@@ -775,10 +771,10 @@ export const services: Service[] = [
     parent: 'hvac-cleaning',
     icon: 'fan',
     card: 'Removing packed-in buildup from the curved fan blades that move all of your system’s air.',
-    image: trunkBrush,
-    imageAlt: 'Rotary brush cleaning inside sheet-metal ductwork',
-    secondImage: brushCeiling,
-    secondImageAlt: 'Technician on a ladder cleaning a ceiling vent with a brush',
+    image: blowerCleaning,
+    imageAlt: 'Technician brushing dust off a blower wheel',
+    secondImage: serviceTrucks,
+    secondImageAlt: 'Purix technicians with service trucks at a South Florida home',
     metaTitle: 'Blower Wheel Cleaning Miami, FL | AC Blower Cleaning | Purix',
     metaDescription:
       'AC blower wheel cleaning in Miami. We remove packed buildup from the blower wheel and housing to reduce airflow restriction. Call (305) 449-9881.',
@@ -836,10 +832,10 @@ export const services: Service[] = [
     group: 'dryer',
     icon: 'dryer',
     card: 'Full-length lint removal from the dryer to the wall or roof cap, to shorten drying times and reduce lint buildup.',
-    image: rooftopDryer,
-    imageAlt: 'Purix technician removing lint from a rooftop dryer vent',
-    secondImage: dryerBeforeAfter,
-    secondImageAlt: 'Dryer vent duct before and after lint removal',
+    image: dryerVentExterior,
+    imageAlt: 'Purix technician cleaning a dryer vent from the exterior wall',
+    secondImage: vanDryerCrew,
+    secondImageAlt: 'Purix crew preparing dryer vent brushes and ductwork beside the service van',
     metaTitle: 'Dryer Vent Cleaning Miami, FL | Purix',
     metaDescription:
       'Dryer vent cleaning in Miami homes and condos. We clear lint from the full vent run, from the dryer to the wall or roof cap. Call (305) 449-9881.',
@@ -897,10 +893,10 @@ export const services: Service[] = [
     parent: 'dryer-vent-cleaning',
     icon: 'wrench',
     card: 'New or rerouted dryer vent runs, metal transition ducts and new wall or roof caps.',
-    image: roofCap,
-    imageAlt: 'Roof-mounted dryer vent cap',
-    secondImage: dryerBrush,
-    secondImageAlt: 'Brush cleaning inside a dryer vent opening',
+    image: brandedVan,
+    imageAlt: 'Purix Air Solution service van for air duct and dryer vent cleaning',
+    secondImage: serviceTrucks,
+    secondImageAlt: 'Purix technicians with service trucks at a South Florida home',
     metaTitle: 'Dryer Vent Installation Miami, FL | Purix',
     metaDescription:
       'Dryer vent installation in Miami: new and rerouted vent runs, metal transition ducts and new wall or roof caps for homes and condos. Call (305) 449-9881.',
@@ -956,10 +952,10 @@ export const services: Service[] = [
     parent: 'dryer-vent-cleaning',
     icon: 'building',
     card: 'Scheduled lint removal for laundromats, hotels, salons, gyms and multi-unit buildings.',
-    image: dryerFlex,
-    imageAlt: 'Dryer vent duct before and after lint removal',
-    secondImage: dryerBrush,
-    secondImageAlt: 'Brush cleaning lint from a dryer vent opening',
+    image: vanDryerCrew,
+    imageAlt: 'Purix crew preparing dryer vent brushes and ductwork beside the service van',
+    secondImage: teamWithVan,
+    secondImageAlt: 'Purix technicians with the service van and dryer vent cleaning equipment',
     metaTitle: 'Commercial Dryer Vent Cleaning Miami, FL | Purix',
     metaDescription:
       'Commercial dryer vent cleaning in Miami for laundromats, hotels, salons, gyms and condo buildings. Scheduled service around your hours. Call (305) 449-9881.',
@@ -1016,10 +1012,10 @@ export const services: Service[] = [
     parent: 'insulation-replacement',
     icon: 'trash',
     card: 'Vacuum removal of old, wet, compressed or rodent-contaminated attic insulation, bagged and hauled away.',
-    image: negativeAir,
-    imageAlt: 'High-powered vacuum collection unit set up at a home',
-    secondImage: technicianAttic,
-    secondImageAlt: 'Technician working through a ceiling opening into the attic',
+    image: insulationRemoval,
+    imageAlt: 'Technician vacuuming old insulation out of an attic',
+    secondImage: serviceTrucks,
+    secondImageAlt: 'Purix technicians with service trucks at a South Florida home',
     metaTitle: 'Attic Insulation Removal Miami, FL | Purix',
     metaDescription:
       'Attic insulation removal in Miami for old, wet, compressed or rodent-contaminated insulation. Vacuum removal, bagged and hauled away. Call (305) 449-9881.',
@@ -1084,10 +1080,10 @@ export const services: Service[] = [
     parent: 'insulation-replacement',
     icon: 'wind',
     card: 'Loose-fill insulation blown evenly across the attic floor to add depth where existing insulation is thin.',
-    image: hoseTeam,
-    imageAlt: 'Two technicians running large hoses for an installation',
-    secondImage: technicianAttic,
-    secondImageAlt: 'Technician working through a ceiling opening into the attic',
+    image: insulationBlownIn,
+    imageAlt: 'Technician blowing new insulation between attic joists',
+    secondImage: brandedVan,
+    secondImageAlt: 'Purix Air Solution service van',
     metaTitle: 'Blown-In Attic Insulation Miami, FL | Purix',
     metaDescription:
       'Blown-in attic insulation in Miami. Loose-fill insulation added evenly across the attic to reach the recommended depth and reduce heat gain. Call (305) 449-9881.',
@@ -1146,10 +1142,10 @@ export const services: Service[] = [
     group: 'insulation',
     icon: 'layers',
     card: 'Old attic insulation removed and new blown-in insulation installed in one project.',
-    image: technicianAttic,
-    imageAlt: 'Technician working through a ceiling opening into the attic',
-    secondImage: negativeAir,
-    secondImageAlt: 'High-powered vacuum collection unit set up at a home',
+    image: insulationReplacement,
+    imageAlt: 'Technician installing new attic insulation',
+    secondImage: serviceTrucks,
+    secondImageAlt: 'Purix technicians with service trucks at a South Florida home',
     metaTitle: 'Insulation Replacement Miami, FL | Attic Insulation | Purix',
     metaDescription:
       'Attic insulation replacement in Miami: old or damaged insulation removed and new blown-in insulation installed in one project. Call (305) 449-9881.',

@@ -7,10 +7,10 @@ import ServicesSection from '../components/ServicesSection.astro';
 import Reviews from '../components/Reviews.astro';
 import LocationsSection from '../components/LocationsSection.astro';
 import CtaBand from '../components/CtaBand.astro';
-import QuoteForm from '../components/QuoteForm.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import SectionHeading from '../components/SectionHeading.astro';
 import Icon from '../components/Icon.astro';
-import technicianAttic from '../assets/images/technician-cleaning-attic-duct.jpg';
-import technicians from '../assets/images/technicians-living-room-duct-cleaning.png';
+import { photos } from '../data/photos';
 import { site } from '../data/site';
 
 const breadcrumbs = [
@@ -27,23 +27,24 @@ const values = [
 ---
 
 <BaseLayout
-  title="About Purix | Miami Air Duct & HVAC Cleaning Company"
+  title="About Purix | Miami Air Duct & Dryer Vent Cleaning Company"
   description="Purix Air Duct & Dryer Vent Cleaning is a Miami company focused on air duct, AC ductwork and HVAC cleaning for homes and businesses. Call (305) 449-9881."
   breadcrumbs={breadcrumbs}
 >
   <PageHeader
     eyebrow="About us"
-    title="Miami’s Air Duct & HVAC Cleaning Team"
+    title="Miami’s Air Duct & Dryer Vent Cleaning Team"
     subtitle={`${site.name} helps homeowners and businesses keep their AC ductwork and HVAC equipment clean.`}
     breadcrumbs={breadcrumbs}
+    overlap
   />
   <TrustBar />
 
   <SplitSection
     eyebrow="Who we are"
     heading="Focused on the air side of your AC system"
-    image={technicianAttic}
-    imageAlt="Purix technician working on flexible AC ductwork through a ceiling opening"
+    image={photos.teamWithVan.src}
+    imageAlt={photos.teamWithVan.alt}
     paragraphs={[
       'Purix is based in Miami and serves homes and businesses across South Florida, with service throughout Miami-Dade and Broward counties and in Boca Raton, Naples and Cape Coral. Our main focus is air conditioning systems: air duct and AC ductwork cleaning, duct inspection and replacement, and cleaning for the coils, air handlers and blower wheels inside the equipment.',
       'We also help homeowners deal with musty AC odors and suspected microbial buildup on HVAC components, and we offer dryer vent cleaning and installation as well as attic insulation removal, blown-in insulation and insulation replacement.',
@@ -53,8 +54,8 @@ const values = [
   <SplitSection
     eyebrow="How we approach each job"
     heading="Clear scope, careful work, honest results"
-    image={technicians}
-    imageAlt="Purix technicians preparing equipment for an air duct cleaning"
+    image={photos.vanDuctCrew.src}
+    imageAlt={photos.vanDuctCrew.alt}
     reverse
     tint
     paragraphs={[
@@ -65,19 +66,17 @@ const values = [
 
   <section class="section bg-white">
     <div class="container-x">
-      <div class="mx-auto max-w-3xl text-center">
-        <p class="eyebrow">How we work</p>
-        <h2 class="text-3xl sm:text-4xl">What You Can Expect From Purix</h2>
-      </div>
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionHeading eyebrow="How we work" title="What You Can Expect From Purix" center />
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {
-          values.map((v) => (
-            <div class="rounded-3xl border border-slate-100 bg-white p-7 shadow-sm">
-              <span class="flex size-12 items-center justify-center rounded-2xl bg-sky-100 text-navy-700">
-                <Icon name={v.icon} class="size-6" />
-              </span>
-              <h3 class="mt-5 text-lg">{v.title}</h3>
-              <p class="mt-2 text-muted">{v.text}</p>
+          values.map((v, i) => (
+            <div class="card card-hover spotlight p-7">
+              <div class="flex items-center justify-between">
+                <span class="icon-chip size-12"><Icon name={v.icon} class="size-6" /></span>
+                <span class="font-display text-4xl font-bold text-sky-100">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3 class="mt-6 text-xl">{v.title}</h3>
+              <p class="mt-2 leading-relaxed text-muted">{v.text}</p>
             </div>
           ))
         }
@@ -85,20 +84,15 @@ const values = [
     </div>
   </section>
 
-  <ServicesSection bg="sky" />
+  <ServicesSection bg="sky" avoid={[photos.teamWithVan.src, photos.vanDuctCrew.src]} />
   <Reviews />
   <LocationsSection tint />
 
-  <section class="section bg-navy-950">
-    <div class="container-x grid items-center gap-10 lg:grid-cols-2">
-      <div>
-        <p class="eyebrow !text-lime-500">Get in touch</p>
-        <h2 class="text-3xl !text-white sm:text-4xl">Schedule Your Cleaning</h2>
-        <p class="mt-4 text-lg text-white/80">Send us a request and we’ll call you back to confirm the details and give you a free quote.</p>
-      </div>
-      <QuoteForm />
-    </div>
-  </section>
+  <QuoteSection
+    eyebrow="Get in touch"
+    title="Schedule Your Cleaning"
+    text="Send us a request and we’ll call you back to confirm the details and give you a free quote."
+  />
 
   <CtaBand />
 </BaseLayout>

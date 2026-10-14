@@ -68,8 +68,8 @@ export function serviceAreaSchema(loc: Location) {
   return {
     '@type': 'Service',
     '@id': `${abs(loc.path)}#service-area`,
-    name: `Air duct & HVAC cleaning in ${loc.city}, FL`,
-    serviceType: 'Air duct and HVAC cleaning',
+    name: `Air duct & dryer vent cleaning in ${loc.city}, FL`,
+    serviceType: 'Air duct and dryer vent cleaning',
     url: abs(loc.path),
     provider: { '@id': businessId },
     areaServed: { '@type': 'City', name: `${loc.city}, FL` },

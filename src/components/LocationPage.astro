@@ -14,6 +14,7 @@ import CtaBand from './CtaBand.astro';
 import { getLocation, site } from '../data/site';
 import { locationContent } from '../data/location-content';
 import { serviceAreaSchema, faqSchema } from '../data/schema';
+import { photos } from '../data/photos';
 
 interface Props {
   slug: string;
@@ -24,6 +25,9 @@ const location = getLocation(slug);
 const c = locationContent[slug];
 const isHome = location.path === '/';
 const phone = { label: site.phone, href: site.phoneHref };
+const hero = photos.vanDryerCrew;
+const local = c.localImage.src === hero.src.src ? { src: c.heroImage, alt: c.heroImageAlt } : { src: c.localImage, alt: c.localImageAlt };
+const pagePhotos = [hero.src, c.introImage, local.src, ...(isHome ? [photos.hvacCoilCleaning.src] : [])];
 
 const breadcrumbs = isHome
   ? undefined
@@ -45,15 +49,15 @@ const breadcrumbs = isHome
     eyebrow={isHome ? site.name : `Serving ${location.city} & ${location.county}`}
     title={c.h1}
     subtitle={c.heroSubtitle}
-    image={c.heroImage}
-    imageAlt={c.heroImageAlt}
+    image={hero.src}
+    imageAlt={hero.alt}
     location={location}
     breadcrumbs={breadcrumbs}
   />
   <TrustBar />
 
   <SplitSection
-    eyebrow={`Air duct & HVAC cleaning · ${location.city}`}
+    eyebrow={`Air duct & dryer vent cleaning · ${location.city}`}
     heading={c.introHeading}
     paragraphs={c.intro}
     image={c.introImage}
@@ -62,12 +66,13 @@ const breadcrumbs = isHome
   />
 
   <ServicesSection
-    title={isHome ? 'Air Duct, AC Ductwork & HVAC Cleaning Services' : `Our Services in ${location.city}`}
+    title={isHome ? 'Air Duct, Dryer Vent & HVAC Cleaning Services' : `Our Services in ${location.city}`}
     intro={isHome
       ? undefined
       : `Ductwork and AC system cleaning for homes and businesses in ${location.city}, FL, plus dryer vent and attic insulation services.`}
     city={isHome ? undefined : location.city}
     bg="sky"
+    avoid={pagePhotos}
   />
 
   {isHome && <HvacHighlight />}
@@ -76,8 +81,8 @@ const breadcrumbs = isHome
     eyebrow={`Serving ${location.city}, FL`}
     heading={c.localHeading}
     paragraphs={c.local}
-    image={c.localImage}
-    imageAlt={c.localImageAlt}
+    image={local.src}
+    imageAlt={local.alt}
     reverse
     tint={!isHome}
     phone={phone}
@@ -85,8 +90,8 @@ const breadcrumbs = isHome
 
   <ProcessSteps />
   <Reviews />
-  <LocationDetails location={location} />
-  <FAQ faqs={c.faqs} title={`Air Duct & HVAC Cleaning FAQs: ${location.city}`} />
+  <FAQ faqs={c.faqs} title={`Air Duct & Dryer Vent Cleaning FAQs: ${location.city}`} tint />
   <LocationsSection title="Areas We Serve" current={location.slug} showMap={false} />
-  <CtaBand title={`Need air duct or HVAC cleaning in ${location.city}?`} />
+  <LocationDetails location={location} />
+  <CtaBand title={`Need air duct or dryer vent cleaning in ${location.city}?`} />
 </BaseLayout>

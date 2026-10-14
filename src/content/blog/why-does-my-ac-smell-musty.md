@@ -2,8 +2,8 @@
 title: 'Why Does My AC Smell Musty? Common Causes and Fixes'
 description: 'A musty smell from your AC vents is common in humid Florida homes. Learn the most likely causes, what you can check yourself, and when to call for HVAC cleaning.'
 date: 2026-10-13
-cover: ../../assets/images/vent-grille-cleaning.webp
-coverAlt: 'Technician cleaning a dirty return air vent grille'
+cover: ../../assets/images/furnace-filter.jpg
+coverAlt: 'Purix technician replacing an air filter at a home furnace'
 service: hvac-mold-cleaning
 ---
 

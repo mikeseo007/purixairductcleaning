@@ -12,14 +12,17 @@ interface Props {
 }
 
 const { location, service, heading = 'Request a Free Quote', id = 'quote', compact = false } = Astro.props;
-const cols = compact ? 'grid gap-4' : 'grid gap-4 sm:grid-cols-2';
+const cols = compact ? 'grid gap-4' : 'grid gap-4 @min-[34rem]:grid-cols-2';
 const field =
-  'w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-ink placeholder:text-slate-400 transition focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none';
+  'w-full min-w-0 rounded-2xl border border-slate-200 bg-surface px-4 py-3.5 text-base text-ink placeholder:text-slate-400 transition duration-300 hover:border-slate-300 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/15 focus:outline-none';
 ---
 
-<div id={id} class="scroll-mt-28 rounded-3xl bg-white p-6 shadow-2xl shadow-navy-950/25 sm:p-8">
-  <p class="text-2xl font-extrabold text-navy-900">{heading}</p>
-  <p class="mt-1 text-muted">Tell us about your AC system or vent and we’ll get back to you to schedule.</p>
+<div id={id} class="@container relative scroll-mt-28 overflow-hidden rounded-[calc(2rem-1px)] bg-white p-6 shadow-2xl shadow-navy-950/25 sm:p-8">
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-500 via-sky-400 to-lime-500"></div>
+  <div>
+    <p class="font-display text-[1.65rem] leading-tight font-bold tracking-tight text-navy-900">{heading}</p>
+    <p class="mt-1.5 text-muted">Tell us about your AC system or vent and we’ll get back to you to schedule.</p>
+  </div>
 
   <form name="service-request" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company" class="mt-6 grid gap-4">
     <input type="hidden" name="form-name" value="service-request" />
@@ -28,11 +31,11 @@ const field =
     </p>
 
     <div class={cols}>
-      <label class="block">
+      <label class="block min-w-0">
         <span class="sr-only">Full name</span>
         <input class={field} type="text" name="name" placeholder="Full name *" autocomplete="name" required />
       </label>
-      <label class="block">
+      <label class="block min-w-0">
         <span class="sr-only">Phone number</span>
         <input
           class={field}
@@ -48,13 +51,13 @@ const field =
       </label>
     </div>
 
-    <label class="block">
+    <label class="block min-w-0">
       <span class="sr-only">Service address or ZIP code</span>
       <input class={field} type="text" name="address" placeholder="Service address or ZIP code" autocomplete="street-address" />
     </label>
 
     <div class={cols}>
-      <label class="block">
+      <label class="block min-w-0">
         <span class="sr-only">Service needed</span>
         <select class={field} name="service">
           <option value="">Service needed</option>
@@ -72,7 +75,7 @@ const field =
           <option value="Not sure">Not sure, please advise</option>
         </select>
       </label>
-      <label class="block">
+      <label class="block min-w-0">
         <span class="sr-only">Service area</span>
         <select class={field} name="location">
           <option value="">Service area</option>
@@ -92,7 +95,7 @@ const field =
       </label>
     </div>
 
-    <label class="block">
+    <label class="block min-w-0">
       <span class="sr-only">Message</span>
       <textarea class={field} name="message" rows="3" placeholder="How can we help?"></textarea>
     </label>
