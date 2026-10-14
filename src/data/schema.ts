@@ -13,9 +13,28 @@ export function businessSchema() {
     name: site.name,
     url: SITE_URL,
     logo: abs('/favicon.png'),
-    image: abs('/og-image.jpg'),
-    telephone: site.phone,
+    telephone: '+1-305-449-9881',
     email: site.email,
+    image: abs('/og-image.jpg'),
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: site.address.lat,
+      longitude: site.address.lng,
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: site.google.rating,
+      reviewCount: site.google.reviewCount,
+      bestRating: 5,
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+1-305-449-9881',
+      email: site.email,
+      contactType: 'customer service',
+      areaServed: 'US',
+      availableLanguage: 'English',
+    },
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
@@ -37,6 +56,20 @@ export function businessSchema() {
     areaServed: locations.map((l) => ({ '@type': 'City', name: `${l.city}, FL` })),
     knowsAbout: ['Air duct cleaning', 'AC ductwork', 'HVAC cleaning', 'AC coil cleaning', 'Air handler cleaning', 'Dryer vent cleaning'],
     sameAs: [site.google.profileUrl, ...Object.values(site.social)],
+  };
+}
+
+export function webpageSchema(page: { url: string; name: string; description: string; image: string }) {
+  return {
+    '@type': 'WebPage',
+    '@id': `${page.url}#webpage`,
+    url: page.url,
+    name: page.name,
+    description: page.description,
+    inLanguage: 'en-US',
+    isPartOf: { '@id': websiteId },
+    about: { '@id': businessId },
+    primaryImageOfPage: page.image,
   };
 }
 

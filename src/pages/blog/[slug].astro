@@ -39,6 +39,7 @@ const fmt = post.data.date.toLocaleDateString('en-US', { year: 'numeric', month:
   description={post.data.description}
   image={og.src}
   ogType="article"
+  published={post.data.date.toISOString()}
   breadcrumbs={breadcrumbs}
   schema={[
     articleSchema({

@@ -13,6 +13,8 @@ export const site = {
     city: 'Miami',
     region: 'FL',
     zip: '33179',
+    lat: 25.9657381,
+    lng: -80.1822319,
   },
   mapsUrl: 'https://maps.app.goo.gl/avWn1kiFfo1b6v2aA',
   google: {
