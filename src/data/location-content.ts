@@ -59,7 +59,7 @@ export const locationContent: Record<string, LocationContent> = {
       },
       {
         q: 'What are your hours?',
-        a: 'We’re open 24 hours Sunday through Friday and closed on Saturday.',
+        a: 'We’re open 24 hours a day, 7 days a week.',
       },
       {
         q: 'Do you clean condo AC systems?',
@@ -364,7 +364,7 @@ export const locationContent: Record<string, LocationContent> = {
     localImageAlt: photos.serviceTrucks.alt,
     faqs: [
       { q: 'Do you clean HVAC systems in offices and warehouses?', a: 'Yes. We clean commercial ductwork and HVAC equipment for offices, showrooms and the office areas of warehouses.' },
-      { q: 'Can you work outside our business hours?', a: 'Yes. We’re open 24 hours Sunday through Friday and can schedule around your operations.' },
+      { q: 'Can you work outside our business hours?', a: 'Yes. We’re open 24 hours a day, 7 days a week, and can schedule around your operations.' },
       { q: 'My townhome is only a few years old. Do the ducts need cleaning?', a: 'They may. New construction often leaves drywall dust and debris in the ducts. An inspection will show what’s there.' },
       { q: 'Do you clean dryer vents in Doral?', a: 'Yes, for homes, townhomes and condo buildings.' },
     ],

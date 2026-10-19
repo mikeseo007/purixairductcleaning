@@ -7,7 +7,7 @@ const { rating, reviewCount } = site.google;
 
 const stats = [
   { value: rating.toFixed(1), suffix: '', icon: 'star', label: 'Google rating', text: `From ${reviewCount} customer reviews` },
-  { value: '24', suffix: 'h', icon: 'clock', label: 'Open Sunday–Friday', text: 'Closed Saturday' },
+  { value: '24', suffix: 'h', icon: 'clock', label: 'Open 7 days a week', text: 'Sunday through Saturday' },
   { value: String(services.length), suffix: '', icon: 'hvac', label: 'Specialized services', text: 'Ducts, HVAC, dryer vents, insulation' },
   { value: String(locations.length), suffix: '', icon: 'pin', label: 'Cities served', text: 'Miami-Dade, Broward & beyond' },
 ];

@@ -26,9 +26,9 @@ export const site = {
     reviewCount: 4,
   },
   hours: {
-    short: 'Open 24 hours, Sun–Fri',
-    long: 'Open 24 hours Sunday through Friday. Closed Saturday.',
-    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    short: 'Open 24/7',
+    long: 'Open 24 hours a day, 7 days a week.',
+    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   },
   social: {
     facebook: 'https://www.facebook.com/purixairductcleaningcapecoral/',
