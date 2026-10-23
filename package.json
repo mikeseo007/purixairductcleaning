@@ -8,9 +8,7 @@
   },
   "scripts": {
     "images": "node scripts/optimize-images.mjs",
-    "predev": "npm run images --silent",
     "dev": "astro dev",
-    "prebuild": "npm run images --silent",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
