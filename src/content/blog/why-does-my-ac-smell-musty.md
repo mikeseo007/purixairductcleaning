@@ -1,6 +1,6 @@
 ---
 title: 'Why Does My AC Smell Musty? Common Causes and Fixes'
-description: 'A musty smell from your AC vents is common in humid Florida homes. Learn the most likely causes, what you can check yourself, and when to call for HVAC cleaning.'
+description: 'A musty smell from AC vents is common in humid Florida homes. Learn the likely causes, what you can check yourself, and when to call for HVAC cleaning.'
 date: 2026-10-13
 cover: ../../assets/images/furnace-filter.webp
 coverAlt: 'Purix technician replacing an air filter at a home furnace'
@@ -38,7 +38,7 @@ Air fresheners and vent clips only mask the smell. If it keeps coming back, the 
 
 ## When to call for professional cleaning
 
-If the smell continues after you've changed the filter and checked the drain, the components inside the system likely need cleaning. Our [HVAC mold cleaning](/hvac-mold-cleaning/) service focuses on the wet parts of the system, including the coil, drain pan, blower, air handler cabinet and nearby ductwork, and we point out any moisture problems we find so they can be fixed. If the odor is only in the ductwork, [air duct cleaning](/air-duct-cleaning/) followed by [air duct sanitizing](/air-duct-sanitizing/) may be enough.
+If the smell continues after you've changed the filter and checked the drain, the components inside the system likely need cleaning. Our [HVAC mold cleaning](/hvac-mold-cleaning/) service focuses on the wet parts of the system, including the coil, drain pan, blower, air handler cabinet and nearby ductwork, and we point out any moisture problems we find so they can be fixed. If the odor is only in the ductwork, [air duct cleaning](/) followed by [air duct sanitizing](/air-duct-sanitizing/) may be enough.
 
 We don't test for mold. If you suspect growth on walls, ceilings or other building materials, contact a qualified mold professional.
 

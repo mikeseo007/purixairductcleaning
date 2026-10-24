@@ -1,10 +1,10 @@
 ---
 import '../styles/global.css';
+import jakartaLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileCallBar from '../components/MobileCallBar.astro';
 import { SITE_URL, site, mainLocation, type Location } from '../data/site';
-import { businessSchema, websiteSchema, webpageSchema, breadcrumbSchema } from '../data/schema';
 
 interface Props {
   title: string;
@@ -35,15 +35,15 @@ const fullTitle = title.includes('Purix')
   : `${title} | ${title.length + site.name.length + 3 <= 60 ? site.name : 'Purix'}`;
 const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
 const ogImage = new URL(image, SITE_URL).toString();
+const ogImageType = /\.png(\?|$)/i.test(ogImage) ? 'image/png'
+  : /\.webp(\?|$)/i.test(ogImage) ? 'image/webp'
+  : 'image/jpeg';
 
-const graph = [
-  businessSchema(),
-  websiteSchema(),
-  webpageSchema({ url: canonical, name: fullTitle, description, image: ogImage }),
-  ...(breadcrumbs ? [breadcrumbSchema(breadcrumbs)] : []),
-  ...schema,
-];
-const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+// JSON-LD is fully page-controlled: each page passes exactly the entities its
+// type is allowed to emit (homepage → LocalBusiness; service pages → Service +
+// FAQPage + BreadcrumbList; location pages → FAQPage + BreadcrumbList; every
+// other page → none). No schema is auto-injected here.
+const jsonLd = schema.length ? JSON.stringify({ '@context': 'https://schema.org', '@graph': schema }) : '';
 ---
 
 <!doctype html>
@@ -51,6 +51,8 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="google-site-verification" content="LpTRqzF5k0sGuNAzrCcCNvsj7444_ioSEKMtZnSafMo" />
+    <link rel="preload" href={jakartaLatin} as="font" type="font/woff2" crossorigin />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -70,7 +72,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:type" content={ogImageType} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Purix technicians with the service van and dryer vent cleaning equipment" />
@@ -87,7 +89,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <meta name="geo.placename" content={location.city} />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <script type="application/ld+json" set:html={jsonLd} />
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
     <script is:inline>
       document.documentElement.classList.add('js');
       setTimeout(function () {

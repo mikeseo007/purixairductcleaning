@@ -11,6 +11,8 @@ interface Props {
   service?: { name: string };
   showMap?: boolean;
   tint?: boolean;
+  /** Left-align the heading on mobile (centered from lg up) instead of centered on all sizes. */
+  headingCenterDesktop?: boolean;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   service,
   showMap = true,
   tint = false,
+  headingCenterDesktop = true,
 } = Astro.props;
 
 const what = service ? service.name : 'Air duct & dryer vent cleaning';
@@ -27,7 +30,7 @@ const what = service ? service.name : 'Air duct & dryer vent cleaning';
 
 <section class:list={['section relative overflow-hidden', tint ? 'bg-surface' : 'bg-white']}>
   <div class="container-x relative">
-    <SectionHeading eyebrow="Service areas" title={title} intro={intro} center />
+    <SectionHeading eyebrow="Service areas" title={title} intro={intro} center={!headingCenterDesktop} centerDesktop={headingCenterDesktop} />
 
     <div class:list={['mt-14 grid gap-8', showMap && 'lg:grid-cols-12']}>
       {

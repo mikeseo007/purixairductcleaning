@@ -17,6 +17,12 @@
   to = "/hvac-cleaning/"
   status = 301
 
+# Air Duct Cleaning service page retired; the homepage targets "Air Duct Cleaning in Miami".
+[[redirects]]
+  from = "/air-duct-cleaning/"
+  to = "/"
+  status = 301
+
 [[redirects]]
   from = "/services/"
   to = "/our-services/"

@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site } from '../data/site';
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Terms & Conditions', path: '/terms/' },
+];
+---
+
+<BaseLayout title="Terms & Conditions | Purix Air Duct & Dryer Vent Cleaning" description="Terms and conditions for using the Purix Air Duct & Dryer Vent Cleaning website, covering acceptable use, intellectual property, liability and governing law." breadcrumbs={breadcrumbs}>
+  <PageHeader title="Terms & Conditions" breadcrumbs={breadcrumbs} />
+  <section class="section bg-white">
+    <div class="container-x prose-purix max-w-3xl">
+      <p><em>Last updated: October 24, 2026</em></p>
+
+      <h2>1. Introduction</h2>
+      <p>Welcome to Purix Air Duct Cleaning (“we”, “our”, or “us”). These Terms &amp; Conditions govern your use of our website located at <a href={site.url}>https://purixairductcleaning.com/</a>.</p>
+      <p>By accessing or using this website, you agree to comply with these Terms &amp; Conditions. If you do not agree with these terms, please discontinue use of the website.</p>
+
+      <h2>2. Use of Website</h2>
+      <p>You agree to use our website only for lawful purposes and in a manner that does not infringe upon the rights of others, interfere with website operations, or restrict other users from accessing or using the website.</p>
+      <p>You may not use this website to distribute harmful content, attempt unauthorized access, introduce malicious software, or engage in any activity that violates applicable laws or regulations.</p>
+
+      <h2>3. Intellectual Property</h2>
+      <p>All content on this website, including text, images, graphics, logos, design elements, and other materials, is owned by Purix Air Duct Cleaning or its respective owners unless otherwise stated.</p>
+      <p>You may not reproduce, distribute, modify, republish, or commercially use any website content without prior written permission from the applicable rights holder, except where permitted by law.</p>
+
+      <h2>4. User Content</h2>
+      <p>If you submit comments, inquiries, reviews, or other content through our website, you are responsible for ensuring that your submissions are lawful, accurate, and do not violate the rights of others.</p>
+      <p>We reserve the right to remove or restrict content that we reasonably consider inappropriate, misleading, unlawful, offensive, or in violation of these terms.</p>
+      <p>Submitting an inquiry through our website does not guarantee service availability, appointment confirmation, or acceptance of a service request.</p>
+
+      <h2>5. Links to Other Websites</h2>
+      <p>Our website may contain links to third-party websites or services for your convenience. We do not control and are not responsible for the content, privacy practices, availability, or policies of third-party websites.</p>
+      <p>Accessing third-party websites is at your own discretion and subject to their applicable terms and policies.</p>
+
+      <h2>6. Limitation of Liability</h2>
+      <p>To the extent permitted by applicable law, Purix Air Duct Cleaning shall not be liable for any indirect, incidental, consequential, or other damages arising from your use of, inability to access, or reliance on information provided through this website.</p>
+      <p>We do not guarantee that the website will always be available, error-free, secure, or free from harmful components. Nothing in these terms excludes or limits liability that cannot legally be excluded or limited under applicable law.</p>
+
+      <h2>7. Changes to Terms</h2>
+      <p>We reserve the right to update or revise these Terms &amp; Conditions at any time. Changes will become effective when posted on this page, unless otherwise stated.</p>
+      <p>Your continued use of the website after changes are posted constitutes acceptance of the revised terms.</p>
+
+      <h2>8. Governing Law</h2>
+      <p>These Terms &amp; Conditions shall be governed by and interpreted in accordance with the laws of the State of Florida, United States, without regard to conflict-of-law principles, to the extent permitted by applicable law.</p>
+
+      <h2>9. Contact</h2>
+      <p>If you have questions about these Terms &amp; Conditions, please contact us using the following information:</p>
+      <p>
+        <strong>Business Name:</strong> Purix Air Duct Cleaning<br />
+        <strong>Address:</strong> 1021 Ives Dairy Rd, Ste 212, Miami, FL 33179<br />
+        <strong>Phone:</strong> <a href={site.phoneHref}>(305) 449-9881</a><br />
+        <strong>Email:</strong> <a href={`mailto:${site.email}`}>{site.email}</a><br />
+        <strong>Website:</strong> <a href={site.url}>https://purixairductcleaning.com/</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

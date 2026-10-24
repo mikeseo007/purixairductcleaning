@@ -38,13 +38,13 @@ const ribbon = ['Inspect', 'Protect', 'Clean', 'Walk through', 'Upfront quotes',
       <div class="drift pointer-events-none absolute -top-32 -right-24 -z-10 size-[28rem] rounded-full bg-sky-500/35 blur-[100px]"></div>
       <div class="drift pointer-events-none absolute -bottom-40 left-1/4 -z-10 size-[24rem] rounded-full bg-lime-500/25 blur-[100px] [animation-delay:-5s]"></div>
 
-      <div class="grid items-center gap-10 lg:grid-cols-[1fr_auto]" data-reveal>
+      <div class="flex flex-col items-center gap-10 text-center" data-reveal>
         <div>
-          <p class="eyebrow !text-lime-500">Get started</p>
-          <h2 class="max-w-2xl text-4xl leading-[1.05] !text-white sm:text-5xl lg:text-[3.5rem]">{title}</h2>
-          <p class="mt-5 max-w-2xl text-lg text-white/75">{text}</p>
+          <p class="eyebrow justify-center !text-lime-500">Get started</p>
+          <h2 class="mx-auto max-w-2xl text-4xl leading-[1.05] !text-white sm:text-5xl lg:text-[3.5rem]">{title}</h2>
+          <p class="mx-auto mt-5 max-w-2xl text-lg text-white/75">{text}</p>
         </div>
-        <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+        <div class="flex flex-col items-center gap-3 sm:flex-row">
           <a href={site.phoneHref} class="btn-primary !px-8 !py-4 text-lg">
             <Icon name="phone" class="size-5" />
             {site.phone}

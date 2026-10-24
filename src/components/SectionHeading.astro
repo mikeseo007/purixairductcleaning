@@ -4,14 +4,16 @@ interface Props {
   title: string;
   intro?: string;
   center?: boolean;
+  /** Left-aligned on mobile, centered from the lg breakpoint up. */
+  centerDesktop?: boolean;
   dark?: boolean;
   as?: 'h2' | 'h3';
 }
 
-const { eyebrow, title, intro, center = false, dark = false, as: Tag = 'h2' } = Astro.props;
+const { eyebrow, title, intro, center = false, centerDesktop = false, dark = false, as: Tag = 'h2' } = Astro.props;
 ---
 
-<div class:list={['max-w-3xl', center && 'mx-auto text-center']} data-reveal>
+<div class:list={['max-w-3xl', center && 'mx-auto text-center', centerDesktop && 'lg:mx-auto lg:text-center']} data-reveal>
   {eyebrow && <p class:list={['eyebrow', dark && '!text-lime-500']}>{eyebrow}</p>}
   <Tag class:list={['text-[2.1rem] leading-[1.08] sm:text-[2.75rem] lg:text-[3.25rem]', dark && '!text-white']}>{title}</Tag>
   {intro && <p class:list={['mt-5 text-lg leading-relaxed', dark ? 'text-white/70' : 'text-muted']}>{intro}</p>}

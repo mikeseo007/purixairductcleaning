@@ -21,9 +21,9 @@ export const site = {
     profileUrl: 'https://www.google.com/maps?cid=15042423643415340158',
     reviewsUrl: 'https://maps.app.goo.gl/avWn1kiFfo1b6v2aA',
     mapEmbed:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.358026683085!2d-80.1822319!3d25.9657381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9ad0d9d62c0b1%3A0xd0c16c9b02b5647e!2sPurix%20Air%20Duct%20%26%20Dryer%20vent%20cleaning!5e1!3m2!1sen!2sus!4v1791927742995!5m2!1sen!2sus',
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14348.280783298142!2d-80.1895704239938!3d25.965738100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9ad0d9d62c0b1%3A0xd0c16c9b02b5647e!2sPurix%20Air%20Duct%20%26%20Dryer%20vent%20cleaning!5e0!3m2!1sen!2s!4v1792752013757!5m2!1sen!2s',
     rating: 5.0,
-    reviewCount: 4,
+    reviewCount: 9,
   },
   hours: {
     short: 'Open 24/7',

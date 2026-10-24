@@ -2,11 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import QuoteForm from '../components/QuoteForm.astro';
-import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import GoogleMap from '../components/GoogleMap.astro';
-import { site, locations } from '../data/site';
-import { businessId } from '../data/schema';
+import { site } from '../data/site';
 
 const breadcrumbs = [
   { name: 'Home', path: '/' },
@@ -15,10 +14,9 @@ const breadcrumbs = [
 ---
 
 <BaseLayout
-  title="Contact Purix | Air Duct & Dryer Vent Cleaning in Miami, FL"
-  description="Contact Purix Air Duct & Dryer Vent Cleaning in Miami. Call (305) 449-9881 or request a free quote. Open 24 hours a day, 7 days a week."
+  title="Contact Purix Air Duct & Dryer Vent Cleaning Miami"
+  description="Contact Purix Air Duct & Dryer Vent Cleaning in Miami. Request a free quote online, open 24/7 for air duct, AC ductwork and dryer vent service today."
   breadcrumbs={breadcrumbs}
-  schema={[{ '@type': 'ContactPage', name: `Contact ${site.name}`, url: `${site.url}/contact-us/`, about: { '@id': businessId } }]}
 >
   <PageHeader
     eyebrow="Contact us"
@@ -60,21 +58,8 @@ const breadcrumbs = [
         </ul>
 
         <div class="mt-8" data-reveal>
-          <GoogleMap class="h-[400px]" />
+          <GoogleMap class="h-[800px]" />
         </div>
-
-        <p class="mt-8 font-bold text-navy-900">Areas we serve</p>
-        <ul class="mt-3 flex flex-wrap gap-2">
-          {
-            locations.map((l) => (
-              <li>
-                <a href={l.path} class="inline-block rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-navy-800 ring-1 ring-sky-100 hover:bg-sky-100">
-                  {l.city}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
       </div>
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-28" data-reveal="right">
@@ -86,5 +71,8 @@ const breadcrumbs = [
     </div>
   </section>
 
-  <Reviews />
+  <CtaBand
+    title="Ready to book your air duct cleaning?"
+    text="Call (305) 449-9881 or send a service request for a free quote. Open 24 hours a day, 7 days a week."
+  />
 </BaseLayout>

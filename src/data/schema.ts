@@ -1,10 +1,12 @@
-import { SITE_URL, site, locations, type Location } from './site';
+import { SITE_URL, site, locations } from './site';
 import type { Service } from './services';
 
 const abs = (path: string) => new URL(path, SITE_URL).toString();
 
+// Stable @id for the single business entity. It lives on the homepage
+// (LocalBusiness) and is referenced by name from Service.provider on service
+// pages, so the reference always resolves to a real, defined entity.
 export const businessId = `${SITE_URL}/#business`;
-export const websiteId = `${SITE_URL}/#website`;
 
 export function businessSchema() {
   return {
@@ -20,12 +22,6 @@ export function businessSchema() {
       '@type': 'GeoCoordinates',
       latitude: site.address.lat,
       longitude: site.address.lng,
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: site.google.rating,
-      reviewCount: site.google.reviewCount,
-      bestRating: 5,
     },
     contactPoint: {
       '@type': 'ContactPoint',
@@ -59,31 +55,6 @@ export function businessSchema() {
   };
 }
 
-export function webpageSchema(page: { url: string; name: string; description: string; image: string }) {
-  return {
-    '@type': 'WebPage',
-    '@id': `${page.url}#webpage`,
-    url: page.url,
-    name: page.name,
-    description: page.description,
-    inLanguage: 'en-US',
-    isPartOf: { '@id': websiteId },
-    about: { '@id': businessId },
-    primaryImageOfPage: page.image,
-  };
-}
-
-export function websiteSchema() {
-  return {
-    '@type': 'WebSite',
-    '@id': websiteId,
-    url: SITE_URL,
-    name: site.name,
-    publisher: { '@id': businessId },
-    inLanguage: 'en-US',
-  };
-}
-
 export function serviceSchema(service: Service) {
   return {
     '@type': 'Service',
@@ -94,18 +65,6 @@ export function serviceSchema(service: Service) {
     url: abs(service.path),
     provider: { '@id': businessId },
     areaServed: locations.map((l) => ({ '@type': 'City', name: `${l.city}, FL` })),
-  };
-}
-
-export function serviceAreaSchema(loc: Location) {
-  return {
-    '@type': 'Service',
-    '@id': `${abs(loc.path)}#service-area`,
-    name: `Air duct & dryer vent cleaning in ${loc.city}, FL`,
-    serviceType: 'Air duct and dryer vent cleaning',
-    url: abs(loc.path),
-    provider: { '@id': businessId },
-    areaServed: { '@type': 'City', name: `${loc.city}, FL` },
   };
 }
 
@@ -129,20 +88,5 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       name: item.name,
       item: abs(item.path),
     })),
-  };
-}
-
-export function articleSchema(a: { title: string; description: string; path: string; datePublished: string; image: string }) {
-  return {
-    '@type': 'BlogPosting',
-    headline: a.title,
-    description: a.description,
-    url: abs(a.path),
-    mainEntityOfPage: abs(a.path),
-    datePublished: a.datePublished,
-    dateModified: a.datePublished,
-    image: a.image,
-    author: { '@id': businessId },
-    publisher: { '@id': businessId },
   };
 }

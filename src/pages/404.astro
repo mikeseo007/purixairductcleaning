@@ -11,7 +11,7 @@ import { site } from '../data/site';
 import { photos, asPhoto, pickPhoto } from '../data/photos';
 
 const used = new Set<string>([photos.vanDryerCrew.family, photos.vanDryerCrew.src.src]);
-const popular = ['air-duct-cleaning', 'dryer-vent-cleaning', 'hvac-cleaning', 'ac-coil-cleaning'].map((slug) => {
+const popular = ['residential-air-duct-cleaning', 'dryer-vent-cleaning', 'hvac-cleaning', 'ac-coil-cleaning'].map((slug) => {
   const s = getService(slug);
   const photo = pickPhoto([asPhoto(s.image, s.imageAlt), asPhoto(s.secondImage, s.secondImageAlt)], used, { minWidth: 900 });
   return { ...s, image: photo.src, imageAlt: photo.alt };
@@ -65,7 +65,7 @@ const popular = ['air-duct-cleaning', 'dryer-vent-cleaning', 'hvac-cleaning', 'a
 
   <section class="section bg-white">
     <div class="container-x">
-      <SectionHeading eyebrow="Popular services" title="Looking for one of these?" center />
+      <SectionHeading eyebrow="Popular services" title="Looking for one of these?" centerDesktop />
       <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {
           popular.map((s) => (

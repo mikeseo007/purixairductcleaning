@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import SectionHeading from './SectionHeading.astro';
-import { reviews, site } from '../data/site';
+import { reviews } from '../data/site';
 
 interface Props {
   title?: string;
@@ -12,7 +12,6 @@ interface Props {
 
 const { title = 'What Our Customers Say on Google', eyebrow = 'Google reviews', limit = reviews.length, tint = false } = Astro.props;
 const list = reviews.slice(0, limit);
-const { rating, reviewCount, reviewsUrl } = site.google;
 
 const avatarColors = ['bg-[#1a73e8]', 'bg-[#e8710a]', 'bg-[#188038]', 'bg-[#a142f4]', 'bg-[#d93025]', 'bg-[#12a4af]'];
 const avatarColor = (name: string) => avatarColors[[...name].reduce((n, c) => n + c.charCodeAt(0), 0) % avatarColors.length];
@@ -25,28 +24,8 @@ const stars = Array.from({ length: 5 });
     <div class="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
       <SectionHeading eyebrow={eyebrow} title={title} />
 
-      <div class="card flex w-full flex-col gap-4 p-5 sm:w-auto sm:flex-row sm:items-center sm:gap-6" data-reveal="right">
-        <div class="flex items-center gap-4">
-          <svg viewBox="0 0 48 48" class="size-11 shrink-0" aria-hidden="true">
-            <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z" />
-            <path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
-            <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
-            <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z" />
-          </svg>
-          <div>
-            <p class="text-sm font-semibold text-muted">Google Rating</p>
-            <p class="flex items-center gap-2">
-              <span class="text-3xl leading-none font-extrabold text-navy-900">{rating.toFixed(1)}</span>
-              <span class="flex text-[#FBBC04]" aria-label={`${rating.toFixed(1)} out of 5 stars`}>
-                {stars.map(() => <Icon name="star" class="size-5" />)}
-              </span>
-            </p>
-            <a href={reviewsUrl} target="_blank" rel="noopener" class="text-sm text-muted underline-offset-2 hover:text-navy-700 hover:underline">
-              Based on {reviewCount} reviews
-            </a>
-          </div>
-        </div>
-        <a href={reviewsUrl} target="_blank" rel="noopener" class="btn-navy !px-5 !py-2.5 text-sm"> Review us on Google </a>
+      <div class="shrink-0" data-reveal="right">
+        <button id="rlgOpenPopup" type="button" class="btn-primary !px-7 !py-4 text-lg">Leave Us A Review</button>
       </div>
     </div>
 
@@ -114,13 +93,437 @@ const stars = Array.from({ length: 5 });
       </div>
     </div>
 
-    <p class="mt-6 text-center">
-      <a href={reviewsUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 font-bold text-navy-700 hover:text-sky-500">
-        Read all reviews on Google <Icon name="arrowRight" class="size-4" />
-      </a>
-    </p>
   </div>
 </section>
+
+{/* Leave Us A Review — Review Link Generator Widget (trigger button is in the section above) */}
+<div id="rlgPopup" class="rlg-popup-overlay">
+  <div class="rlg-popup-content">
+    <span id="rlgClosePopup" class="rlg-close">&times;</span>
+    <div class="rlg-review-container">
+      <h3>Purix Air Duct &amp; Dryer vent cleaning</h3>
+      <p>We value your feedback! Please rate our service.</p>
+      <div class="rlg-star-rating-wrapper">
+        <div class="rlg-star-rating">
+          <input type="radio" id="rlgStar5" name="rlgRating" value="5" />
+          <label for="rlgStar5" title="5 stars">★</label>
+          <input type="radio" id="rlgStar4" name="rlgRating" value="4" />
+          <label for="rlgStar4" title="4 stars">★</label>
+          <input type="radio" id="rlgStar3" name="rlgRating" value="3" />
+          <label for="rlgStar3" title="3 stars">★</label>
+          <input type="radio" id="rlgStar2" name="rlgRating" value="2" />
+          <label for="rlgStar2" title="2 stars">★</label>
+          <input type="radio" id="rlgStar1" name="rlgRating" value="1" />
+          <label for="rlgStar1" title="1 star">★</label>
+        </div>
+        <button class="rlg-submit-btn" onclick="rlgSubmitReview()">Submit Review</button>
+      </div>
+      <div class="rlg-feedback-form" id="rlgFeedbackForm">
+        <h3>Your Feedback</h3>
+        <textarea id="rlgFeedbackText" placeholder="Please let us know how we can improve our service..."></textarea>
+        <button class="rlg-submit-btn" onclick="rlgSubmitFeedback()">Submit Feedback</button>
+      </div>
+      <div class="rlg-thank-you" id="rlgThankYou">
+        <p>✓</p>
+        <p>Thank you for your feedback!</p>
+      </div>
+      <div class="rlg-positive-reviews">
+        <h3>Our most recent online review:</h3>
+        <div class="rlg-review">
+          <div class="rlg-review-avatar rlg-review-avatar-fallback">
+            <span>J</span>
+            <img
+              class="rlg-review-avatar-img"
+              src="https://cdn.jsdelivr.net/gh/yamos28/ReviewWidget26@main/public/reviewer-images/7.jpg"
+              alt="Jamie Fox"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              onerror="this.style.display='none'; this.parentNode.classList.add('rlg-avatar-fallback');"
+            />
+          </div>
+          <div class="rlg-review-content">
+            <strong>Jamie Fox</strong>
+            <div class="rlg-stars">★★★★</div>
+            <span class="rlg-time">1 month ago</span>
+            <p>The team at Purix Air Duct &amp; Dryer vent cleaning was helpful and efficient throughout the entire process, 10/10.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .rlg-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 999999;
+    display: none;
+    animation: rlgFadeIn 0.2s ease;
+  }
+  @keyframes rlgFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .rlg-popup-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 32px;
+    width: 90%;
+    max-width: 480px;
+    border-radius: 16px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: rlgSlideUp 0.3s ease;
+  }
+  @keyframes rlgSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .rlg-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 28px;
+    color: #9ca3af;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .rlg-close:hover { color: #374151; }
+  .rlg-review-container { text-align: center; }
+  .rlg-review-container h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 12px 0;
+  }
+  .rlg-review-container > p {
+    font-size: 15px;
+    color: #6b7280;
+    margin: 0 0 24px 0;
+  }
+  .rlg-star-rating-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .rlg-star-rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    font-size: 36px;
+  }
+  .rlg-star-rating input { display: none; }
+  .rlg-star-rating label {
+    color: #e5e7eb;
+    cursor: pointer;
+    margin: 0 2px;
+    transition: color 0.15s, transform 0.15s;
+  }
+  .rlg-star-rating label:hover { transform: scale(1.1); }
+  .rlg-star-rating input:checked ~ label,
+  .rlg-star-rating label:hover,
+  .rlg-star-rating label:hover ~ label {
+    color: #fbbf24;
+  }
+  .rlg-submit-btn {
+    background: #7366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .rlg-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  .rlg-feedback-form {
+    display: none;
+    margin-top: 24px;
+    animation: rlgFadeIn 0.3s ease;
+  }
+  .rlg-feedback-form h3 {
+    font-size: 18px;
+    color: #111827;
+    margin: 0 0 12px 0;
+  }
+  .rlg-feedback-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 12px;
+  }
+  .rlg-feedback-form textarea:focus {
+    outline: none;
+    border-color: #7366f1;
+    box-shadow: 0 0 0 3px #7366f120;
+  }
+  .rlg-thank-you {
+    display: none;
+    text-align: center;
+    padding: 24px;
+  }
+  .rlg-thank-you p:first-child {
+    font-size: 48px;
+    color: #10b981;
+    margin: 0 0 8px 0;
+  }
+  .rlg-thank-you p {
+    font-size: 16px;
+    color: #374151;
+    margin: 0;
+  }
+  .rlg-positive-reviews {
+    margin-top: 32px;
+    text-align: left;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 24px;
+  }
+  .rlg-positive-reviews h3 {
+    font-size: 14px;
+    color: #000;
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .rlg-review {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 12px;
+  }
+  .rlg-review-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #7366f1, #7366f1cc);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .rlg-review-avatar-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .rlg-review-avatar-fallback span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+  }
+  .rlg-review-avatar-fallback.rlg-avatar-fallback {
+    background: linear-gradient(135deg, #7366f1, #7366f1cc);
+  }
+  .rlg-review-content { flex: 1; }
+  .rlg-review-content strong {
+    display: block;
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 4px;
+  }
+  .rlg-review-content .rlg-stars {
+    color: #fbbf24;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .rlg-review-content .rlg-time {
+    font-size: 12px;
+    color: #9ca3af;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .rlg-review-content p {
+    font-size: 13px;
+    color: #4b5563;
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var rlgReviewLink = 'https://search.google.com/local/writereview?placeid=ChIJscBinQ2t2YgRfmS1AptswdA';
+    var rlgEmail = 'Info@purixairsolution.com';
+    var rlgBusinessName = 'Purix Air Duct & Dryer vent cleaning';
+    var rlgPlatform = 'google';
+    var rlgMinRating = 4;
+    var platformHash = '';
+    var rlgFeedbackEndpoint = 'https://reviewtool.gsmarketingroup.com/api/send-feedback';
+    var rlgTrackEndpoint = 'https://reviewtool.gsmarketingroup.com/api/track-event';
+    var rlgLastRating = 0;
+
+    function rlgResolveEndpoint(url) {
+      if (!url) return '';
+      try {
+        return new URL(url, window.location.origin).toString();
+      } catch {
+        return url;
+      }
+    }
+
+    var rlgFeedbackEndpointResolved = rlgResolveEndpoint(rlgFeedbackEndpoint);
+    var rlgTrackEndpointResolved = rlgResolveEndpoint(rlgTrackEndpoint);
+
+    function rlgNormalizeHash(hash) {
+      if (!hash) return '';
+      return hash.toLowerCase().split('?')[0];
+    }
+
+    function rlgMaybeOpenFromHash() {
+      var currentHash = rlgNormalizeHash(window.location.hash);
+      if (currentHash === platformHash) {
+        rlgOpenPopup('hash');
+      }
+    }
+
+    function rlgGetWidgetUrl() {
+      var hash = platformHash || rlgNormalizeHash(window.location.hash);
+      if (!hash) return window.location.href;
+      return window.location.origin + window.location.pathname + hash;
+    }
+
+    function rlgTrackEvent(eventType, extra) {
+      if (!rlgTrackEndpointResolved) return;
+      var payload = {
+        businessEmail: rlgEmail,
+        businessName: rlgBusinessName,
+        platform: rlgPlatform,
+        eventType: eventType,
+        timestamp: new Date().toISOString(),
+        pageUrl: window.location.href,
+        referrer: document.referrer || '',
+        reviewLink: rlgReviewLink,
+        widgetUrl: rlgGetWidgetUrl()
+      };
+      if (extra) {
+        for (var key in extra) {
+          payload[key] = extra[key];
+        }
+      }
+      try {
+        var body = JSON.stringify(payload);
+        if (navigator.sendBeacon) {
+          var blob = new Blob([body], { type: 'application/json' });
+          navigator.sendBeacon(rlgTrackEndpointResolved, blob);
+          return;
+        }
+        fetch(rlgTrackEndpointResolved, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: body,
+          keepalive: true
+        }).catch(function () {});
+      } catch (err) {
+        // ignore tracking errors
+      }
+    }
+
+    function rlgOpenPopup(source) {
+      document.getElementById('rlgPopup').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      rlgTrackEvent('widget_open', { source: source || 'button' });
+    }
+    function rlgClosePopup() {
+      document.getElementById('rlgPopup').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    window.rlgSubmitReview = function () {
+      var rating = document.querySelector('#rlgPopup input[name="rlgRating"]:checked');
+      if (!rating) {
+        alert('Please select a rating before submitting.');
+        return;
+      }
+      rlgLastRating = parseInt(rating.value);
+      if (rlgLastRating >= rlgMinRating) {
+        rlgTrackEvent('review_redirect', { rating: rlgLastRating });
+        window.location.href = rlgReviewLink;
+      } else {
+        document.getElementById('rlgFeedbackForm').style.display = 'block';
+        document.querySelector('.rlg-star-rating-wrapper').style.display = 'none';
+        if (document.querySelector('.rlg-positive-reviews')) {
+          document.querySelector('.rlg-positive-reviews').style.display = 'none';
+        }
+      }
+    };
+    window.rlgSubmitFeedback = function () {
+      var feedback = document.getElementById('rlgFeedbackText').value;
+      if (feedback.trim() === '') {
+        alert('Please enter your feedback before submitting.');
+        return;
+      }
+      var payload = {
+        businessName: rlgBusinessName,
+        businessEmail: rlgEmail,
+        customerRating: rlgLastRating || 0,
+        customerFeedback: feedback,
+        platform: rlgPlatform,
+        timestamp: new Date().toISOString()
+      };
+      if (!rlgFeedbackEndpointResolved) {
+        alert('Feedback service is not configured. Please try again later.');
+        return;
+      }
+      fetch(rlgFeedbackEndpointResolved, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed to send feedback');
+          return res.json().catch(function () { return {}; });
+        })
+        .then(function () {
+          rlgTrackEvent('feedback_submit', { rating: rlgLastRating || 0 });
+          document.getElementById('rlgFeedbackForm').style.display = 'none';
+          document.getElementById('rlgThankYou').style.display = 'block';
+        })
+        .catch(function () {
+          alert('Sorry, there was a problem sending your feedback. Please try again.');
+        });
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+      var openBtn = document.getElementById('rlgOpenPopup');
+      if (openBtn) openBtn.addEventListener('click', function () { rlgOpenPopup('button'); });
+      document.getElementById('rlgClosePopup').addEventListener('click', rlgClosePopup);
+      document.getElementById('rlgPopup').addEventListener('click', function (e) {
+        if (e.target === this) rlgClosePopup();
+      });
+      platformHash = '#review';
+      platformHash = platformHash.toLowerCase();
+      rlgMaybeOpenFromHash();
+      window.addEventListener('hashchange', rlgMaybeOpenFromHash);
+    });
+  })();
+</script>
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-reviews]').forEach((root) => {

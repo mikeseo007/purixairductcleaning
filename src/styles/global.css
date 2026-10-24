@@ -11,6 +11,7 @@
   --color-navy-800: #142d6b;
   --color-navy-700: #1b3d8c;
   --color-navy-600: #2550b3;
+  --color-sky-700: #0a6a98;
   --color-sky-500: #1fa3e0;
   --color-sky-400: #49b8eb;
   --color-sky-300: #8fd3f3;
@@ -117,7 +118,7 @@
   }
 
   .eyebrow {
-    @apply mb-4 inline-flex items-center gap-3 text-[0.78rem] font-bold tracking-[0.2em] text-sky-500 uppercase;
+    @apply mb-4 inline-flex items-center gap-3 text-[0.78rem] font-bold tracking-[0.2em] text-sky-700 uppercase;
   }
 
   .eyebrow::before {
@@ -354,7 +355,7 @@ details[open]::details-content {
   }
 
   .svc-tab .svc-tab-label {
-    color: rgb(13 31 77 / 0.45);
+    color: rgb(13 31 77 / 0.65);
   }
 
   .svc-tab:hover .svc-tab-label,
@@ -454,6 +455,13 @@ details[open]::details-content {
 
 .marquee:hover .marquee-track {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot,
+  .marquee-track {
+    animation: none;
+  }
 }
 
 /* ───────────────────────── Motion (respects reduced motion) ───────────────────────── */

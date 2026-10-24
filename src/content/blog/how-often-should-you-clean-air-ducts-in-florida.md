@@ -1,10 +1,10 @@
 ---
 title: 'How Often Should You Clean Your Air Ducts in Florida?'
-description: 'Florida AC systems run most of the year. Here is how often to schedule air duct cleaning, the signs it is time, and what affects the schedule for your home.'
+description: 'Florida AC systems run most of the year. Here is how often to schedule air duct cleaning, the signs it is time, and what affects the schedule at home.'
 date: 2026-10-13
 cover: ../../assets/images/ceiling-inspection.webp
 coverAlt: 'Purix technician inspecting an open ceiling vent from a ladder'
-service: air-duct-cleaning
+service: residential-air-duct-cleaning
 ---
 
 The common rule of thumb is to have your air ducts professionally cleaned **every 3 to 5 years**. That guideline was written with typical U.S. homes in mind, though, and homes in Florida aren't typical. In Miami, Fort Lauderdale, Boca Raton, Naples and Cape Coral, the air conditioner runs for most of the year, which means more air, more dust and more moisture moving through your ductwork than in a home that only runs heat for a few months.
@@ -48,4 +48,4 @@ Dryer vents are on a much shorter schedule. Most should be cleaned **at least on
 
 ## Get a professional opinion
 
-If you're not sure whether your ducts need cleaning, an [air duct inspection](/air-duct-inspection/) will tell you what's actually in the system, with no pressure. Learn more about our [air duct cleaning process](/air-duct-cleaning/), or see our service areas: [Miami](/), [Fort Lauderdale](/fort-lauderdale/), [Boca Raton](/boca-raton/), [Naples](/naples/) and [Cape Coral](/cape-coral/).
+If you're not sure whether your ducts need cleaning, an [air duct inspection](/air-duct-inspection/) will tell you what's actually in the system, with no pressure. Learn more about our [air duct cleaning process](/), or see our service areas: [Miami](/), [Fort Lauderdale](/fort-lauderdale/), [Boca Raton](/boca-raton/), [Naples](/naples/) and [Cape Coral](/cape-coral/).
