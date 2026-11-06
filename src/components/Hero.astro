@@ -30,6 +30,15 @@ const {
   points = ['Air duct & HVAC specialists', 'Residential & commercial', 'Upfront quotes'],
 } = Astro.props;
 const { rating, reviewCount, reviewsUrl } = site.google;
+
+// On a dedicated location page, use that location's own phone number, and keep
+// the Google rating link off the Miami profile: point it at the location's own
+// Maps link when one exists, otherwise at the on-page quote form.
+const nap = location?.nap;
+const callHref = nap?.phoneHref ?? site.phoneHref;
+const callLabel = nap?.phone ?? site.phone;
+const reviewsHref = nap ? (nap.mapsUrl ?? '#quote') : reviewsUrl;
+const reviewsExternal = reviewsHref !== '#quote';
 ---
 
 <section class="relative isolate z-0 overflow-hidden bg-navy-950 pb-32 lg:pb-40">
@@ -76,36 +85,42 @@ const { rating, reviewCount, reviewsUrl } = site.google;
       </ul>
 
       <div class="rise mt-6 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap" style="--d:4" data-hero-cta>
-        <a href={site.phoneHref} class="btn-primary w-full !px-7 !py-4 text-lg sm:w-auto">
+        <a href={callHref} class="btn-primary w-full !px-7 !py-4 text-lg sm:w-auto">
           <Icon name="phone" class="size-5" />
-          Call {site.phone}
+          Call {callLabel}
         </a>
-        <a href="#quote" class="btn-outline w-full !px-7 !py-4 text-lg sm:w-auto">
-          Book an Inspection
-          <Icon name="arrowRight" class="size-5" />
-        </a>
+        {!nap && (
+          <a href="#quote" class="btn-outline w-full !px-7 !py-4 text-lg sm:w-auto">
+            Book an Inspection
+            <Icon name="arrowRight" class="size-5" />
+          </a>
+        )}
       </div>
 
-      <a href={reviewsUrl} target="_blank" rel="noopener" class="rise group mt-9 inline-flex items-center gap-4" style="--d:5">
-        <span class="flex size-11 items-center justify-center rounded-full bg-white shadow-lg">
-          <Icon name="google" class="size-5 text-[#4285F4]" />
-        </span>
-        <span>
-          <span class="flex items-center gap-2">
-            <span class="font-display text-xl font-bold text-white">{rating.toFixed(1)}</span>
-            <span class="flex text-[#FBBC04]" aria-label={`${rating.toFixed(1)} out of 5 stars`}>
-              {Array.from({ length: 5 }).map(() => <Icon name="star" class="size-4" />)}
+      {
+        !nap && (
+          <a href={reviewsHref} target={reviewsExternal ? '_blank' : undefined} rel={reviewsExternal ? 'noopener' : undefined} class="rise group mt-9 inline-flex items-center gap-4" style="--d:5">
+            <span class="flex size-11 items-center justify-center rounded-full bg-white shadow-lg">
+              <Icon name="google" class="size-5 text-[#4285F4]" />
             </span>
-          </span>
-          <span class="block text-sm text-white/60 group-hover:text-white">{reviewCount} reviews on Google · Open 24/7</span>
-        </span>
-      </a>
+            <span>
+              <span class="flex items-center gap-2">
+                <span class="font-display text-xl font-bold text-white">{rating.toFixed(1)}</span>
+                <span class="flex text-[#FBBC04]" aria-label={`${rating.toFixed(1)} out of 5 stars`}>
+                  {Array.from({ length: 5 }).map(() => <Icon name="star" class="size-4" />)}
+                </span>
+              </span>
+              <span class="block text-sm text-white/60 group-hover:text-white">{reviewCount} reviews on Google · Open 24/7</span>
+            </span>
+          </a>
+        )
+      }
     </div>
 
     <div class="rise relative lg:col-span-5" style="--d:3">
       <div class="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-br from-sky-400/40 via-transparent to-lime-500/30 blur-2xl"></div>
       <div class="rounded-[2rem] bg-gradient-to-br from-white/40 via-white/10 to-white/30 p-px shadow-2xl shadow-black/40">
-        <QuoteForm location={location} service={service} />
+        <QuoteForm location={location} service={service} pageLocation={location?.city} />
       </div>
     </div>
   </div>

@@ -13,6 +13,8 @@ interface Props {
   tint?: boolean;
   /** Left-align the heading on mobile (centered from lg up) instead of centered on all sizes. */
   headingCenterDesktop?: boolean;
+  /** Call-to-action phone; defaults to the sitewide number, overridden on location pages. */
+  phone?: { label: string; href: string };
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   showMap = true,
   tint = false,
   headingCenterDesktop = true,
+  phone = { label: site.phone, href: site.phoneHref },
 } = Astro.props;
 
 const what = service ? service.name : 'Air duct & dryer vent cleaning';
@@ -86,9 +89,9 @@ const what = service ? service.name : 'Air duct & dryer vent cleaning';
           <div class="pointer-events-none absolute -top-16 -right-10 size-40 rounded-full bg-sky-500/30 blur-3xl"></div>
           <div>
             <p class="font-bold">Not sure if we cover your area?</p>
-            <a href={site.phoneHref} class="mt-1 inline-flex items-center gap-2 text-sm font-semibold text-lime-500 hover:text-white">
+            <a href={phone.href} class="mt-1 inline-flex items-center gap-2 text-sm font-semibold text-lime-500 hover:text-white">
               <Icon name="phone" class="size-4" />
-              Call {site.phone}
+              Call {phone.label}
             </a>
           </div>
           <a href="/service-areas/" class="group inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-semibold ring-1 ring-white/20 transition hover:bg-white/20">

@@ -120,8 +120,8 @@ export const locationContent: Record<string, LocationContent> = {
       'Looking for Air Duct Cleaning in Fort Lauderdale? Purix Air Duct & Dryer vent cleaning offers deep air duct cleaning and dust buildup removal. Book today!',
     h1: 'Air Duct Cleaning in Fort Lauderdale, FL',
     heroSubtitle: 'Air Duct Cleaning in Fort Lauderdale for beachside condos, downtown offices and older mainland homes, plus dryer vent and coil cleaning.',
-    heroImage: photos.brandedVan.src,
-    heroImageAlt: photos.brandedVan.alt,
+    heroImage: photos.hvacCoilCleaning.src,
+    heroImageAlt: photos.hvacCoilCleaning.alt,
     introHeading: 'Duct and AC system cleaning across Fort Lauderdale',
     intro: [
       'Fort Lauderdale’s salt air, heat and humidity keep air conditioners running hard. Ductwork collects dust and debris, and wet AC components can develop the musty odors many residents notice when the system kicks on.',
@@ -333,8 +333,8 @@ export const locationContent: Record<string, LocationContent> = {
       'Seasonal residents often come back to a stale-smelling home. Cleaning the coil, drain pan and air handler, along with the ductwork, is a good way to start the season fresh.',
       'From the Yacht Club and Cape Harbour to the Northwest Cape, Purix serves homes and businesses across Cape Coral.',
     ],
-    localImage: photos.brandedVan.src,
-    localImageAlt: photos.brandedVan.alt,
+    localImage: photos.blowerCleaning.src,
+    localImageAlt: photos.blowerCleaning.alt,
     extraSeo: [
       {
         heading: 'Air Duct Cleaning in Cape Coral, explained for single-story homes',
@@ -379,6 +379,146 @@ export const locationContent: Record<string, LocationContent> = {
       {
         q: 'Are weekend or after-hours appointments available in Cape Coral?',
         a: 'Yes. Purix is available 24 hours a day, 7 days a week, so we can schedule your Cape Coral service at a time that fits around work and family.',
+      },
+    ],
+  },
+  'palm-beach': {
+    metaTitle: 'Reliable Air Duct Cleaning in Palm Beach - Purix',
+    metaDescription:
+      'Looking for Air Duct Cleaning in Palm Beach? Purix Air Duct & Dryer vent cleaning offers deep air duct, coil and vent cleaning plus dust removal. Book today!',
+    h1: 'Air Duct Cleaning in Palm Beach, FL',
+    heroSubtitle:
+      'Air Duct Cleaning in Palm Beach for island estates, downtown condos and West Palm Beach homes, plus dryer vent, HVAC coil and air handler cleaning.',
+    heroImage: photos.serviceTrucks.src,
+    heroImageAlt: photos.serviceTrucks.alt,
+    introHeading: 'Duct and AC system cleaning across the Palm Beaches',
+    intro: [
+      'From the estates on Palm Beach island to the condos and bungalows of West Palm Beach, cooling systems here run hard through long, humid summers. Ductwork collects dust and debris, and the coil, drain pan and air handler stay damp enough that musty odors are a common complaint when the AC kicks on.',
+      'Purix cleans the full air path: supply and return ductwork, AC coils, air handlers and blower wheels, plus the dryer vent line. We work on seasonal estates, year-round homes, waterfront condos and downtown offices, and we offer HVAC mold cleaning and attic insulation services as well.',
+    ],
+    introImage: photos.airHandlerCleaning.src,
+    introImageAlt: photos.airHandlerCleaning.alt,
+    localHeading: 'Estates, condos and downtown offices',
+    local: [
+      'Larger homes and estates often run two or more AC systems across a big floor plan. We clean each system and its ductwork separately and check airflow in every zone, so no part of the house is left with dusty ducts or a buildup-coated coil.',
+      'Seasonal residents frequently return to a home that sat closed through the summer with the AC set high. That is when buildup on the coil and drain pan tends to produce stale, musty air. Cleaning the wet components is usually the place to start.',
+      'Condos and apartments around Clematis Street, Northwood and El Cid often have compact closet air handlers with short duct runs, while offices downtown book commercial duct and HVAC cleaning scheduled around business hours.',
+    ],
+    localImage: photos.vanDuctCrew.src,
+    localImageAlt: photos.vanDuctCrew.alt,
+    extraSeo: [
+      {
+        heading: 'Air Duct Cleaning in Palm Beach, explained for coastal homes',
+        body: [
+          'Close to the water, salt air and steady humidity help dust and microbial buildup settle in ductwork and on cooling components. Our Air Duct Cleaning in Palm Beach clears the supply and return runs, registers and the coil and blower, so island estates, waterfront condos and West Palm Beach homes get cleaner, fresher air.',
+        ],
+      },
+      {
+        heading: 'What seasonal residents should check before returning',
+        body: [
+          'When a home sits closed through the off-season, moisture and stale air settle into the ductwork and AC equipment. A duct and HVAC cleaning before the season clears that buildup and the musty smell that comes with it, so the house feels fresh the day you walk back in.',
+        ],
+      },
+    ],
+    pois: [
+      { name: 'Clematis Street', note: 'historic downtown West Palm Beach strip of shops, restaurants and nightlife' },
+      { name: 'Rosemary Square', note: 'open-air shopping, dining and entertainment district downtown' },
+      { name: 'Norton Museum of Art', note: "one of Florida's leading art museums, on South Dixie Highway" },
+      { name: 'Palm Beach Zoo & Conservation Society', note: 'zoo and conservation park in Dreher Park' },
+      { name: 'South Florida Science Center and Aquarium', note: 'science museum and aquarium in Dreher Park' },
+      { name: 'Kravis Center for the Performing Arts', note: 'major downtown performing arts venue' },
+    ],
+    directionsEmbed: '',
+    faqs: [
+      {
+        q: 'Can you clean homes with more than one AC system?',
+        a: 'Yes. We clean each system separately, ductwork and equipment, and quote each one so you know exactly what is included.',
+      },
+      {
+        q: 'We just came back for the season and the AC smells musty. What should we do?',
+        a: 'Musty smells after a home has been closed up often come from buildup on wet AC components. HVAC mold cleaning targets the coil, drain pan and air handler.',
+      },
+      {
+        q: 'Do you serve offices in the Palm Beach area?',
+        a: 'Yes. We provide commercial air duct and HVAC cleaning for downtown offices and other businesses, and can work outside business hours.',
+      },
+      {
+        q: 'Do you clean condo AC systems?',
+        a: 'Yes. Closet air handlers and short condo duct runs are common here, and we coordinate with building management on access and allowed work hours.',
+      },
+      {
+        q: 'What are your hours?',
+        a: 'We are open 24 hours a day, 7 days a week, so we can schedule your Palm Beach service at a time that fits your week.',
+      },
+    ],
+  },
+  'boynton-beach': {
+    metaTitle: 'Reliable Air Duct Cleaning in Boynton Beach - Purix',
+    metaDescription:
+      'Looking for Air Duct Cleaning in Boynton Beach? Purix Air Duct & Dryer vent cleaning offers deep air duct cleaning and dust buildup removal. Book today!',
+    h1: 'Air Duct Cleaning in Boynton Beach, FL',
+    heroSubtitle:
+      'Air Duct Cleaning in Boynton Beach for single-family homes, 55+ communities and waterfront condos, plus dryer vent, coil and air handler cleaning.',
+    heroImage: photos.vanDryerCrew.src,
+    heroImageAlt: photos.vanDryerCrew.alt,
+    introHeading: 'Duct and AC cleaning for Boynton Beach homes',
+    intro: [
+      'Boynton Beach runs on its air conditioning nearly year-round. Between coastal humidity and daily use, ductwork fills with dust and the coil, drain pan and air handler stay damp enough to develop the musty odors many residents notice when the system starts.',
+      'Purix cleans the ductwork and the AC equipment that feeds it, including the coil, blower and air handler, and we offer dryer vent cleaning for homes and condo buildings. We serve single-family neighborhoods, 55+ communities and waterfront condos alike.',
+    ],
+    introImage: photos.hvacCoilCleaning.src,
+    introImageAlt: photos.hvacCoilCleaning.alt,
+    localHeading: 'Homes, 55+ communities and condos',
+    local: [
+      'Many Boynton Beach homes sit in established 55+ and golf communities like Leisureville and Hunters Run, where original ductwork has often gone years without a close look. An inspection shows what is inside and whether cleaning or a repair makes more sense.',
+      'Seasonal residents often come back to a stale-smelling home after the house sat closed through the summer. Cleaning the coil, drain pan and air handler, along with the ductwork, is a good way to start the season fresh.',
+      'Condos near the Intracoastal usually have compact closet air handlers, while shops and offices along Congress Avenue and in the Quantum Park area can book commercial duct and HVAC cleaning.',
+    ],
+    localImage: photos.vanDuctCrew.src,
+    localImageAlt: photos.vanDuctCrew.alt,
+    extraSeo: [
+      {
+        heading: 'Air Duct Cleaning in Boynton Beach, explained for homes and condos',
+        body: [
+          'Boynton Beach mixes single-family homes, 55+ communities and Intracoastal condos, each with its own duct layout. Our Air Duct Cleaning in Boynton Beach covers the supply and return runs, registers, coil and air handler, so the air moving through the home is cleaner.',
+        ],
+      },
+      {
+        heading: 'How coastal humidity affects your AC system',
+        body: [
+          'Damp, salty air off the coast gets pulled through the AC day after day, encouraging musty odors and buildup on coils and inside ducts. Regular duct and HVAC cleaning matters more here than inland, and homes near the water often benefit from cleaning a little more often.',
+        ],
+      },
+    ],
+    pois: [
+      { name: 'Oceanfront Park', note: 'Boynton Beach municipal beach and boardwalk on the Atlantic' },
+      { name: 'Boynton Harbor Marina', note: 'waterfront marina district with charters, dining and the Marina Village' },
+      { name: 'Mangrove Park', note: 'nature park with a boardwalk through the mangroves along the Intracoastal' },
+      { name: 'Boynton Beach Arts District', note: 'industrial-turned-creative district known for murals and studios' },
+      { name: 'Intracoastal Park', note: 'waterfront park with a clubhouse, boat ramp and picnic areas' },
+      { name: 'Ocean Avenue Amphitheatre', note: 'downtown venue for concerts and community events' },
+    ],
+    directionsEmbed: '',
+    faqs: [
+      {
+        q: 'Do you clean AC systems in 55+ and golf communities?',
+        a: 'Yes. We clean ductwork and equipment in homes throughout communities like Leisureville and Hunters Run, and coordinate with HOAs or management when access rules apply.',
+      },
+      {
+        q: 'Why does my AC smell musty after the house was closed up?',
+        a: 'Humidity and dust build up on wet AC components while a home sits closed. Cleaning the coil, drain pan and air handler often helps, and we also clean the ductwork those components feed.',
+      },
+      {
+        q: 'Do you clean dryer vents in Boynton Beach?',
+        a: 'Yes, for single-family homes and condo buildings, including longer and roof-terminated vent runs.',
+      },
+      {
+        q: 'Do you serve businesses in Boynton Beach?',
+        a: 'Yes. We provide commercial duct and HVAC cleaning for offices, shops and other businesses, including the Congress Avenue and Quantum Park areas.',
+      },
+      {
+        q: 'Are weekend or after-hours appointments available?',
+        a: 'Yes. Purix is available 24 hours a day, 7 days a week, so we can schedule your Boynton Beach service around work and family.',
       },
     ],
   },

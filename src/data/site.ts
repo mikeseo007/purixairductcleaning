@@ -50,6 +50,28 @@ export const regions: { id: RegionId; name: string; short: string }[] = [
   { id: 'beyond', name: 'Palm Beach & Southwest Florida', short: 'Palm Beach & SW Florida' },
 ];
 
+/**
+ * Dedicated location NAP. Present only on locations that have their own
+ * business listing (name, address, phone), which drives a location-specific
+ * header, footer and on-page contact block. Locations without a `nap` fall
+ * back to the sitewide Miami `site` details, exactly as before.
+ *
+ * `street`/`zip` are optional: a city-level listing (e.g. Cape Coral) supplies
+ * only the city. `mapsUrl` is the location's own Google Maps share link; leave
+ * it undefined until a verified link exists (never reuse the Miami profile).
+ * Email is always the sitewide `site.email`, so it is not duplicated here.
+ */
+export interface LocationNap {
+  businessName: string;
+  street?: string;
+  city: string;
+  region: string;
+  zip?: string;
+  phone: string;
+  phoneHref: string;
+  mapsUrl?: string;
+}
+
 export interface Location {
   slug: string;
   path: string;
@@ -60,6 +82,7 @@ export interface Location {
   lng: number;
   neighborhoods: string[];
   nearby: string[];
+  nap?: LocationNap;
 }
 
 const office = { lat: 25.9657381, lng: -80.1822319 };
@@ -209,6 +232,16 @@ export const locations: Location[] = [
     lng: -80.1373,
     neighborhoods: ['Las Olas', 'Victoria Park', 'Coral Ridge', 'Rio Vista', 'Harbor Beach', 'Flagler Village', 'Imperial Point', 'Galt Ocean Mile'],
     nearby: ['Wilton Manors', 'Oakland Park', 'Lauderdale-by-the-Sea', 'Dania Beach'],
+    nap: {
+      businessName: 'Purix Air Duct Cleaning Fort Lauderdale',
+      street: '1 E Broward Blvd #360',
+      city: 'Fort Lauderdale',
+      region: 'FL',
+      zip: '33301',
+      phone: '(305) 767-8971',
+      phoneHref: 'tel:+13057678971',
+      mapsUrl: 'https://maps.app.goo.gl/Rb6K3nCuLps5Kh2BA',
+    },
   },
   {
     slug: 'plantation',
@@ -232,6 +265,57 @@ export const locations: Location[] = [
     lng: -80.1289,
     neighborhoods: ['Downtown Boca', 'Boca West', 'Royal Palm Yacht & Country Club', 'Town Center', 'Woodfield', 'Camino Gardens', 'West Boca'],
     nearby: ['Delray Beach', 'Deerfield Beach', 'Highland Beach', 'Parkland'],
+    nap: {
+      businessName: 'Purix Air Duct Cleaning Boca Raton',
+      street: '2000 Glades Rd Ste 214',
+      city: 'Boca Raton',
+      region: 'FL',
+      zip: '33431',
+      phone: '(561) 763-7133',
+      phoneHref: 'tel:+15617637133',
+      mapsUrl: 'https://maps.app.goo.gl/jw3AB9ePTyeTxeNo8',
+    },
+  },
+  {
+    slug: 'palm-beach',
+    path: '/palm-beach/',
+    city: 'Palm Beach',
+    county: 'Palm Beach County',
+    region: 'beyond',
+    lat: 26.7153,
+    lng: -80.0534,
+    neighborhoods: ['Downtown / Clematis', 'Northwood', 'El Cid', 'Flamingo Park', 'SoSo (South of Southern)', 'Grandview Heights'],
+    nearby: ['West Palm Beach', 'Lake Worth Beach', 'Palm Beach Gardens', 'Wellington', 'Riviera Beach'],
+    nap: {
+      businessName: 'Purix Air Duct Cleaning Palm Beach',
+      // Landing page keeps the "Palm Beach" name/URL; the physical office is in West Palm Beach.
+      street: '1645 Palm Beach Lakes Blvd #400',
+      city: 'West Palm Beach',
+      region: 'FL',
+      zip: '33401',
+      phone: '(561) 489-8555',
+      phoneHref: 'tel:+15614898555',
+    },
+  },
+  {
+    slug: 'boynton-beach',
+    path: '/boynton-beach/',
+    city: 'Boynton Beach',
+    county: 'Palm Beach County',
+    region: 'beyond',
+    lat: 26.5318,
+    lng: -80.0905,
+    neighborhoods: ['Downtown Boynton', 'Leisureville', 'Chapel Hill', 'Golfview Harbour', 'Sky Lake', 'Quantum Park'],
+    nearby: ['Delray Beach', 'Lake Worth Beach', 'Lantana', 'Hypoluxo', 'Ocean Ridge'],
+    nap: {
+      businessName: 'Purix Air Duct & Dryer Vent Cleaning',
+      street: '3200 S Congress Ave #105',
+      city: 'Boynton Beach',
+      region: 'FL',
+      zip: '33426',
+      phone: '(561) 290-8338',
+      phoneHref: 'tel:+15612908338',
+    },
   },
   {
     slug: 'naples',
@@ -243,6 +327,15 @@ export const locations: Location[] = [
     lng: -81.7948,
     neighborhoods: ['North Naples', 'Old Naples', 'Pelican Bay', 'Park Shore', 'Vanderbilt Beach', 'Golden Gate', 'Port Royal', 'East Naples'],
     nearby: ['Bonita Springs', 'Estero', 'Marco Island'],
+    nap: {
+      businessName: 'Purix Air Duct Cleaning Naples',
+      street: '6610 Willow Park Dr #205',
+      city: 'Naples',
+      region: 'FL',
+      zip: '34109',
+      phone: '(239) 441-3221',
+      phoneHref: 'tel:+12394413221',
+    },
   },
   {
     slug: 'cape-coral',
@@ -254,6 +347,14 @@ export const locations: Location[] = [
     lng: -81.9495,
     neighborhoods: ['Southeast Cape', 'Southwest Cape', 'Northeast Cape', 'Northwest Cape', 'Cape Harbour', 'Yacht Club', 'Pelican'],
     nearby: ['Fort Myers', 'North Fort Myers', 'Pine Island'],
+    nap: {
+      businessName: 'Purix Air Duct Cleaning Cape Coral',
+      // Only a city-level address was supplied; no street/zip and no Maps link yet.
+      city: 'Cape Coral',
+      region: 'FL',
+      phone: '(239) 441-3477',
+      phoneHref: 'tel:+12394413477',
+    },
   },
 ];
 

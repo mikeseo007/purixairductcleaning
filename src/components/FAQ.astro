@@ -6,9 +6,11 @@ interface Props {
   faqs: { q: string; a: string }[];
   title?: string;
   tint?: boolean;
+  /** Call-to-action phone; defaults to the sitewide number, overridden on location pages. */
+  phone?: { label: string; href: string };
 }
 
-const { faqs, title = 'Frequently Asked Questions', tint = false } = Astro.props;
+const { faqs, title = 'Frequently Asked Questions', tint = false, phone = { label: site.phone, href: site.phoneHref } } = Astro.props;
 ---
 
 <section class:list={['section', tint ? 'bg-surface' : 'bg-white']}>
@@ -22,9 +24,9 @@ const { faqs, title = 'Frequently Asked Questions', tint = false } = Astro.props
           <div class="pointer-events-none absolute -top-16 -right-16 size-48 rounded-full bg-sky-500/30 blur-3xl"></div>
           <p class="relative font-display text-xl font-bold">Still have questions?</p>
           <p class="relative mt-1 text-white/70">Talk to our team. Open 24 hours a day, 7 days a week.</p>
-          <a href={site.phoneHref} class="btn-primary relative mt-5">
+          <a href={phone.href} class="btn-primary relative mt-5">
             <Icon name="phone" class="size-5" />
-            {site.phone}
+            {phone.label}
           </a>
         </div>
       </div>

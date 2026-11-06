@@ -5,11 +5,19 @@ import { site } from '../data/site';
 interface Props {
   title?: string;
   text?: string;
+  /** Phone + quote-link overrides so location pages use their own NAP and keep
+   *  lead capture on the on-page form instead of the main Contact page. */
+  phone?: string;
+  phoneHref?: string;
+  quoteHref?: string;
 }
 
 const {
   title = 'Ready to get your AC system cleaned?',
   text = `Call to book an inspection or request a free quote. We’re open 24 hours a day, 7 days a week.`,
+  phone = site.phone,
+  phoneHref = site.phoneHref,
+  quoteHref = '/contact-us/#quote',
 } = Astro.props;
 
 const ribbon = ['Inspect', 'Protect', 'Clean', 'Walk through', 'Upfront quotes', 'Homes & businesses', 'Open 24/7', 'Miami-Dade & Broward'];
@@ -45,11 +53,11 @@ const ribbon = ['Inspect', 'Protect', 'Clean', 'Walk through', 'Upfront quotes',
           <p class="mx-auto mt-5 max-w-2xl text-lg text-white/75">{text}</p>
         </div>
         <div class="flex flex-col items-center gap-3 sm:flex-row">
-          <a href={site.phoneHref} class="btn-primary !px-8 !py-4 text-lg">
+          <a href={phoneHref} class="btn-primary !px-8 !py-4 text-lg">
             <Icon name="phone" class="size-5" />
-            {site.phone}
+            {phone}
           </a>
-          <a href="/contact-us/#quote" class="btn-outline !px-8 !py-4 text-lg">
+          <a href={quoteHref} class="btn-outline !px-8 !py-4 text-lg">
             Get a Free Quote
             <Icon name="arrowRight" class="size-5" />
           </a>

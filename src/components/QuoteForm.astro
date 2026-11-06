@@ -9,9 +9,17 @@ interface Props {
   heading?: string;
   id?: string;
   compact?: boolean;
+  /**
+   * City of the landing page the form sits on. Written into a hidden
+   * `page-location` field so each submission records where it originated,
+   * independent of the visitor-selectable "Service area" dropdown. Baked into
+   * the static HTML per page, so navigating between pages can never leave a
+   * stale value behind.
+   */
+  pageLocation?: string;
 }
 
-const { location, service, heading = 'Request a Free Quote', id = 'quote', compact = false } = Astro.props;
+const { location, service, heading = 'Request a Free Quote', id = 'quote', compact = false, pageLocation } = Astro.props;
 const cols = compact ? 'grid gap-4' : 'grid gap-4 @min-[34rem]:grid-cols-2';
 const field =
   'w-full min-w-0 rounded-2xl border border-slate-200 bg-surface px-4 py-3.5 text-base text-ink placeholder:text-slate-400 transition duration-300 hover:border-slate-300 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/15 focus:outline-none';
@@ -26,6 +34,7 @@ const field =
 
   <form name="service-request" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company" class="mt-6 grid gap-4">
     <input type="hidden" name="form-name" value="service-request" />
+    <input type="hidden" name="page-location" value={pageLocation ?? ''} />
     <p class="hidden">
       <label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off" /></label>
     </p>

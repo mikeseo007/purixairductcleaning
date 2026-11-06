@@ -103,12 +103,12 @@ const jsonLd = schema.length ? JSON.stringify({ '@context': 'https://schema.org'
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2">
       Skip to content
     </a>
-    <Header />
+    <Header location={location} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
-    <MobileCallBar />
+    <Footer location={location} />
+    <MobileCallBar location={location} />
     <script>
       import '../scripts/motion';
     </script>

@@ -8,9 +8,12 @@ interface Props {
   eyebrow?: string;
   limit?: number;
   tint?: boolean;
+  /** Show the "Leave Us A Review" button. Off on dedicated location pages,
+   *  which don't yet have their own Google review link. */
+  showLeaveReview?: boolean;
 }
 
-const { title = 'What Our Customers Say on Google', eyebrow = 'Google reviews', limit = reviews.length, tint = false } = Astro.props;
+const { title = 'What Our Customers Say on Google', eyebrow = 'Google reviews', limit = reviews.length, tint = false, showLeaveReview = true } = Astro.props;
 const list = reviews.slice(0, limit);
 
 const avatarColors = ['bg-[#1a73e8]', 'bg-[#e8710a]', 'bg-[#188038]', 'bg-[#a142f4]', 'bg-[#d93025]', 'bg-[#12a4af]'];
@@ -24,9 +27,11 @@ const stars = Array.from({ length: 5 });
     <div class="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
       <SectionHeading eyebrow={eyebrow} title={title} />
 
-      <div class="shrink-0" data-reveal="right">
-        <button id="rlgOpenPopup" type="button" class="btn-primary !px-7 !py-4 text-lg">Leave Us A Review</button>
-      </div>
+      {showLeaveReview && (
+        <div class="shrink-0" data-reveal="right">
+          <button id="rlgOpenPopup" type="button" class="btn-primary !px-7 !py-4 text-lg">Leave Us A Review</button>
+        </div>
+      )}
     </div>
 
     <div class="relative mt-10">
