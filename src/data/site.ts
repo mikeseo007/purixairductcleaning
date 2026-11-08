@@ -238,9 +238,8 @@ export const locations: Location[] = [
       city: 'Fort Lauderdale',
       region: 'FL',
       zip: '33301',
-      phone: '(305) 767-8971',
-      phoneHref: 'tel:+13057678971',
-      mapsUrl: 'https://maps.app.goo.gl/Rb6K3nCuLps5Kh2BA',
+      phone: '(305) 770-6810',
+      phoneHref: 'tel:+13057706810',
     },
   },
   {
@@ -273,7 +272,6 @@ export const locations: Location[] = [
       zip: '33431',
       phone: '(561) 763-7133',
       phoneHref: 'tel:+15617637133',
-      mapsUrl: 'https://maps.app.goo.gl/jw3AB9ePTyeTxeNo8',
     },
   },
   {
