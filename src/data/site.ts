@@ -234,7 +234,7 @@ export const locations: Location[] = [
     nearby: ['Wilton Manors', 'Oakland Park', 'Lauderdale-by-the-Sea', 'Dania Beach'],
     nap: {
       businessName: 'Purix Air Duct Cleaning Fort Lauderdale',
-      street: '1 E Broward Blvd #360',
+      street: '1 E Broward Blvd #620',
       city: 'Fort Lauderdale',
       region: 'FL',
       zip: '33301',
@@ -266,7 +266,7 @@ export const locations: Location[] = [
     nearby: ['Delray Beach', 'Deerfield Beach', 'Highland Beach', 'Parkland'],
     nap: {
       businessName: 'Purix Air Duct Cleaning Boca Raton',
-      street: '2000 Glades Rd Ste 214',
+      street: '2000 Glades Rd #214',
       city: 'Boca Raton',
       region: 'FL',
       zip: '33431',
